@@ -1,6 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./AgricultureTable.module.css";
+import { fetchData } from "@Om/app/utils/fetchdata";
+
+interface AgriculturePageProps {
+  column_id: string;
+}
 
 interface DataEntry {
   when: string;
@@ -9,25 +14,38 @@ interface DataEntry {
   disease: string;
 }
 
-const AgriculturePage: React.FC = () => {
+interface ShodokuRecord {
+  Record_number: string;
+  itsu: string;
+  tenki: string;
+  nichi: string;
+  ji: string;
+  byoki: string;
+  mushi: string;
+  kakunin: string;
+  column_code: string;
+}
+
+// ✅ Convert AgriculturePage to an async function (Server Component)
+const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
+  // Fetch data
+  const data2 = await fetchData<ShodokuRecord[]>(
+    "http://localhost:3000/api/shodoku",
+    5
+  );
+  const record2 = data2.find((rec) => rec.column_code === column_id);
+
+  if (!record2) {
+    return <p>データが見つかりません。</p>;
+  }
+
+  // Convert record2 to DataEntry format
   const data: DataEntry[] = [
     {
-      when: "朝",
-      weather: "晴れ",
-      datetime: "2025-02-25 08:00",
-      disease: "なし",
-    },
-    {
-      when: "昼",
-      weather: "曇り",
-      datetime: "2025-02-25 12:00",
-      disease: "あり",
-    },
-    {
-      when: "夜",
-      weather: "雨",
-      datetime: "2025-02-25 19:00",
-      disease: "なし",
+      when: record2.itsu,
+      weather: record2.tenki,
+      datetime: `${record2.nichi} ${record2.ji}`,
+      disease: record2.byoki,
     },
   ];
 

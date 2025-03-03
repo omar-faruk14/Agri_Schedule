@@ -3,7 +3,7 @@ import styles from "./HarvestTable.module.css";
 import AgriculturePage from "../../shodoku/page";
 import { fetchData } from "@Om/app/utils/fetchdata";
 
-// Define the expected data structure
+
 interface HarvestRecord {
   Record_number: string;
   harvest_start_date: string;
@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: Promise<{ column_id: st
           </div>
         </div>
       </div>
-      <AgriculturePage />
+      <AgriculturePage column_id={column_id} />
     </>
   );
 }
