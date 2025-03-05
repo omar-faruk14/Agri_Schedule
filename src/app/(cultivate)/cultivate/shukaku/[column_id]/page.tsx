@@ -15,7 +15,7 @@ interface HarvestRecord {
 
 export default async function Page({ params }: { params: Promise<{ column_id: string }> }) {
   const column_id = (await params).column_id;
-  const data = await fetchData<HarvestRecord[]>("http://localhost:3000/api/harvest", 5);
+  const data = await fetchData<HarvestRecord[]>("http://localhost:3001/api/harvest",5);
   const record = data.find((rec) => rec.column_code === column_id);
  if (!record) {
    return <p>データが見つかりません。</p>;

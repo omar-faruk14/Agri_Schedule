@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 const kintoneUrl: string = `https://emi-lab-osaka.cybozu.com/k/v1`;
-const apiToken: string = "7szxwrgC4CdRCoABMCnXoFj7QZ9Sjtmb5QGttuin";
-const appId: number = 96;
+const apiToken: string = "G1vLZ5MToh4UJCXBaTHQTnHmRp4inKfAmHSvzymo";
+const appId: number = 100;
 
 export const dynamic: string = "force-dynamic";
 
@@ -12,43 +12,29 @@ interface KintoneApiResponse {
 
 interface KintoneApiRecord {
   Record_number: { value: string };
-  title: { value: string };
-  task: { value: string };
-  details: { value: string };
-  code: { value: string };
-  status: { value: string };
-  startTime_date: { value: string };
-  startTime_time: { value: string };
-  endTime_date: { value: string };
-  endTime_time: { value: string };
+  yatta_date: { value: string };
+  yatta_koto: { value: string };
+
 }
 
 interface KintoneRecord {
   Record_number: string;
-  title: string;
-  task: string;
-  details: string;
-  code: string;
-  status: string;
-  startTime_date: string ;
-  startTime_time: string ;
-  endTime_date: string ;
-  endTime_time: string ;
+  yatta_date: string;
+  yatta_koto: string;
 }
+
 
 export async function GET(request: Request): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
-    const startTime_date = searchParams.get("startTime_date");
-
-    if (!startTime_date) {
+    const yatta_date = searchParams.get("yatta_date");
+    if (!yatta_date) {
       return NextResponse.json(
         { error: "Missing startTime_date parameter" },
         { status: 400 }
       );
     }
-
-    const query = `(startTime_date = "${startTime_date}")`;
+    const query = `(yatta_date = "${yatta_date}")`;
     const response = await fetch(
       `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
         query
@@ -63,21 +49,13 @@ export async function GET(request: Request): Promise<NextResponse> {
     if (!response.ok) {
       throw new Error("Failed to fetch records");
     }
-
     const data: KintoneApiResponse = await response.json();
 
     const records: KintoneRecord[] = data.records.map(
       (record: KintoneApiRecord) => ({
         Record_number: record.Record_number.value,
-        title: record.title.value,
-        task: record.task.value,
-        details: record.details.value,
-        code: record.code.value,
-        status: record.status.value,
-        startTime_date: record.startTime_date.value,
-        startTime_time: record.startTime_time.value,
-        endTime_date: record.endTime_date.value,
-        endTime_time: record.endTime_time.value,
+        yatta_date: record.yatta_date.value,
+        yatta_koto: record.yatta_koto.value,
       })
     );
 

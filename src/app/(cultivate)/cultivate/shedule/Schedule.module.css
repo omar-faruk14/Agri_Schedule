@@ -1,0 +1,72 @@
+.container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  background-color: #f5fbe5;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 2px solid #81c784;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.loading {
+  text-align: center;
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.noData {
+  text-align: center;
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #388e3c;
+  border-bottom: 2px solid #66bb6a;
+  padding-bottom: 5px;
+}
+
+.card {
+  background: #e8f5e9;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  border-left: 5px solid #66bb6a;
+}
+
+.cardTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 8px;
+}
+
+.details {
+  font-size: 15px;
+  color: #424242;
+}
+
+.date {
+  font-weight: bold;
+  color: #1b5e20;
+}

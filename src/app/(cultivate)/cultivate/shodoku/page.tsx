@@ -30,8 +30,7 @@ interface ShodokuRecord {
 const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
   // Fetch data
   const data2 = await fetchData<ShodokuRecord[]>(
-    "http://localhost:3000/api/shodoku",
-    5
+    "http://localhost:3001/api/shodoku", 5
   );
   const record2 = data2.find((rec) => rec.column_code === column_id);
 
