@@ -30,21 +30,20 @@ interface ShodokuRecord {
 const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
   // Fetch data
   const data2 = await fetchData<ShodokuRecord[]>(
-    "http://localhost:3001/api/shodoku", 5
+    "http://localhost:3000/api/shodoku",
+    5
   );
   const record2 = data2.find((rec) => rec.column_code === column_id);
 
-  if (!record2) {
-    return <p>データが見つかりません。</p>;
-  }
 
-  // Convert record2 to DataEntry format
+
+  // Convert record2 to DataEntry format or set default "N/A"
   const data: DataEntry[] = [
     {
-      when: record2.itsu,
-      weather: record2.tenki,
-      datetime: `${record2.nichi} ${record2.ji}`,
-      disease: record2.byoki,
+      when: record2?.itsu || "該当なし",
+      weather: record2?.tenki || "該当なし",
+      datetime: record2 ? `${record2.nichi} ${record2.ji}` : "該当なし",
+      disease: record2?.byoki || "該当なし",
     },
   ];
 

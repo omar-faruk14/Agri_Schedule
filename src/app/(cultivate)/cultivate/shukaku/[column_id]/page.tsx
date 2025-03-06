@@ -15,15 +15,18 @@ interface HarvestRecord {
 
 export default async function Page({ params }: { params: Promise<{ column_id: string }> }) {
   const column_id = (await params).column_id;
-  const data = await fetchData<HarvestRecord[]>("http://localhost:3001/api/harvest",5);
+  const data = await fetchData<HarvestRecord[]>(
+    "http://localhost:3001/api/harvest",
+    5
+  );
   const record = data.find((rec) => rec.column_code === column_id);
- if (!record) {
-   return <p>データが見つかりません。</p>;
- }
-
- 
- const startDateTime = `${record.harvest_start_date} ${record.harvest_start_time}`;
- const endDateTime = `${record.harvest_end_date} ${record.harvest_end_time}`;
+  // Set default values to "N/A" if record is missing
+  const startDateTime = record
+    ? `${record.harvest_start_date} ${record.harvest_start_time}`
+    : "該当なし";
+  const endDateTime = record
+    ? `${record.harvest_end_date} ${record.harvest_end_time}`
+    : "該当なし";
 
   return (
     <>

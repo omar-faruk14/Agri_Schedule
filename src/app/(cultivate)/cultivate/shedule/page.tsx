@@ -73,7 +73,7 @@ export default function SchedulePage() {
         )}
       {data3 && data3.length > 0 && (
         <>
-          <h2 className={styles.sectionTitle}>✅ やったこと</h2>
+          <h2 className={styles.sectionTitle}>📌 スケジュール</h2>
           {data3.map((item, index) => (
             <div key={index} className={styles.card}>
               <p className={styles.date}>📅 日付: {item.yatta_date}</p>
@@ -91,7 +91,7 @@ export default function SchedulePage() {
       )}
       {data2 && data2.length > 0 && (
         <>
-          <h2 className={styles.sectionTitle}>📌 スケジュール</h2>
+          <h2 className={styles.sectionTitle}>✅ やったこと</h2>
           {data2.map((schedule, index) => (
             <div key={index} className={styles.card}>
               <h2 className={styles.cardTitle}>{schedule.title}</h2>
@@ -105,6 +105,15 @@ export default function SchedulePage() {
                 {`${schedule.endTime_date} ${schedule.endTime_time}`}
               </p>
               <p className={styles.details}>🆔 コード: {schedule.code}</p>
+              <p className={styles.details}>
+                📝 詳細:{" "}
+                {schedule.details?.split("\n").map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                )) || "N/A"}
+              </p>
               <p className={styles.details}>🔄 作業状況: {schedule.status}</p>
             </div>
           ))}

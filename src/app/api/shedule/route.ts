@@ -36,6 +36,11 @@ interface KintoneRecord {
   endTime_time: string ;
 }
 
+interface KintoneApiResponse {
+  id: string;
+  revision: string;
+}
+
 export async function GET(request: Request): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
@@ -87,3 +92,73 @@ export async function GET(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Error retrieving records" });
   }
 }
+
+
+export async function POST(request: Request): Promise<NextResponse> {
+  try {
+    const body: KintoneRecord = await request.json();
+
+    // Validate required fields
+    const requiredFields: (keyof KintoneRecord)[] = [
+      "title",
+      "task",
+      "details",
+      "code",
+      "status",
+      "startTime_date",
+      "startTime_time",
+      "endTime_date",
+      "endTime_time",
+    ];
+
+    for (const field of requiredFields) {
+      if (!body[field]) {
+        return NextResponse.json(
+          { error: `Missing field: ${field}` },
+          { status: 400 }
+        );
+      }
+    }
+
+    const recordData = {
+      app: appId,
+      record: {
+        title: { value: body.title },
+        task: { value: body.task },
+        details: { value: body.details },
+        code: { value: body.code },
+        status: { value: body.status },
+        startTime_date: { value: body.startTime_date },
+        startTime_time: { value: body.startTime_time },
+        endTime_date: { value: body.endTime_date },
+        endTime_time: { value: body.endTime_time },
+      },
+    };
+
+    const response = await fetch(`${kintoneUrl}/record.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Cybozu-API-Token": apiToken,
+      },
+      body: JSON.stringify(recordData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create record");
+    }
+
+    const data: KintoneApiResponse = await response.json();
+    return NextResponse.json({
+      message: "Record created successfully",
+      record: data,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Error creating record" },
+      { status: 500 }
+    );
+  }
+}
+
