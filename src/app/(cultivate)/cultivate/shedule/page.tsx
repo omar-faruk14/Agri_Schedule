@@ -56,69 +56,72 @@ export default function SchedulePage() {
   }, [selectedDate]);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>🌾 スケジュール 🌿</h1>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-        className={styles.dateInput}
-      />
-      {loading && <p className={styles.loading}>⏳ 読み込み中...</p>}
-      {!loading &&
-        data2?.length === 0 &&
-        data3?.length === 0 &&
-        selectedDate && (
-          <p className={styles.noData}>⚠️ データが見つかりません。</p>
+    <>
+      <div className={styles.container}>
+        <h1 className={styles.title}>🌾 スケジュール 🌿</h1>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className={styles.dateInput}
+        />
+        {loading && <p className={styles.loading}>⏳ 読み込み中...</p>}
+        {!loading &&
+          data2?.length === 0 &&
+          data3?.length === 0 &&
+          selectedDate && (
+            <p className={styles.noData}>⚠️ データが見つかりません。</p>
+          )}
+        {data3 && data3.length > 0 && (
+          <>
+            <h2 className={styles.sectionTitle}>📌 スケジュール</h2>
+            {data3.map((item, index) => (
+              <div key={index} className={styles.card}>
+                <p className={styles.date}>📅 日付: {item.yatta_date}</p>
+                <p className={styles.details}>
+                  {item.yatta_koto?.split("\n").map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  )) || "N/A"}
+                </p>
+              </div>
+            ))}
+          </>
         )}
-      {data3 && data3.length > 0 && (
-        <>
-          <h2 className={styles.sectionTitle}>📌 スケジュール</h2>
-          {data3.map((item, index) => (
-            <div key={index} className={styles.card}>
-              <p className={styles.date}>📅 日付: {item.yatta_date}</p>
-              <p className={styles.details}>
-                {item.yatta_koto?.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                )) || "N/A"}
-              </p>
-            </div>
-          ))}
-        </>
-      )}
-      {data2 && data2.length > 0 && (
-        <>
-          <h2 className={styles.sectionTitle}>✅ やったこと</h2>
-          {data2.map((schedule, index) => (
-            <div key={index} className={styles.card}>
-              <h2 className={styles.cardTitle}>{schedule.title}</h2>
-              <p className={styles.details}>🌱 タイトル: {schedule.task}</p>
-              <p className={styles.details}>
-                ⏰ 開始時間:{" "}
-                {`${schedule.startTime_date} ${schedule.startTime_time}`}
-              </p>
-              <p className={styles.details}>
-                ⏳ 終了時間:{" "}
-                {`${schedule.endTime_date} ${schedule.endTime_time}`}
-              </p>
-              <p className={styles.details}>🆔 コード: {schedule.code}</p>
-              <p className={styles.details}>
-                📝 詳細:{" "}
-                {schedule.details?.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                )) || "N/A"}
-              </p>
-              <p className={styles.details}>🔄 作業状況: {schedule.status}</p>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
+        {data2 && data2.length > 0 && (
+          <>
+            <h2 className={styles.sectionTitle}>✅ やったこと</h2>
+            {data2.map((schedule, index) => (
+              <div key={index} className={styles.card}>
+                <h2 className={styles.cardTitle}>{schedule.title}</h2>
+                <p className={styles.details}>🌱 タイトル: {schedule.task}</p>
+                <p className={styles.details}>
+                  ⏰ 開始時間:{" "}
+                  {`${schedule.startTime_date} ${schedule.startTime_time}`}
+                </p>
+                <p className={styles.details}>
+                  ⏳ 終了時間:{" "}
+                  {`${schedule.endTime_date} ${schedule.endTime_time}`}
+                </p>
+                <p className={styles.details}>🆔 コード: {schedule.code}</p>
+                <p className={styles.details}>
+                  📝 詳細:{" "}
+                  {schedule.details?.split("\n").map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  )) || "N/A"}
+                </p>
+                <p className={styles.details}>🔄 作業状況: {schedule.status}</p>
+              </div>
+            ))}
+          </>
+        )}
+        
+      </div>
+    </>
   );
 }

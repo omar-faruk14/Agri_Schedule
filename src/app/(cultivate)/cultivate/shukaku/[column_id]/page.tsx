@@ -16,7 +16,7 @@ interface HarvestRecord {
 export default async function Page({ params }: { params: Promise<{ column_id: string }> }) {
   const column_id = (await params).column_id;
   const data = await fetchData<HarvestRecord[]>(
-    "http://localhost:3001/api/harvest",
+    "https://main.d2hc7hdf8ja5ek.amplifyapp.com/api/harvest",
     5
   );
   const record = data.find((rec) => rec.column_code === column_id);

@@ -1,0 +1,27 @@
+/* MarkerStyles.module.css */
+
+/* Base marker style */
+.marker {
+  width: 15px; /* Fixed small size for the markers */
+  height: 15px;
+  border-radius: 50%;
+ 
+}
+
+/* Start state - Red to indicate the beginning of work */
+.start {
+  background-color: red;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); /* Glowing effect */
+}
+
+/* Middle state - Orange to indicate progress */
+.middle {
+  background-color: orange;
+  box-shadow: 0 0 8px rgba(255, 165, 0, 0.6); /* Glowing effect */
+}
+
+/* Complete state - Green to indicate completion */
+.complete {
+  background-color: green;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6); /* Glowing effect */
+}
