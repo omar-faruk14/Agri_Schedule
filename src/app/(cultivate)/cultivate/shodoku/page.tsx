@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./AgricultureTable.module.css";
 import { fetchData } from "@Om/app/utils/fetchdata";
+import Link from "next/link";
 
 interface AgriculturePageProps {
   column_id: string;
@@ -73,9 +74,12 @@ const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
                 <td>{row.datetime}</td>
                 <td>{row.disease}</td>
                 <td>
-                  <button className={`btn btn-success ${styles.detailButton}`}>
+                  <Link
+                    href={`/cultivate/shodoku/${record2?.Record_number}`} // Dynamic route
+                    className={`btn btn-success ${styles.detailButton}`}
+                  >
                     詳細
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}

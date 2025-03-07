@@ -1,0 +1,121 @@
+/* Full-Width Card and Agricultural Design */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  margin: 40px 0;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #c8e6c9 25%, #e8f5e9 100%); /* Soft green gradient */
+  background-size: 400% 400%;
+  animation: background-animation 6s ease infinite; /* Subtle movement effect for dynamic feel */
+}
+
+/* Animation to make the background gradient move slightly */
+@keyframes background-animation {
+  0% { background-position: 100% 0%; }
+  50% { background-position: 0% 100%; }
+  100% { background-position: 100% 0%; }
+}
+
+.card-body {
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white to allow background to show through */
+  border-radius: 15px;
+}
+
+.card-title {
+  font-size: 2rem;
+  color: #4CAF50; /* Fresh green for the title */
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  font-size: 1.2rem;
+  padding: 18px 25px;
+  border: 1px solid #dcedc8; /* Light green border */
+  background-color: #e8f5e9; /* Soft green background */
+  color: #388E3C; /* Dark green text */
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #a5d6a7; /* Lighter green hover effect */
+  color: #ffffff; /* White text on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle lift effect */
+}
+
+.list-group-item strong {
+  color: #388E3C; /* Dark green for labels */
+}
+
+.list-group-item:nth-child(even) {
+  background-color: #c8e6c9; /* Slightly lighter green for even items */
+}
+
+.list-group-item:nth-child(odd) {
+  background-color: #e8f5e9; /* Clean light green for odd items */
+}
+
+/* Button Design for "Details" button */
+button.btn-success {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+button.btn-success:hover {
+  background-color: #388E3C; /* Darker green on hover */
+  border-color: #388E3C;
+  transform: scale(1.05);
+}
+
+/* Title and subtitle styling */
+.container {
+  padding: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #388E3C; /* Dark green for the title */
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: #5F5F5F;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Full-width layout */
+@media (max-width: 768px) {
+  .card {
+    margin: 20px 0;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+}
