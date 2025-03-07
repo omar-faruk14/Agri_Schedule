@@ -65,3 +65,59 @@ export async function GET(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Error retrieving records" });
   }
 }
+
+
+export async function POST(request: Request): Promise<NextResponse> {
+  try {
+    const body: KintoneRecord = await request.json();
+
+    // Validate required fields
+    const requiredFields: (keyof KintoneRecord)[] = [
+      "yatta_date",
+      "yatta_koto",
+
+    ];
+
+    for (const field of requiredFields) {
+      if (!body[field]) {
+        return NextResponse.json(
+          { error: `Missing field: ${field}` },
+          { status: 400 }
+        );
+      }
+    }
+
+    const recordData = {
+      app: appId,
+      record: {
+        yatta_date: { value: body.yatta_date },
+        yatta_koto: { value: body.yatta_koto },
+      },
+    };
+
+    const response = await fetch(`${kintoneUrl}/record.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Cybozu-API-Token": apiToken,
+      },
+      body: JSON.stringify(recordData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create record");
+    }
+
+    const data: KintoneApiResponse = await response.json();
+    return NextResponse.json({
+      message: "Record created successfully",
+      record: data,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Error creating record" },
+      { status: 500 }
+    );
+  }
+}
