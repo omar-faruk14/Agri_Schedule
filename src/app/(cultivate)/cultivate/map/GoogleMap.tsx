@@ -16,10 +16,10 @@ type GoogleMapProps = {
 };
 
 const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
-  const mapRef = useRef<HTMLDivElement | null>(null); // Reference to map container
+  const mapRef = useRef<HTMLDivElement | null>(null); 
   const [isClient, setIsClient] = useState(false);
 
-  // Dummy data representing work progress stages
+  
   const markerData: MarkerData[] = [
     { id: 1, lat: 36.66498, lon: 138.180204, status: "start" },
     { id: 2, lat: 36.66503, lon: 138.180252, status: "complete" },
@@ -28,32 +28,41 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
     { id: 5, lat: 36.665013, lon: 138.180385, status: "middle" },
   ];
 
-  // Set isClient to true after the component mounts (only on the client)
+  
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
     if (isClient && mapRef.current) {
-      // Initialize the Leaflet map
-      const map = L.map(mapRef.current).setView(center, zoom);
+     
+      const map = L.map(mapRef.current, {
+        center,
+        zoom,
+        zoomControl: false, 
+        scrollWheelZoom: false, 
+        doubleClickZoom: false, 
+        touchZoom: false, 
+        dragging: false, 
+      });
 
-      // OpenStreetMap tile layer URL (using a more commonly available source)
+
+      
       const tileLayerUrl = "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}";
 
-      // Add the OpenStreetMap tile layer
+      
       L.tileLayer(tileLayerUrl, {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 23,
       }).addTo(map);
 
-      // Loop through dummy data and add markers
+     
       markerData.forEach((data) => {
         const markerIcon = L.divIcon({
-          className: `${styles.marker} ${styles[data.status]}`, // Apply correct class for status
-          iconSize: [15, 15], // Fixed small size for the custom marker icon
-          iconAnchor: [7.5, 7.5], // Anchor the icon in the center
+          className: `${styles.marker} ${styles[data.status]}`, 
+          iconSize: [15, 15], 
+          iconAnchor: [7.5, 7.5], 
         });
 
         L.marker([data.lat, data.lon], { icon: markerIcon })
@@ -63,7 +72,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
           );
       });
 
-      // Clean up the map instance when the component unmounts
+      
       return () => {
         map.remove();
       };
