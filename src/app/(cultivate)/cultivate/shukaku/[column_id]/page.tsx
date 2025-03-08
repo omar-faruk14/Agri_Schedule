@@ -16,7 +16,7 @@ interface HarvestRecord {
 export default async function Page({ params }: { params: Promise<{ column_id: string }> }) {
   const column_id = (await params).column_id;
   const data = await fetchData<HarvestRecord[]>(
-    "https://main.d2hc7hdf8ja5ek.amplifyapp.com/api/harvest",
+    "/api/harvest",
     5
   );
   const record = data.find((rec) => rec.column_code === column_id);
@@ -43,7 +43,7 @@ export default async function Page({ params }: { params: Promise<{ column_id: st
           </div>
         </div>
       </div>
-      <AgriculturePage column_id={column_id} />
+      <AgriculturePage params={Promise.resolve({ column_id })} />
     </>
   );
 }

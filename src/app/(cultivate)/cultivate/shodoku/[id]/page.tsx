@@ -16,17 +16,18 @@ interface ShodokuRecord {
   column_code: string;
 }
 
-const AgricultureDetailPage = async ({
+export default async function AgricultureDetailPage({
   params,
 }: {
-  params: { id: string };
-}) => {
+  params: Promise<{ id: string }>;
+}) {
   // Fetch the specific record using the dynamic route parameter (id)
+  const id = (await params).id;
   const data = await fetchData<ShodokuRecord[]>(
     "http://localhost:3000/api/shodoku",
     5
   );
-  const record = data.find((rec) => rec.Record_number === params.id);
+  const record = data.find((rec) => rec.Record_number === id);
 
   if (!record) {
     return <div>Record not found</div>;
@@ -73,4 +74,4 @@ const AgricultureDetailPage = async ({
   );
 };
 
-export default AgricultureDetailPage;
+

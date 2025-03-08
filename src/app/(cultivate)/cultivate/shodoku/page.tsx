@@ -4,9 +4,6 @@ import styles from "./AgricultureTable.module.css";
 import { fetchData } from "@Om/app/utils/fetchdata";
 import Link from "next/link";
 
-interface AgriculturePageProps {
-  column_id: string;
-}
 
 interface DataEntry {
   when: string;
@@ -27,16 +24,17 @@ interface ShodokuRecord {
   column_code: string;
 }
 
-// ✅ Convert AgriculturePage to an async function (Server Component)
-const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
-  // Fetch data
+export default async function AgriculturePage({
+  params,
+}: {
+  params: Promise<{ column_id: string }>;
+}) {
+  const column_id = (await params).column_id;
   const data2 = await fetchData<ShodokuRecord[]>(
-    "https://main.d2hc7hdf8ja5ek.amplifyapp.com/api/shodoku",
+    "http://localhost:3000/api/shodoku",
     5
   );
   const record2 = data2.find((rec) => rec.column_code === column_id);
-
-
 
   // Convert record2 to DataEntry format or set default "N/A"
   const data: DataEntry[] = [
@@ -90,4 +88,4 @@ const AgriculturePage = async ({ column_id }: AgriculturePageProps) => {
   );
 };
 
-export default AgriculturePage;
+

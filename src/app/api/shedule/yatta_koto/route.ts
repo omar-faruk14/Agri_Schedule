@@ -4,7 +4,6 @@ const kintoneUrl: string = `https://emi-lab-osaka.cybozu.com/k/v1`;
 const apiToken: string = "G1vLZ5MToh4UJCXBaTHQTnHmRp4inKfAmHSvzymo";
 const appId: number = 100;
 
-export const dynamic: string = "force-dynamic";
 
 interface KintoneApiResponse {
   records: KintoneApiRecord[];
