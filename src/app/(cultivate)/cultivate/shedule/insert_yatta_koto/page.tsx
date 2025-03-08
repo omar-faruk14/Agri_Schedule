@@ -47,7 +47,7 @@ export default function YattaForm() {
       if (response.ok) {
         setSuccessMessage("レコードが正常に作成されました");
         setError(null);
-        setFormData(initialFormState); // Reset form after success
+        setFormData(initialFormState); 
       } else {
         setError(result.error || "エラーが発生しました");
         setSuccessMessage(null);
@@ -56,7 +56,7 @@ export default function YattaForm() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>やったこと記録フォーム</h2>
+      <h2 className={styles.title}>予定記録フォーム</h2>
       <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
         <div className={styles.formGroup}>
           <label className={styles.label}>日付</label>
@@ -70,7 +70,7 @@ export default function YattaForm() {
           />
         </div>
         <div className={styles.formGroup}>
-          <label className={styles.label}>やったこと</label>
+          <label className={styles.label}>予定タスク</label>
           <textarea
             name="yatta_koto"
             className={styles.input}
