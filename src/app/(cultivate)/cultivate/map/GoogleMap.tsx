@@ -3,19 +3,30 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./MarkerStyles.module.css";
 import RBush from "rbush";
+import styles2 from "./styles2.module.css";
 
 // Define Marker Data
 interface MarkerData {
   id: number;
   lat: number;
   lon: number;
-  status: "start" | "middle" | "complete";
+  task: string;
+  status: "ストラト" | "途中" | "完了";
 }
 
 // Define Props
 interface GoogleMapProps {
   center: [number, number];
   zoom: number;
+}
+
+
+interface ApiResponseItem {
+  latitude: string;
+  longitude: string;
+  Record_number: string;
+  task: string;
+  status: string;
 }
 
 // Define GeoJSON Feature
@@ -30,7 +41,6 @@ interface GeoJSONFeature {
   };
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
-
 
 // Define Spatial Index Data
 interface SpatialIndexData {
@@ -50,14 +60,50 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
   const overlayLayers = useRef(new Map<string, L.Layer>());
   const spatialIndex = useRef(new RBush<SpatialIndexData>());
   const [isClient, setIsClient] = useState(false);
+  const [markerData, setMarkerData] = useState<MarkerData[]>([]);
+  const [selectedTask, setSelectedTask] = useState("掃除");
 
-  const markerData: MarkerData[] = [
-    { id: 1, lat: 36.66498, lon: 138.180204, status: "start" },
-    { id: 2, lat: 36.66503, lon: 138.180252, status: "complete" },
-    { id: 3, lat: 36.665068, lon: 138.180281, status: "complete" },
-    { id: 4, lat: 36.664902, lon: 138.180304, status: "complete" },
-    { id: 5, lat: 36.665013, lon: 138.180385, status: "middle" },
-  ];
+  // Fetch Data from API
+  useEffect(() => {
+    const fetchMarkerData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/map?task=${selectedTask}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch marker data");
+
+        const data = await response.json();
+
+        // Convert API response to match MarkerData structure with validation
+        const formattedData: MarkerData[] = (data as ApiResponseItem[])
+          .map((item) => {
+            const lat = parseFloat(item.latitude as string);
+            const lon = parseFloat(item.longitude as string);
+
+            if (isNaN(lat) || isNaN(lon)) {
+              console.warn(`Skipping invalid marker: ${JSON.stringify(item)}`);
+              return null;
+            }
+
+            return {
+              id: parseInt(item.Record_number as string, 10),
+              lat,
+              lon,
+              task: item.task as string,
+              status: item.status as "ストラト" | "途中" | "完了",
+            };
+          })
+          .filter((item): item is MarkerData => item !== null);
+
+        setMarkerData(formattedData);
+      } catch (error) {
+        console.error("Error fetching marker data:", error);
+      }
+    };
+
+    fetchMarkerData();
+  }, [selectedTask]);
+
 
   useEffect(() => {
     setIsClient(true);
@@ -161,7 +207,6 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       });
     };
 
-
     fetchGeoJSONData().then((geojson) => {
       if (geojson) {
         parseGeoJSONOverlays(geojson);
@@ -173,7 +218,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       clearInvisibleOverlays();
       loadVisibleOverlays();
     });
-    
+
     // Add Markers
     markerData.forEach((data: MarkerData) => {
       // Explicitly define the type here
@@ -186,16 +231,43 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       L.marker([data.lat, data.lon], { icon: markerIcon })
         .addTo(map)
         .bindPopup(
-          `Work ${data.status.charAt(0).toUpperCase() + data.status.slice(1)}`
+          `作業 ${data.status.charAt(0).toUpperCase() + data.status.slice(1)}`
         );
     });
 
     return () => {
       map.remove();
     };
-  }, [isClient, center, zoom]);
+  }, [isClient, center, zoom, markerData]);
 
-  return <div ref={mapRef} style={{ width: "100vw", height: "100vh" }} />;
+  return (
+    <div className={styles2.mapContainer}>
+      {/* Task Selector Dropdown */}
+      <select
+        className={styles2.selectTask}
+        value={selectedTask}
+        onChange={(e) => setSelectedTask(e.target.value)}
+      >
+        <option value="掃除">掃除</option>
+        <option value="value1">Value1</option>
+        <option value="value2">Value2</option>
+      </select>
+
+      {/* Map Container */}
+      <div ref={mapRef} style={{ width: "100vw", height: "100vh" }} />
+
+      {/* Full-Width Sticky Footer */}
+     <div className={styles2.footer}>
+  <a href="/schedule" className={styles2.footerMenu}>
+    📅 スケジュール
+  </a>
+  <a href="/shukaku" className={styles2.footerMenu}>
+    🌾 農作物の情報
+  </a>
+</div>
+
+    </div>
+  );
 };
 
 export default GoogleMap;

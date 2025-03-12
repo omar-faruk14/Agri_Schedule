@@ -122,12 +122,12 @@ export default function SchedulePage() {
         )}
 
         {/* Button to navigate to work schedule map */}
-        {/* <button
+        <button
           className={styles.mapButton}
           onClick={() => (window.location.href = "/cultivate/map")}
         >
           📍 作業スケジュールをマップで表示
-        </button> */}
+        </button>
       </div>
     </>
   );

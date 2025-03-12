@@ -1,0 +1,160 @@
+/* 
+.selectTask {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: linear-gradient(to bottom, #f7f7f7, #e0e0e0);
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  padding: 12px 22px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+
+.selectTask:hover {
+  background: linear-gradient(to bottom, #ffffff, #eaeaea);
+  border-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+  .selectTask {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .selectTask {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 15px;
+  }
+} */
+/* 🌾 Map Fullscreen Styling */
+.mapContainer {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(to bottom, #e6f2e6, #a3c2a3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🌾 Fullscreen Map Styling */
+.mapContainer {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(to bottom, #e6f2e6, #a3c2a3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 📌 Task Selector Dropdown */
+.selectTask {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: linear-gradient(to bottom, #f7f7f7, #e0e0e0);
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  padding: 12px 22px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.selectTask:hover {
+  background: linear-gradient(to bottom, #ffffff, #eaeaea);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 🌿 Full-Width Sticky Footer with Agricultural Theme */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background: white; 
+  color: #2c3e50; 
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 1000; 
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
+  border-top: 2px solid #ddd; 
+  padding: 10px 0; 
+}
+
+/* 📌 Footer Menu Items */
+.footerMenu {
+  flex: 1;
+  text-align: center;
+  padding: 18px 10px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  position: relative;
+  font-size: 1.1rem;
+  display: block; 
+  text-decoration: none; 
+  color: inherit; 
+}
+
+/* 🌾 Agricultural Colors for Each Section */
+.footerMenu.schedule {
+  background: #f4f9e9;
+}
+
+.footerMenu.shukaku {
+  background: #e6f2e6; 
+}
+
+/* ✨ Hover Effects */
+.footerMenu:hover {
+  background: rgba(76, 175, 80, 0.15); 
+  transform: scale(1.05); 
+}
+
+/* 🔹 Active Indicator */
+.footerMenu::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 40%;
+  height: 3px;
+  background: #4a7c59; 
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.footerMenu:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* 📱 Mobile Optimized */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 1rem;
+    padding: 8px 0; 
+  }
+
+  .footerMenu {
+    padding: 20px 12px; 
+    font-size: 1rem; 
+  }
+}
