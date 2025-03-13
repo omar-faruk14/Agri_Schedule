@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 const kintoneUrl: string = `https://emi-lab-osaka.cybozu.com/k/v1`;
-const apiToken: string = "SQeZ9iHJOUipZ2vyCVXJIGL6rjysfWqeS7HSkWN4";
-const appId: number = 101;
+const apiToken: string = "7szxwrgC4CdRCoABMCnXoFj7QZ9Sjtmb5QGttuin";
+const appId: number = 96;
 
 interface KintoneApiResponse {
   records: KintoneApiRecord[];
@@ -15,6 +15,7 @@ interface KintoneApiRecord {
   status: { value: string };
   latitude: { value: string };
   longitude: { value: string };
+  publish: { value: string };
 }
 
 interface KintoneRecord {
@@ -24,6 +25,7 @@ interface KintoneRecord {
   status: string;
   latitude: string;
   longitude: string;
+  publish: string;
 }
 
 export async function GET(request: Request): Promise<NextResponse> {
@@ -36,7 +38,8 @@ export async function GET(request: Request): Promise<NextResponse> {
         { status: 400 }
       );
     }
-    const query = `(task = "${task}")`;
+    const query = `task = "${task}" and publish in ("Yes")`;
+
     const response = await fetch(
       `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
         query
@@ -62,6 +65,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         status: record.status.value,
         latitude: record.latitude.value,
         longitude: record.longitude.value,
+        publish: record.publish.value,
       })
     );
 

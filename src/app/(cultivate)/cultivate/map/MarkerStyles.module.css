@@ -2,14 +2,14 @@
 
 /* Base marker style */
 .marker {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
  
 }
 
 /* Start state - Red to indicate the beginning of work */
-.ストラト {
+.スタート {
   background-color: red;
   box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); 
 }
@@ -25,3 +25,6 @@
   background-color: green;
   box-shadow: 0 0 8px rgba(0, 255, 0, 0.6); 
 }
+
+
+

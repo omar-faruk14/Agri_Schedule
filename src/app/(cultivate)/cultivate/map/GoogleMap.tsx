@@ -11,15 +11,15 @@ interface MarkerData {
   lat: number;
   lon: number;
   task: string;
-  status: "ストラト" | "途中" | "完了";
+  status: "スタート" | "途中" | "完了";
 }
 
 // Define Props
-interface GoogleMapProps {
+interface GoogleMapProps 
+{
   center: [number, number];
   zoom: number;
 }
-
 
 interface ApiResponseItem {
   latitude: string;
@@ -90,7 +90,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
               lat,
               lon,
               task: item.task as string,
-              status: item.status as "ストラト" | "途中" | "完了",
+              status: item.status as "スタート" | "途中" | "完了",
             };
           })
           .filter((item): item is MarkerData => item !== null);
@@ -224,7 +224,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       // Explicitly define the type here
       const markerIcon = L.divIcon({
         className: `${styles.marker} ${styles[data.status]}`,
-        iconSize: [15, 15],
+        iconSize: [10, 10],
         iconAnchor: [7.5, 7.5],
       });
 
@@ -249,7 +249,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
         onChange={(e) => setSelectedTask(e.target.value)}
       >
         <option value="掃除">掃除</option>
-        <option value="value1">Value1</option>
+        <option value="玉まわし">玉まわし</option>
         <option value="value2">Value2</option>
       </select>
 
@@ -257,15 +257,14 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       <div ref={mapRef} style={{ width: "100vw", height: "100vh" }} />
 
       {/* Full-Width Sticky Footer */}
-     <div className={styles2.footer}>
-  <a href="/schedule" className={styles2.footerMenu}>
-    📅 スケジュール
-  </a>
-  <a href="/shukaku" className={styles2.footerMenu}>
-    🌾 農作物の情報
-  </a>
-</div>
-
+      <div className={styles2.footer}>
+        <a href="/schedule" className={styles2.footerMenu}>
+          📅 スケジュール
+        </a>
+        <a href="/shukaku" className={styles2.footerMenu}>
+          🌾 農作物の情報
+        </a>
+      </div>
     </div>
   );
 };
