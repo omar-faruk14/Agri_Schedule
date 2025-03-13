@@ -1,9 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./insert.module.css";
+import Select from "react-select";
+
+interface FormData {
+  title: string;
+  task: string;
+  details: string;
+  code: string;
+  status: string;
+  startTime_date: string;
+  startTime_time: string;
+  endTime_date: string;
+  endTime_time: string;
+}
+
+interface Coordinate {
+  Record_number: string;
+  longitude: string;
+  latitude: string;
+  code: string;
+  comment_2: string;
+}
+
 const InsertDataForm = () => {
-  const initialFormState = {
+  const initialFormState: FormData = {
     title: "",
     task: "",
     details: "",
@@ -19,6 +41,20 @@ const InsertDataForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      try {
+        const response = await fetch("/api/map/cordinate");
+        const data: Coordinate[] = await response.json(); // Typing the response data
+        setCoordinates(data);
+      } catch (error) {
+        console.error("データの取得に失敗しました", error);
+      } 
+    };
+
+    fetchCoordinates();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -55,6 +91,14 @@ const InsertDataForm = () => {
       setSuccessMessage(null);
     }
   };
+
+ 
+
+  const options = coordinates.map((coordinate) => ({
+    value: coordinate.code,
+    label: `${coordinate.code}`,
+  }));
+
 
   return (
     <div className={styles.container}>
@@ -229,13 +273,15 @@ const InsertDataForm = () => {
 
         <div className={styles.formGroup}>
           <label className={styles.label}>コード</label>
-          <input
-            type="text"
-            className={styles.input}
-            name="code"
-            value={formData.code}
-            onChange={handleChange}
-            required
+          <Select
+            options={options}
+            value={options.find((option) => option.value === formData.code)}
+            onChange={(selectedOption) =>
+              setFormData({ ...formData, code: selectedOption?.value || "" })
+            }
+            isSearchable
+            placeholder="検索..."
+            instanceId="code-select"
           />
         </div>
 

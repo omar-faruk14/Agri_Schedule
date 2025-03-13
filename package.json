@@ -16,7 +16,8 @@
     "rbush": "^4.0.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
