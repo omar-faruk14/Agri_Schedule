@@ -19,6 +19,9 @@ interface KintoneApiRecord {
   startTime_time: { value: string };
   endTime_date: { value: string };
   endTime_time: { value: string };
+  latiude: { value: string };
+  longitude: { value: string };
+  publish: { value: string };
 }
 
 interface KintoneRecord {
@@ -32,6 +35,9 @@ interface KintoneRecord {
   startTime_time: string ;
   endTime_date: string ;
   endTime_time: string ;
+  latitude: string;
+  longitude: string;
+  publish: string;
 }
 
 interface KintoneApiResponse {
@@ -81,6 +87,9 @@ export async function GET(request: Request): Promise<NextResponse> {
         startTime_time: record.startTime_time.value,
         endTime_date: record.endTime_date.value,
         endTime_time: record.endTime_time.value,
+        latitude: record.latiude.value,
+        longitude: record.longitude.value,
+        publish: record.publish.value,
       })
     );
 
@@ -107,6 +116,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       "startTime_time",
       "endTime_date",
       "endTime_time",
+      "latitude",
+      "longitude",
+      "publish",
     ];
 
     for (const field of requiredFields) {
@@ -130,6 +142,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         startTime_time: { value: body.startTime_time },
         endTime_date: { value: body.endTime_date },
         endTime_time: { value: body.endTime_time },
+        latitude: { value: body.latitude },
+        longitude: { value: body.longitude },
+        publish: { value: body.publish},
       },
     };
 

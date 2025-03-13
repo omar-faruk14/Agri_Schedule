@@ -14,6 +14,9 @@ interface FormData {
   startTime_time: string;
   endTime_date: string;
   endTime_time: string;
+  latitude: string;
+  longitude: string;
+  publish: string;
 }
 
 interface Coordinate {
@@ -35,6 +38,9 @@ const InsertDataForm = () => {
     startTime_time: "",
     endTime_date: "",
     endTime_time: "",
+    latitude: "",
+    longitude: "",
+    publish: "",
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -273,17 +279,45 @@ const InsertDataForm = () => {
 
         <div className={styles.formGroup}>
           <label className={styles.label}>コード</label>
+          <select
+            className={styles.input}
+            name="publish"
+            value={formData.publish}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+
+        {formData.publish === "Yes" && (
+
+        <div className={styles.formGroup}>
+          <label className={styles.label}>コード</label>
           <Select
             options={options}
             value={options.find((option) => option.value === formData.code)}
-            onChange={(selectedOption) =>
-              setFormData({ ...formData, code: selectedOption?.value || "" })
-            }
+            onChange={(selectedOption) => {
+              const selectedCoordinate = coordinates.find(
+                (coord) => coord.code === selectedOption?.value
+              );
+
+              setFormData({
+                ...formData,
+                code: selectedOption?.value || "",
+                latitude: selectedCoordinate?.latitude || "",
+                longitude: selectedCoordinate?.longitude || "",
+              });
+            }}
             isSearchable
             placeholder="検索..."
             instanceId="code-select"
           />
         </div>
+      )}
 
         <div className={styles.formGroup}>
           <label className={styles.label}>詳細</label>
