@@ -1,44 +1,4 @@
-/* 
-.selectTask {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  background: linear-gradient(to bottom, #f7f7f7, #e0e0e0);
-  color: #333;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  padding: 12px 22px;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease-in-out;
-}
 
-
-.selectTask:hover {
-  background: linear-gradient(to bottom, #ffffff, #eaeaea);
-  border-color: rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-
-@media (max-width: 768px) {
-  .selectTask {
-    font-size: 1rem;
-    padding: 10px 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .selectTask {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-    border-radius: 15px;
-  }
-} */
 /* 🌾 Map Fullscreen Styling */
 .mapContainer {
   width: 100%;
