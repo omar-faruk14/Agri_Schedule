@@ -19,7 +19,7 @@ interface KintoneApiRecord {
   startTime_time: { value: string };
   endTime_date: { value: string };
   endTime_time: { value: string };
-  latiude: { value: string };
+  latitude: { value: string };
   longitude: { value: string };
   publish: { value: string };
 }
@@ -87,7 +87,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         startTime_time: record.startTime_time.value,
         endTime_date: record.endTime_date.value,
         endTime_time: record.endTime_time.value,
-        latitude: record.latiude.value,
+        latitude: record.latitude.value,
         longitude: record.longitude.value,
         publish: record.publish.value,
       })

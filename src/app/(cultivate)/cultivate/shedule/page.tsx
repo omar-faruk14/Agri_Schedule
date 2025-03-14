@@ -39,6 +39,7 @@ export default function SchedulePage() {
           `/api/shedule?startTime_date=${selectedDate}`,
           5
         );
+        console.log(result);
         setData2(result);
         const result3 = await fetchData<yatta_koto[]>(
           `/api/shedule/yatta_koto?yatta_date=${selectedDate}`,
