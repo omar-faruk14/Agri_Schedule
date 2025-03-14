@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const kintoneUrl: string = "https://emi-lab-osaka.cybozu.com/k/v1";
-const apiToken: string = "J8L0bzkzlNqflDQhhhpvR5LuryHyoZunzpQX5c7M1";
+const apiToken: string = "J8L0bzkzlNqflDQhhhpvR5LuryHyoZunzpQX5c7M";
 const appId: number = 103;
 const limit: number = 100; // Kintone API limit per request
 
@@ -24,7 +24,7 @@ interface KintoneRecord {
   code: string;
   comment_2: string;
 }
-
+export const dynamic = "force-dynamic";
 export async function GET(): Promise<NextResponse> {
   let allRecords: KintoneRecord[] = [];
   let offset: number = 0;

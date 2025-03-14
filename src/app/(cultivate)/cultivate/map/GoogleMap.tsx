@@ -4,6 +4,87 @@ import "leaflet/dist/leaflet.css";
 import styles from "./MarkerStyles.module.css";
 import RBush from "rbush";
 import styles2 from "./styles2.module.css";
+import Link from "next/link";
+const Legend: React.FC = () => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "10px", // Move to the top
+        right: "10px", // Move to the right
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: "5px",
+        fontSize: "14px",
+        fontWeight: "bold",
+        color: "black", // Ensure text is visible
+        zIndex: 1000, // Stay above map
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <div
+          style={{
+            width: "15px",
+            height: "15px",
+            backgroundColor: "#ff0000", // Red for "スタート"
+            borderRadius: "50%",
+          }}
+        ></div>
+        <span
+          style={{
+            backgroundColor: "white",
+            padding: "2px 5px",
+            borderRadius: "3px",
+          }}
+        >
+          スタート (Start)
+        </span>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <div
+          style={{
+            width: "15px",
+            height: "15px",
+            backgroundColor: "orange", // Yellow for "途中"
+            borderRadius: "50%",
+          }}
+        ></div>
+        <span
+          style={{
+            backgroundColor: "white",
+            padding: "2px 5px",
+            borderRadius: "3px",
+          }}
+        >
+          途中 (In Progress)
+        </span>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <div
+          style={{
+            width: "15px",
+            height: "15px",
+            backgroundColor: "green", // Green for "完了"
+            borderRadius: "50%",
+          }}
+        ></div>
+        <span
+          style={{
+            backgroundColor: "white",
+            padding: "2px 5px",
+            borderRadius: "3px",
+          }}
+        >
+          完了 (Completed)
+        </span>
+      </div>
+    </div>
+  );
+};
+
+
+
 
 // Define Marker Data
 interface MarkerData {
@@ -61,14 +142,16 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
   const spatialIndex = useRef(new RBush<SpatialIndexData>());
   const [isClient, setIsClient] = useState(false);
   const [markerData, setMarkerData] = useState<MarkerData[]>([]);
-  const [selectedTask, setSelectedTask] = useState("掃除");
+  const [selectedTask, setSelectedTask] = useState("");
 
   // Fetch Data from API
   useEffect(() => {
     const fetchMarkerData = async () => {
+      if (!selectedTask) return; // 🚨 Prevent API call when selectedTask is empty
+
       try {
         const response = await fetch(
-          `http://localhost:3000/api/map?task=${selectedTask}`
+          `/api/map?task=${selectedTask}`
         );
         if (!response.ok) throw new Error("Failed to fetch marker data");
 
@@ -102,8 +185,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
     };
 
     fetchMarkerData();
-  }, [selectedTask]);
-
+  }, [selectedTask]); // ✅ API only calls when `selectedTask` changes
 
   useEffect(() => {
     setIsClient(true);
@@ -248,22 +330,27 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
         value={selectedTask}
         onChange={(e) => setSelectedTask(e.target.value)}
       >
+        <option value="" disabled>
+          選択してくださ
+        </option>
         <option value="掃除">掃除</option>
         <option value="玉まわし">玉まわし</option>
-        <option value="value2">Value2</option>
+        <option value="剪定">剪定</option>
       </select>
 
       {/* Map Container */}
       <div ref={mapRef} style={{ width: "100vw", height: "100vh" }} />
 
+      <Legend />
+
       {/* Full-Width Sticky Footer */}
       <div className={styles2.footer}>
-        <a href="/schedule" className={styles2.footerMenu}>
+        <a href="/cultivate/shedule" className={styles2.footerMenu}>
           📅 スケジュール
         </a>
-        <a href="/shukaku" className={styles2.footerMenu}>
+        <Link href="/cultivate/shukaku/f0011" className={styles2.footerMenu}>
           🌾 農作物の情報
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ interface KintoneRecord {
   kakunin: string;
   column_code: string;
 }
-
+export const dynamic = "force-dynamic";
 export async function GET(): Promise<NextResponse> {
   try {
     const response = await fetch(`${kintoneUrl}/records.json?app=${appId}`, {
