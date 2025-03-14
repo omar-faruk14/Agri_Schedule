@@ -165,7 +165,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       zoomControl: false,
       scrollWheelZoom: true,
       doubleClickZoom: false,
-      touchZoom: true,
+      touchZoom: false,
       dragging: true,
     });
 
