@@ -10,79 +10,44 @@ const Legend: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        top: "10px", // Move to the top
-        right: "10px", // Move to the right
+        top: "80px", 
+        right: "5px", 
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        gap: "5px",
-        fontSize: "14px",
+        gap: "3px", 
+        fontSize: "10px", 
         fontWeight: "bold",
-        color: "black", // Ensure text is visible
-        zIndex: 1000, // Stay above map
+        color: "black",
+        zIndex: 1000,
+        backgroundColor: "rgba(255, 255, 255, 0.8)", 
+        padding: "3px 5px", 
+        borderRadius: "3px", 
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+      {[
+        { color: "#ff0000", label: "スタート" },
+        { color: "orange", label: "途中 " },
+        { color: "green", label: "完了" },
+      ].map((item, index) => (
         <div
-          style={{
-            width: "15px",
-            height: "15px",
-            backgroundColor: "#ff0000", // Red for "スタート"
-            borderRadius: "50%",
-          }}
-        ></div>
-        <span
-          style={{
-            backgroundColor: "white",
-            padding: "2px 5px",
-            borderRadius: "3px",
-          }}
+          key={index}
+          style={{ display: "flex", alignItems: "center", gap: "3px" }}
         >
-          スタート (Start)
-        </span>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            backgroundColor: "orange", // Yellow for "途中"
-            borderRadius: "50%",
-          }}
-        ></div>
-        <span
-          style={{
-            backgroundColor: "white",
-            padding: "2px 5px",
-            borderRadius: "3px",
-          }}
-        >
-          途中 (In Progress)
-        </span>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            backgroundColor: "green", // Green for "完了"
-            borderRadius: "50%",
-          }}
-        ></div>
-        <span
-          style={{
-            backgroundColor: "white",
-            padding: "2px 5px",
-            borderRadius: "3px",
-          }}
-        >
-          完了 (Completed)
-        </span>
-      </div>
+          <div
+            style={{
+              width: "10px", // Smaller indicator
+              height: "10px",
+              backgroundColor: item.color,
+              borderRadius: "50%",
+            }}
+          ></div>
+          <span>{item.label}</span>
+        </div>
+      ))}
     </div>
   );
 };
-
 
 
 
