@@ -105,48 +105,66 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body: KintoneRecord = await request.json();
 
-    // Validate required fields
+    // Required fields excluding 'code' and 'details'
     const requiredFields: (keyof KintoneRecord)[] = [
       "title",
       "task",
-      "details",
-      "code",
       "status",
       "startTime_date",
       "startTime_time",
       "endTime_date",
       "endTime_time",
-      "latitude",
-      "longitude",
       "publish",
     ];
 
     for (const field of requiredFields) {
       if (!body[field]) {
         return NextResponse.json(
-          { error: `Missing field: ${field}` },
+          { error: `必須フィールドがありません: ${field}` },
           { status: 400 }
         );
       }
     }
 
-    const recordData = {
+    // Define the type for Kintone record structure
+    type KintoneRecordData = {
+      app: number;
+      record: {
+        title: { value: string };
+        task: { value: string };
+        status: { value: string };
+        startTime_date: { value: string };
+        startTime_time: { value: string };
+        endTime_date: { value: string };
+        endTime_time: { value: string };
+        latitude?: { value: string };
+        longitude?: { value: string };
+        publish: { value: string };
+        details?: { value: string }; 
+        code?: { value: string }; 
+      };
+    };
+
+    // Construct record data with required fields
+    const recordData: KintoneRecordData = {
       app: appId,
       record: {
         title: { value: body.title },
         task: { value: body.task },
-        details: { value: body.details },
-        code: { value: body.code },
         status: { value: body.status },
         startTime_date: { value: body.startTime_date },
         startTime_time: { value: body.startTime_time },
         endTime_date: { value: body.endTime_date },
         endTime_time: { value: body.endTime_time },
-        latitude: { value: body.latitude },
-        longitude: { value: body.longitude },
-        publish: { value: body.publish},
+        publish: { value: body.publish },
       },
     };
+
+    // Add optional fields if they exist
+    if (body.details) recordData.record.details = { value: body.details };
+    if (body.code) recordData.record.code = { value: body.code };
+    if (body.latitude) recordData.record.latitude = { value: body.latitude };
+    if (body.longitude) recordData.record.longitude = { value: body.longitude };
 
     const response = await fetch(`${kintoneUrl}/record.json`, {
       method: "POST",

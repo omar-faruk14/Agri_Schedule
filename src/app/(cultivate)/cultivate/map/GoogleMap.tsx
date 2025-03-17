@@ -5,50 +5,7 @@ import styles from "./MarkerStyles.module.css";
 import RBush from "rbush";
 import styles2 from "./styles2.module.css";
 import Link from "next/link";
-const Legend: React.FC = () => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "80px", 
-        right: "5px", 
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: "3px", 
-        fontSize: "10px", 
-        fontWeight: "bold",
-        color: "black",
-        zIndex: 1000,
-        backgroundColor: "rgba(255, 255, 255, 0.8)", 
-        padding: "3px 5px", 
-        borderRadius: "3px", 
-      }}
-    >
-      {[
-        { color: "#ff0000", label: "スタート" },
-        { color: "orange", label: "途中 " },
-        { color: "green", label: "完了" },
-      ].map((item, index) => (
-        <div
-          key={index}
-          style={{ display: "flex", alignItems: "center", gap: "3px" }}
-        >
-          <div
-            style={{
-              width: "10px", // Smaller indicator
-              height: "10px",
-              backgroundColor: item.color,
-              borderRadius: "50%",
-            }}
-          ></div>
-          <span>{item.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
+import Legend from "./legend";
 
 
 // Define Marker Data
@@ -298,9 +255,63 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
         <option value="" disabled>
           選択してくださ
         </option>
-        <option value="掃除">掃除</option>
+        <option value="剪定">剪定</option>
+        <option value="ふらん病防止薬液塗布">ふらん病防止薬液塗布</option>
+        <option value="花摘み">花摘み</option>
+        <option value="摘果">摘果</option>
+        <option value="徒長枝切り">徒長枝切り</option>
+        <option value="葉摘み">葉摘み</option>
         <option value="玉まわし">玉まわし</option>
         <option value="剪定">剪定</option>
+        <option value="収穫">収穫</option>
+        <option value="消毒">消毒</option>
+        <option value="支柱立て">支柱立て</option>
+        <option value="選果">選果</option>
+        <option value="枝こなし">枝こなし</option>
+        <option value="支柱回収">支柱回収</option>
+        <option value="剪定">剪定</option>
+        <option value="ふらん病防止薬液塗布">ふらん病防止薬液塗布</option>
+        <option value="花摘み">花摘み</option>
+        <option value="摘果">摘果</option>
+        <option value="徒長枝切り">徒長枝切り</option>
+        <option value="葉摘み">葉摘み</option>
+        <option value="玉まわし">玉まわし</option>
+        <option value="消毒">消毒</option>
+        <option value="枝こなし">枝こなし</option>
+        <option value="ガムテープ貼り（誘引）">ガムテープ貼り（誘引）</option>
+        <option value="剪定">剪定</option>
+        <option value="摘芽">摘芽</option>
+        <option value="誘引">誘引</option>
+        <option value="房の整形">房の整形</option>
+        <option value="ジベレリン処理">ジベレリン処理</option>
+        <option value="摘心">摘心</option>
+        <option value="摘粒">摘粒</option>
+        <option value="副梢とり">副梢とり</option>
+        <option value="袋がけ">袋がけ</option>
+        <option value="収穫">収穫</option>
+        <option value="消毒">消毒</option>
+        <option value="巻きつるとり">巻きつるとり</option>
+        <option value="選果">選果</option>
+        <option value="剪定">剪定</option>
+        <option value="誘引(長梢)">誘引(長梢)</option>
+        <option value="誘引(新梢)">誘引(新梢)</option>
+        <option value="摘芽">摘芽</option>
+        <option value="摘心">摘心</option>
+        <option value="副梢切り">副梢切り</option>
+        <option value="葉摘み">葉摘み</option>
+        <option value="防鳥ネット張り">防鳥ネット張り</option>
+        <option value="収穫">収穫</option>
+        <option value="消毒">消毒</option>
+        <option value="摘粒">摘粒</option>
+        <option value="選芽">選芽</option>
+        <option value="誘引">誘引</option>
+        <option value="蔓まき">蔓まき</option>
+        <option value="収穫">収穫</option>
+        <option value="糸つけ">糸つけ</option>
+        <option value="草刈り">草刈り</option>
+        <option value="単管設置">単管設置</option>
+        <option value="番線張り">番線張り</option>
+        <option value="堆肥場作業">堆肥場作業</option>
       </select>
 
       {/* Map Container */}

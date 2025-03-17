@@ -121,7 +121,9 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>選択してください</option>
+            <option value="" disabled>
+              選択してください
+            </option>
             <option value="りんご普通木">りんご普通木</option>
             <option value="りんごワイカ">りんごワイカ</option>
             <option value="ブドウ生食">ブドウ生食</option>
@@ -296,9 +298,11 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>選択してください</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="" disabled>
+              選択してください
+            </option>
+            <option value="Yes">はい</option>
+            <option value="No">いいえ</option>
           </select>
         </div>
 
@@ -347,7 +351,9 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>選択してください</option>
+            <option value="" disabled>
+              選択してください
+            </option>
             <option value="途中">途中</option>
             <option value="完了">完了</option>
             <option value="スタート">スタート</option>
