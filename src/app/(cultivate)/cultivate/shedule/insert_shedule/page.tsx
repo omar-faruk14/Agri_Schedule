@@ -121,12 +121,13 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="">選択してください</option>
+            <option value="" disabled>選択してください</option>
             <option value="りんご普通木">りんご普通木</option>
             <option value="りんごワイカ">りんごワイカ</option>
             <option value="ブドウ生食">ブドウ生食</option>
             <option value="ワインブドウ">ワインブドウ</option>
             <option value="ホップ">ホップ</option>
+            <option value="その他">その他</option>
           </select>
         </div>
 
@@ -226,6 +227,15 @@ const InsertDataForm = () => {
                 <option value="糸つけ">糸つけ</option>
               </>
             )}
+
+            {formData.title === "その他" && (
+              <>
+                <option value="草刈り">草刈り</option>
+                <option value="単管設置">単管設置</option>
+                <option value="番線張り">番線張り</option>
+                <option value="堆肥場作業">堆肥場作業</option>
+              </>
+            )}
           </select>
         </div>
 
@@ -278,7 +288,7 @@ const InsertDataForm = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>コード</label>
+          <label className={styles.label}>QRコードを使いますか？</label>
           <select
             className={styles.input}
             name="publish"
@@ -286,38 +296,36 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="">選択してください</option>
+            <option value="" disabled>選択してください</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
         </div>
 
-
         {formData.publish === "Yes" && (
+          <div className={styles.formGroup}>
+            <label className={styles.label}>コード</label>
+            <Select
+              options={options}
+              value={options.find((option) => option.value === formData.code)}
+              onChange={(selectedOption) => {
+                const selectedCoordinate = coordinates.find(
+                  (coord) => coord.code === selectedOption?.value
+                );
 
-        <div className={styles.formGroup}>
-          <label className={styles.label}>コード</label>
-          <Select
-            options={options}
-            value={options.find((option) => option.value === formData.code)}
-            onChange={(selectedOption) => {
-              const selectedCoordinate = coordinates.find(
-                (coord) => coord.code === selectedOption?.value
-              );
-
-              setFormData({
-                ...formData,
-                code: selectedOption?.value || "",
-                latitude: selectedCoordinate?.latitude || "",
-                longitude: selectedCoordinate?.longitude || "",
-              });
-            }}
-            isSearchable
-            placeholder="検索..."
-            instanceId="code-select"
-          />
-        </div>
-      )}
+                setFormData({
+                  ...formData,
+                  code: selectedOption?.value || "",
+                  latitude: selectedCoordinate?.latitude || "",
+                  longitude: selectedCoordinate?.longitude || "",
+                });
+              }}
+              isSearchable
+              placeholder="検索..."
+              instanceId="code-select"
+            />
+          </div>
+        )}
 
         <div className={styles.formGroup}>
           <label className={styles.label}>詳細</label>
@@ -326,7 +334,6 @@ const InsertDataForm = () => {
             name="details"
             value={formData.details}
             onChange={handleChange}
-            required
             rows={4}
           ></textarea>
         </div>
@@ -340,9 +347,10 @@ const InsertDataForm = () => {
             onChange={handleChange}
             required
           >
-            <option value="">選択してください</option>
+            <option value="" disabled>選択してください</option>
             <option value="途中">途中</option>
             <option value="完了">完了</option>
+            <option value="スタート">スタート</option>
           </select>
         </div>
 
