@@ -100,10 +100,13 @@ const InsertDataForm = () => {
 
  
 
-  const options = coordinates.map((coordinate) => ({
+const options = coordinates
+  .sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }))
+  .map((coordinate) => ({
     value: coordinate.code,
     label: `${coordinate.code}`,
   }));
+
 
 
   return (
@@ -157,7 +160,6 @@ const InsertDataForm = () => {
                 <option value="徒長枝切り">徒長枝切り</option>
                 <option value="葉摘み">葉摘み</option>
                 <option value="玉まわし">玉まわし</option>
-                <option value="剪定">剪定</option>
                 <option value="収穫">収穫</option>
                 <option value="消毒">消毒</option>
                 <option value="支柱立て">支柱立て</option>
