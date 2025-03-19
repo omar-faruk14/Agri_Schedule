@@ -65,7 +65,7 @@ export default async function AgricultureDetailPage({
               <strong>確認:</strong> {record.kakunin}
             </li>
             <li className={`list-group-item ${styles2.listGroupItem}`}>
-              <strong>カラムコード:</strong> {record.column_code}
+              <strong>コード:</strong> {record.column_code}
             </li>
           </ul>
         </div>

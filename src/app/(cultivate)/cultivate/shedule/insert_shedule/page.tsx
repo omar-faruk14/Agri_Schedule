@@ -116,7 +116,9 @@ const options = coordinates
         {loading && <div className={styles.alertInfo}>送信中...</div>}
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>タイトル</label>
+          <label className={styles.label}>
+            タイトル<span className="text-danger">*</span>
+          </label>
           <select
             className={styles.input}
             name="title"
@@ -137,7 +139,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>タスク</label>
+          <label className={styles.label}>
+            タスク<span className="text-danger">*</span>
+          </label>
           <select
             className={styles.input}
             name="task"
@@ -244,7 +248,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>開始日</label>
+          <label className={styles.label}>
+            開始日<span className="text-danger">*</span>
+          </label>
           <input
             type="date"
             className={styles.input}
@@ -256,7 +262,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>開始時間</label>
+          <label className={styles.label}>
+            開始時間<span className="text-danger">*</span>
+          </label>
           <input
             type="time"
             className={styles.input}
@@ -268,7 +276,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>終了日</label>
+          <label className={styles.label}>
+            終了日<span className="text-danger">*</span>
+          </label>
           <input
             type="date"
             className={styles.input}
@@ -280,7 +290,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>終了時間</label>
+          <label className={styles.label}>
+            終了時間<span className="text-danger">*</span>
+          </label>
           <input
             type="time"
             className={styles.input}
@@ -292,7 +304,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>QRコードを使いますか？</label>
+          <label className={styles.label}>
+            QRコードを使いますか？<span className="text-danger">*</span>
+          </label>
           <select
             className={styles.input}
             name="publish"
@@ -310,7 +324,9 @@ const options = coordinates
 
         {formData.publish === "Yes" && (
           <div className={styles.formGroup}>
-            <label className={styles.label}>コード</label>
+            <label className={styles.label}>
+              コード<span className="text-danger">*</span>
+            </label>
             <Select
               options={options}
               value={options.find((option) => option.value === formData.code)}
@@ -329,12 +345,13 @@ const options = coordinates
               isSearchable
               placeholder="検索..."
               instanceId="code-select"
+              required
             />
           </div>
         )}
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>詳細</label>
+          <label className={styles.label}>詳細 (任意)</label>
           <textarea
             className={styles.input}
             name="details"
@@ -345,7 +362,9 @@ const options = coordinates
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>ステータス</label>
+          <label className={styles.label}>
+            ステータス<span className="text-danger">*</span>
+          </label>
           <select
             className={styles.input}
             name="status"

@@ -59,7 +59,9 @@ export default function YattaForm() {
       <h2 className={styles.title}>予定記録フォーム</h2>
       <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
         <div className={styles.formGroup}>
-          <label className={styles.label}>日付</label>
+          <label className={styles.label}>
+            日付<span className="text-danger">*</span>
+          </label>
           <input
             type="date"
             name="yatta_date"
@@ -70,7 +72,9 @@ export default function YattaForm() {
           />
         </div>
         <div className={styles.formGroup}>
-          <label className={styles.label}>予定タスク</label>
+          <label className={styles.label}>
+            予定タスク<span className="text-danger">*</span>
+          </label>
           <textarea
             name="yatta_koto"
             className={styles.input}
