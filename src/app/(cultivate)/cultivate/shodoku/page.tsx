@@ -41,7 +41,7 @@ export default async function AgriculturePage({
     {
       when: record2?.itsu || "該当なし",
       weather: record2?.tenki || "該当なし",
-      datetime: record2 ? `${record2.nichi} ${record2.ji}` : "該当なし",
+      datetime: record2 ? `${record2.nichi}` : "該当なし",
       disease: record2?.byoki || "該当なし",
     },
   ];
