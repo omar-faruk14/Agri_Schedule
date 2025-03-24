@@ -6,6 +6,7 @@ import RBush from "rbush";
 import styles2 from "./styles2.module.css";
 import Link from "next/link";
 import Legend from "./legend";
+import '../global.css';
 
 
 // Define Marker Data
@@ -119,12 +120,20 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
     const map = L.map(mapRef.current, {
       center,
       zoom,
-      zoomControl: true,
+      zoomControl: false,
       scrollWheelZoom: true,
       doubleClickZoom: false,
       touchZoom: false,
       dragging: true,
     });
+
+    // Add custom zoom control at left middle
+    L.control
+      .zoom({
+        position: "topleft", // Use 'topleft' or 'bottomleft'
+      })
+      .addTo(map);
+
 
     L.tileLayer("https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
       attribution:

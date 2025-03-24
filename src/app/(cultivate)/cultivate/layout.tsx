@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "アグノート",
+  title: "あぐメモ",
 };
 
 export default function RootLayout({

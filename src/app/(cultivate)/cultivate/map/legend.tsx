@@ -23,7 +23,7 @@ const Legend: React.FC = () => {
       {[
         { color: "#ff0000", label: "スタート" },
         { color: "orange", label: "途中 " },
-        { color: "green", label: "完了" },
+        { color: "#0074FF", label: "完了" },
       ].map((item, index) => (
         <div
           key={index}
