@@ -1,30 +1,29 @@
 
 
+
 /* Base marker style */
 .marker {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
- 
 }
 
-/* Start state - Red to indicate the beginning of work */
+/* Start state - Red */
 .スタート {
   background-color: red;
   box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); 
 }
 
-/* Middle state - Orange to indicate progress */
+/* In Progress state - Orange */
 .途中 {
   background-color: orange;
   box-shadow: 0 0 8px rgba(255, 165, 0, 0.6); 
 }
 
-/* Complete state - Green to indicate completion */
+/* Complete state - Electric Blue */
 .完了 {
-  background-color: green;
-  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6); 
+  background-color: #0074FF;
+  box-shadow: 0 0 8px rgba(0, 116, 255, 0.6);
 }
-
 
 

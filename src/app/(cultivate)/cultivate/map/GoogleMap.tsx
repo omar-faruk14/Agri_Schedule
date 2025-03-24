@@ -228,8 +228,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
       // Explicitly define the type here
       const markerIcon = L.divIcon({
         className: `${styles.marker} ${styles[data.status]}`,
-        iconSize: [10, 10],
-        iconAnchor: [7.5, 7.5],
+        iconSize: [12, 12],
+        iconAnchor: [8, 8],
       });
 
       L.marker([data.lat, data.lon], { icon: markerIcon })
