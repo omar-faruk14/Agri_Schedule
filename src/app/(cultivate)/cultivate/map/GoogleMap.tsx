@@ -119,7 +119,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
     const map = L.map(mapRef.current, {
       center,
       zoom,
-      zoomControl: false,
+      zoomControl: true,
       scrollWheelZoom: true,
       doubleClickZoom: false,
       touchZoom: false,
