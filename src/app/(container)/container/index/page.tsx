@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Header2 from "../component/Header2"; 
 import Sidebar2 from "../component/Sidebar2"; 
+import styles from "./pageh.module.css"
 
 interface FormData {
   container_id: string;
@@ -63,27 +64,33 @@ export default function ContainerRecord() {
               <div className="col-sm-6">
                 <h1>コンテナを登録する</h1>
               </div>
-              <div className="col-sm-6">
-                <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item">
-                    <a href="#">ホーム</a>
-                  </li>
-                  <li className="breadcrumb-item active">コンテナを登録する</li>
-                </ol>
+              
+                <div className={styles.breadcrumb_container}>
+                  <ol className={styles.breadcrumb}>
+                    <li className={styles.breadcrumb_item}>
+                      <a href="#">ホーム</a>
+                    </li>
+                    <li
+                      className={`${styles.breadcrumb_item} ${styles.breadcrumb_active}`}
+                    >
+                      コンテナを登録する
+                    </li>
+                  </ol>
+              
               </div>
             </div>
           </div>
         </section>
         <section className="content">
           <form onSubmit={handleSubmit}>
-            <div className="card card-primary">
-              <div className="card-header">
-                <h3 className="card-title">一般</h3>
+            <div className={styles.card_primary}>
+              <div className={styles.card_header}>
+                <h3 className={styles.card_title}>一般</h3>
               </div>
               <div className="card-body">
-                <div className="form-group">
+                <div className="form-group m-3">
                   <label>
-                    コンテナ QR_ID<span className="text-danger">*</span>
+                    コンテナ QRコード<span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
@@ -94,7 +101,7 @@ export default function ContainerRecord() {
                     required
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group p-3">
                   <label>
                     コンテナのステータス<span className="text-danger">*</span>
                   </label>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Select, { SingleValue } from "react-select";
 
 import Header2 from "../component/Header2"; 
 import Sidebar2 from "../component/Sidebar2"; 
@@ -9,18 +10,46 @@ import Sidebar2 from "../component/Sidebar2";
 interface FormData {
   container_id: string;
   container_status: string;
+  Borrower_Information: string;
+}
+
+interface ContainerData {
+  Record_number: string;
+  container_id: string;
+  container_status: string;
+}
+
+interface SelectOption {
+  value: string;
+  label: string;
 }
 
 export default function ContainerRecord() {
   const initialFormState = {
     container_id: "",
     container_status: "",
+    Borrower_Information: "",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormState);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [container, setContainer] = useState<ContainerData[]>([]);
+
+  useEffect(() => {
+    const fetchContainer = async () => {
+      try {
+        const response = await fetch("/api/container/register");
+        const data: ContainerData[] = await response.json(); // Typing the response data
+        setContainer(data);
+      } catch (error) {
+        console.error("データの取得に失敗しました", error);
+      }
+    };
+
+    fetchContainer();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -28,11 +57,15 @@ export default function ContainerRecord() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+   const handleSelectChange = (selectedOption: SingleValue<SelectOption>) => {
+     setFormData({ ...formData, container_id: selectedOption?.value || "" });
+   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/container/register", {
+    const response = await fetch("/api/container/status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +85,14 @@ export default function ContainerRecord() {
       setSuccessMessage(null);
     }
   };
+
+
+  const options = container
+    .sort((a, b) => a.container_id.localeCompare(b.container_id, undefined, { numeric: true }))
+    .map((container) => ({
+      value: container.container_id,
+      label: `${container.container_id}`,
+    }));
 
   return (
     <>
@@ -90,9 +131,9 @@ export default function ContainerRecord() {
                   </label>
                   <input
                     type="text"
-                    name="container_id"
+                    name="Borrower_Information"
                     className="form-control"
-                    value={formData.container_id}
+                    value={formData.Borrower_Information}
                     onChange={handleChange}
                     required
                   />
@@ -100,22 +141,19 @@ export default function ContainerRecord() {
 
                 <div className="form-group">
                   <label>
-                    コンテナ QR_ID<span className="text-danger">*</span>
+                    コンテナQRコード<span className="text-danger">*</span>
                   </label>
-                  <select
-                    name="container_status"
-                    className="form-control"
-                    value={formData.container_status}
-                    onChange={handleChange}
+                  <Select
+                    options={options}
+                    onChange={handleSelectChange}
+                    value={options.find(
+                      (option) => option.value === formData.container_id
+                    )}
+                    isSearchable
+                    placeholder="検索..."
+                    instanceId="code-select"
                     required
-                  >
-                    <option value="" disabled>
-                      選択してくださ
-                    </option>
-                    <option value="利用可能">利用可能</option>
-                    <option value="返却済み">返却済み</option>
-                    <option value="貸出中">貸出中</option>
-                  </select>
+                  />
                 </div>
 
                 <div className="form-group">

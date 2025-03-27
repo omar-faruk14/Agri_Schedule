@@ -1,10 +1,38 @@
 /* Sidebar2.module.css */
+
+/* Sidebar container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #1b1f3b; /* Deep navy background */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1050;
+}
+
+/* Hidden sidebar for mobile */
+.sidebarHidden {
+  transform: translateX(-100%);
+}
+
+/* Visible sidebar */
+.sidebarVisible {
+  transform: translateX(0);
+}
+
+/* Brand Link */
 .brandLink {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 15px;
   text-decoration: none;
+  background-color: #121530;
 }
 
 .brandTextContainer {
@@ -13,23 +41,24 @@
   gap: 0.5rem;
 }
 
+/* Updated Brand Text */
 .brandTextFujimi {
-  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #00b4d8, #90e0ef);
+  background: linear-gradient(45deg, #9b5de5, #f15bb5);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   letter-spacing: -0.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 .brandTextMaas {
-  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.8rem;
   font-weight: 300;
-  color: #fff;
+  color: #ffffff;
   letter-spacing: 1.5px;
   position: relative;
   padding-left: 0.8rem;
@@ -43,41 +72,57 @@
   transform: translateY(-50%);
   width: 2px;
   height: 60%;
-  background: linear-gradient(to bottom, #00b4d8, #90e0ef);
+  background: linear-gradient(to bottom, #9b5de5, #f15bb5);
   border-radius: 2px;
 }
 
-.brandLink:hover .brandTextFujimi {
-  background: linear-gradient(45deg, #90e0ef, #00b4d8);
-  -webkit-background-clip: text;
-  background-clip: text;
+/* Sidebar Content */
+.sidebarContent {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 10px;
 }
 
-/* Enhanced Active State for Dark Sidebar */
+/* Navigation */
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #cfd8dc;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
+}
+
+.navItem i {
+  margin-right: 10px;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Active Link */
 .active {
-  background: linear-gradient(90deg, rgba(52,58,64,0.9) 0%, rgba(40,45,50,0.9) 100%) !important;
-  border-left: 4px solid #6610f2 !important; /* AdminLTE primary color */
+  background: linear-gradient(90deg, rgba(27, 31, 59, 0.9) 0%, rgba(18, 21, 48, 0.9) 100%);
+  border-left: 4px solid #00f5d4;
   margin: 4px 0;
   border-radius: 0 4px 4px 0;
-  color: #fff !important;
+  color: #ffffff !important;
   position: relative;
   transition: all 0.3s ease;
 }
 
-
-/* Hide sidebar by default on mobile screens */
-.sidebarHidden {
-  display: none !important; /* Force hide */
-}
-
-/* Show sidebar when isSidebarVisible is true */
-.sidebarVisible {
-  display: block !important; /* Force show */
-}
-
-/* Ensure sidebar is always visible on larger screens */
+/* Responsive Design */
 @media (min-width: 768px) {
-  .sidebarHidden {
-    display: block !important; /* Force show */
+  .sidebar {
+    transform: translateX(0);
   }
 }

@@ -5,11 +5,12 @@ export default function Header2() {
   return (
     <nav className="main-header navbar navbar-expand navbar-white navbar-light shadow-lg">
       <ul className="navbar-nav">
-        <li className="nav-item">
+        <li className="nav-item d-block d-md-none">
           <a className="nav-link" data-widget="pushmenu" href="#" role="button">
             <i className="fas fa-bars" />
           </a>
         </li>
+
         <li className="nav-item d-none d-sm-inline-block">
           <a href="/" className="nav-link">
             ホーム
