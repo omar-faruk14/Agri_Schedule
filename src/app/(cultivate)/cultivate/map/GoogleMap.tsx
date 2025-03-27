@@ -321,6 +321,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ center, zoom }) => {
         <option value="単管設置">単管設置</option>
         <option value="番線張り">番線張り</option>
         <option value="堆肥場作業">堆肥場作業</option>
+        {/* <option value="x">x</option> */}
       </select>
 
       {/* Map Container */}

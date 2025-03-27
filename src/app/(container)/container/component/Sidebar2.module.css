@@ -1,0 +1,83 @@
+/* Sidebar2.module.css */
+.brandLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  text-decoration: none;
+}
+
+.brandTextContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandTextFujimi {
+  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #00b4d8, #90e0ef);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.brandTextMaas {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 1.5px;
+  position: relative;
+  padding-left: 0.8rem;
+}
+
+.brandTextMaas::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 60%;
+  background: linear-gradient(to bottom, #00b4d8, #90e0ef);
+  border-radius: 2px;
+}
+
+.brandLink:hover .brandTextFujimi {
+  background: linear-gradient(45deg, #90e0ef, #00b4d8);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Enhanced Active State for Dark Sidebar */
+.active {
+  background: linear-gradient(90deg, rgba(52,58,64,0.9) 0%, rgba(40,45,50,0.9) 100%) !important;
+  border-left: 4px solid #6610f2 !important; /* AdminLTE primary color */
+  margin: 4px 0;
+  border-radius: 0 4px 4px 0;
+  color: #fff !important;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+
+/* Hide sidebar by default on mobile screens */
+.sidebarHidden {
+  display: none !important; /* Force hide */
+}
+
+/* Show sidebar when isSidebarVisible is true */
+.sidebarVisible {
+  display: block !important; /* Force show */
+}
+
+/* Ensure sidebar is always visible on larger screens */
+@media (min-width: 768px) {
+  .sidebarHidden {
+    display: block !important; /* Force show */
+  }
+}
