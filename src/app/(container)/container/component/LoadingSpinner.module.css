@@ -1,0 +1,63 @@
+/* styles/LoadingSpinner.module.css */
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9; /* Light and clean background color */
+  font-family: 'Noto Sans JP', sans-serif; /* Elegant Japanese font */
+}
+
+.dotContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 80px; /* Slightly larger for more visibility */
+  margin-bottom: 20px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #0078D4; /* A cool blue for a clean look */
+  animation: pulse 1.5s infinite ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 120, 212, 0.3); /* Soft glow around each dot */
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.loadingText {
+  font-size: 20px;
+  font-weight: 600; /* Slightly bolder text for clarity */
+  color: #333; /* A dark gray for readability */
+  text-align: center;
+  margin-top: 10px;
+  letter-spacing: 1px; /* Elegant spacing between letters */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}

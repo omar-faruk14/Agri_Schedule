@@ -1,140 +1,67 @@
-// "use client";
-
-// import { usePathname } from "next/navigation";
-// import { useState, useEffect } from "react";
-// import styles from "./Sidebar2.module.css";
-// import Link from "next/link";
-// import "@fortawesome/fontawesome-free/css/all.min.css";
-
-// export default function Sidebar2() {
-//   const pathname = usePathname();
-//   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
-
-//   useEffect(() => {
-//     if (window.innerWidth < 768) {
-//       setSidebarVisible(false);
-//     }
-//   }, [pathname]);
-
-//   const handleLinkClick = () => {
-//     setSidebarVisible(false);
-//   };
-
-//   useEffect(() => {
-//     const toggleButton = document.querySelector('[data-widget="pushmenu"]');
-//     if (toggleButton) {
-//       const handleToggleClick = () => {
-//         setSidebarVisible((prev) => !prev);
-//       };
-//       toggleButton.addEventListener("click", handleToggleClick);
-//       return () => {
-//         toggleButton.removeEventListener("click", handleToggleClick);
-//       };
-//     }
-//   }, []);
-
-//   return (
-//     <>
-//       <aside
-//         className={`main-sidebar sidebar-dark-primary elevation-4 overflow-auto ${
-//           isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
-//         }`}
-//       >
-//         <Link
-//           href="/container/index"
-//           className={`${styles.brandLink} brand-link`}
-//           onClick={handleLinkClick}
-//         >
-//           <div className={styles.brandTextContainer}>
-//             <span className={styles.brandTextFujimi}>コン</span>
-//             <span className={styles.brandTextMaas}>テナ</span>
-//           </div>
-//         </Link>
-//         {/* Sidebar */}
-//         <div className="sidebar">
-//           <nav className="mt-2">
-//             <ul
-//               className="nav nav-pills nav-sidebar flex-column"
-//               data-widget="treeview"
-//               role="menu"
-//               data-accordion="false"
-//             >
-//               <li className="nav-item">
-//                 <Link
-//                   href="/container/index"
-//                   className={`nav-link ${
-//                     pathname === "/container/index" ? `${styles.active}` : ""
-//                   }`}
-//                   onClick={handleLinkClick}
-//                 >
-//                   <i className="nav-icon fas fa-tachometer-alt"></i>
-//                   <p>コンテナを登録</p>
-//                 </Link>
-//               </li>
-//             </ul>
-//           </nav>
-//         </div>
-//       </aside>
-//     </>
-//   );
-// }
-
-
-
 "use client";
 
+import { useSidebar } from "./SidebarContext";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import styles from "./Sidebar2.module.css";
 import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import styles from "./Sidebar2.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function Sidebar2() {
   const pathname = usePathname();
-  const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
+  const { isSidebarVisible, closeSidebar } = useSidebar();
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setSidebarVisible(false);
-    }
-  }, []);
+  // Define all menu items with submenus
+  const menuItems = [
+    {
+      key: "container",
+      label: "コンテナ管理",
+      icon: "fas fa-boxes",
+      subMenu: [
+        {
+          label: "コンテナ登録",
+          href: "/container/index",
+          icon: "fas fa-archive",
+        },
+        {
+          label: "ステータス管理",
+          href: "/container/status",
+          icon: "fas fa-clipboard-list",
+        },
+      ],
+    },
+    {
+      key: "settings",
+      label: "1",
+      icon: "fas fa-cog",
+      subMenu: [
+        { label: "アカウント", href: "/settings/account", icon: "fas fa-user" },
+        { label: "通知", href: "/settings/notifications", icon: "fas fa-bell" },
+      ],
+    },
+  ];
 
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setSidebarVisible(false);
-    }
-  }, [pathname]);
-
-  const handleLinkClick = () => {
-    setSidebarVisible(false);
-  };
-
-  useEffect(() => {
-    const toggleButton = document.querySelector('[data-widget="pushmenu"]');
-    if (toggleButton) {
-      const handleToggleClick = (event: Event) => {
-        event.stopPropagation();
-        setSidebarVisible((prev) => !prev);
-      };
-      toggleButton.addEventListener("click", handleToggleClick);
-      return () => {
-        toggleButton.removeEventListener("click", handleToggleClick);
-      };
-    }
-  }, []);
+  // State to track which submenus are open
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>(() => {
+    const initialOpenState: Record<string, boolean> = {};
+    menuItems.forEach((item) => {
+      // Keep open if the current path matches any submenu
+      initialOpenState[item.key] = item.subMenu.some(
+        (sub) => sub.href === pathname
+      );
+    });
+    return initialOpenState;
+  });
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (isSidebarVisible) {
-        const sidebarElement = document.querySelector("." + styles.sidebar);
-        const toggleButton = document.querySelector('[data-widget="pushmenu"]');
-        if (
-          sidebarElement &&
-          !sidebarElement.contains(event.target as Node) &&
-          (!toggleButton || !toggleButton.contains(event.target as Node))
-        ) {
-          setSidebarVisible(false);
-        }
+      if (
+        isSidebarVisible &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        closeSidebar();
       }
     };
 
@@ -142,44 +69,81 @@ export default function Sidebar2() {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [isSidebarVisible]);
+  }, [isSidebarVisible, closeSidebar]);
+
+  // Function to toggle submenus
+  const toggleMenu = (key: string) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   return (
-    <>
-      <aside
-        className={`${styles.sidebar} ${
-          isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
-        }`}
-      >
-        <Link
-          href="/container/index"
-          className={styles.brandLink}
-          onClick={handleLinkClick}
-        >
-          <div className={styles.brandTextContainer}>
-            <span className={styles.brandTextFujimi}>コン</span>
-            <span className={styles.brandTextMaas}>テナ</span>
-          </div>
-        </Link>
-        <div className={styles.sidebarContent}>
-          <nav>
-            <ul className={styles.navList}>
-              <li>
-                <Link
-                  href="/container/index"
-                  className={`${styles.navItem} ${
-                    pathname === "/container/index" ? styles.active : ""
-                  }`}
-                  onClick={handleLinkClick}
-                >
-                  <i className="fas fa-tachometer-alt"></i>
-                  <span>コンテナを登録</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
+    <aside
+      ref={sidebarRef}
+      className={`${styles.sidebar} ${
+        isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
+      }`}
+    >
+      <Link href="/container/index" className={styles.brandLink}>
+        <div className={styles.brandTextContainer}>
+          <span className={styles.brandTextFujimi}>コン</span>
+          <span className={styles.brandTextMaas}>テナ</span>
         </div>
-      </aside>
-    </>
+      </Link>
+      <div className={styles.sidebarContent}>
+        <nav>
+          <ul className={styles.navList}>
+            {menuItems.map((menu) => (
+              <li key={menu.key}>
+                {/* Parent Menu Item */}
+                <div
+                  className={`${styles.navItem} ${
+                    openMenus[menu.key] ? styles.active : ""
+                  }`}
+                  onClick={() => toggleMenu(menu.key)}
+                >
+                  <i className={menu.icon}></i>
+                  <span>{menu.label}</span>
+                </div>
+
+                {/* Submenu */}
+                {openMenus[menu.key] && (
+                  <ul className={styles.subNavList}>
+                    {menu.subMenu.map((sub) => (
+                      <li key={sub.href}>
+                        <Link
+                          href={sub.href}
+                          className={`${styles.navItem} ${
+                            pathname === sub.href ? styles.active : ""
+                          }`}
+                        >
+                          <i className={sub.icon}></i>
+                          <span>{sub.label}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+
+            {/* Example of a menu without submenus */}
+            <li>
+              <Link
+                href="/container/2"
+                className={`${styles.navItem} ${
+                  pathname === "/container/2" ? styles.active : ""
+                }`}
+              >
+                <i className="fas fa-archive"></i>
+                <span>2</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
   );
 }

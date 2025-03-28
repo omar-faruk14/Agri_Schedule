@@ -1,18 +1,38 @@
 "use client";
+
+import { useSidebar } from "./SidebarContext";
+import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import styles from "./Header2.module.css";
 
 export default function Header2() {
+  const { toggleSidebar } = useSidebar();
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const handleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullScreen(true);
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+      setIsFullScreen(false);
+    }
+  };
+
   return (
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light shadow-lg">
+    <nav className={`main-header navbar navbar-expand ${styles.navbar}`}>
       <ul className="navbar-nav">
         <li className="nav-item d-block d-md-none">
-          <a className="nav-link" data-widget="pushmenu" href="#" role="button">
+          <button
+            className={`nav-link ${styles.menuButton}`}
+            onClick={toggleSidebar}
+          >
             <i className="fas fa-bars" />
-          </a>
+          </button>
         </li>
 
         <li className="nav-item d-none d-sm-inline-block">
-          <a href="/" className="nav-link">
+          <a href="/" className={`nav-link ${styles.navLink}`}>
             ホーム
           </a>
         </li>
@@ -20,14 +40,16 @@ export default function Header2() {
 
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a
-            className="nav-link"
-            data-widget="fullscreen"
-            href="#"
-            role="button"
+          <button
+            className={`nav-link ${styles.fullScreen}`}
+            onClick={handleFullScreen}
           >
-            <i className="fas fa-expand-arrows-alt" />
-          </a>
+            <i
+              className={
+                isFullScreen ? "fas fa-compress" : "fas fa-expand-arrows-alt"
+              }
+            />
+          </button>
         </li>
       </ul>
     </nav>

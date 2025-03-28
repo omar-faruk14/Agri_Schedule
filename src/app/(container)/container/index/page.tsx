@@ -52,6 +52,7 @@ export default function ContainerRecord() {
       setSuccessMessage(null);
     }
   };
+  
 
   return (
     <>
@@ -61,22 +62,10 @@ export default function ContainerRecord() {
         <section className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1>コンテナを登録する</h1>
-              </div>
-              
-                <div className={styles.breadcrumb_container}>
-                  <ol className={styles.breadcrumb}>
-                    <li className={styles.breadcrumb_item}>
-                      <a href="#">ホーム</a>
-                    </li>
-                    <li
-                      className={`${styles.breadcrumb_item} ${styles.breadcrumb_active}`}
-                    >
-                      コンテナを登録する
-                    </li>
-                  </ol>
-              
+              <div className="col">
+                <h2 className={`${styles.h2_map}`}>
+                  コンテナを登録する
+                </h2>
               </div>
             </div>
           </div>
@@ -154,7 +143,7 @@ export default function ContainerRecord() {
                 )}
                 <button
                   type="submit"
-                  className="btn btn-success float-right"
+                  className="btn btn-primary text-center float-right m-3"
                   disabled={loading}
                 >
                   {loading ? (

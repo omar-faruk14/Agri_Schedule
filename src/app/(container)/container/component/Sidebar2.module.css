@@ -121,7 +121,7 @@
 }
 
 /* Responsive Design */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .sidebar {
     transform: translateX(0);
   }

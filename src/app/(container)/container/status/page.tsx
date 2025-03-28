@@ -5,6 +5,8 @@ import Select, { SingleValue } from "react-select";
 
 import Header2 from "../component/Header2"; 
 import Sidebar2 from "../component/Sidebar2"; 
+import styles from "../index/pageh.module.css";
+import LoadingSpinner from "../component/LoadingFile";
 
 
 interface FormData {
@@ -94,6 +96,13 @@ export default function ContainerRecord() {
       label: `${container.container_id}`,
     }));
 
+    if (container.length === 0) {
+      return (<>
+      <LoadingSpinner />  
+      </>); 
+    }
+
+
   return (
     <>
       <Header2 />
@@ -102,30 +111,20 @@ export default function ContainerRecord() {
         <section className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1>コンテナのステータス</h1>
-              </div>
-              <div className="col-sm-6">
-                <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item">
-                    <a href="#">ホーム</a>
-                  </li>
-                  <li className="breadcrumb-item active">
-                    コンテナのステータス
-                  </li>
-                </ol>
+              <div className="col">
+                <h2 className={`${styles.h2_map}`}>コンテナのステータス</h2>
               </div>
             </div>
           </div>
         </section>
         <section className="content">
           <form onSubmit={handleSubmit}>
-            <div className="card card-primary">
-              <div className="card-header">
-                <h3 className="card-title">一般</h3>
+            <div className={styles.card_primary}>
+              <div className={styles.card_header}>
+                <h3 className={styles.card_title}>入力フォーム</h3>
               </div>
               <div className="card-body">
-                <div className="form-group">
+                <div className="form-group m-3">
                   <label>
                     借用者情報<span className="text-danger">*</span>
                   </label>
@@ -139,7 +138,7 @@ export default function ContainerRecord() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group p-3">
                   <label>
                     コンテナQRコード<span className="text-danger">*</span>
                   </label>
@@ -156,7 +155,7 @@ export default function ContainerRecord() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group p-3">
                   <label>
                     コンテナのステータス<span className="text-danger">*</span>
                   </label>
@@ -209,7 +208,7 @@ export default function ContainerRecord() {
                 )}
                 <button
                   type="submit"
-                  className="btn btn-success float-right"
+                  className="btn btn-primary float-right m-3"
                   disabled={loading}
                 >
                   {loading ? (

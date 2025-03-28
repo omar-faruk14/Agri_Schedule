@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import './global.css'
-import AdminScripts from "./component/AdminScripts";
+import "./global.css";
+
+import { SidebarProvider } from "./component/SidebarContext";
 
 export const metadata: Metadata = {
   title: "container",
@@ -21,8 +22,12 @@ export default function RootLayout({
       </head>
 
       <body className="hold-transition sidebar-mini layout-fixed">
-        <div className="wrapper">{children}</div>
-        <AdminScripts />
+        <SidebarProvider>
+          {" "}
+          {/* Wrap everything inside SidebarProvider */}
+          <div className="wrapper">{children}</div>
+        </SidebarProvider>
+   
       </body>
     </html>
   );
