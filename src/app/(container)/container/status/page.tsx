@@ -43,7 +43,7 @@ export default function ContainerRecord() {
     const fetchContainer = async () => {
       try {
         const response = await fetch("/api/container/register");
-        const data: ContainerData[] = await response.json(); // Typing the response data
+        const data: ContainerData[] = await response.json(); 
         setContainer(data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
@@ -96,138 +96,145 @@ export default function ContainerRecord() {
       label: `${container.container_id}`,
     }));
 
-    if (container.length === 0) {
-      return (<>
-      <LoadingSpinner />  
-      </>); 
-    }
+   
 
 
   return (
     <>
       <Header2 />
       <Sidebar2 />
-      <div className="content-wrapper">
-        <section className="content-header">
-          <div className="container-fluid">
-            <div className="row mb-2">
-              <div className="col">
-                <h2 className={`${styles.h2_map}`}>コンテナのステータス</h2>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="content">
-          <form onSubmit={handleSubmit}>
-            <div className={styles.card_primary}>
-              <div className={styles.card_header}>
-                <h3 className={styles.card_title}>入力フォーム</h3>
-              </div>
-              <div className="card-body">
-                <div className="form-group m-3">
-                  <label>
-                    借用者情報<span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="Borrower_Information"
-                    className="form-control"
-                    value={formData.Borrower_Information}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
 
-                <div className="form-group p-3">
-                  <label>
-                    コンテナQRコード<span className="text-danger">*</span>
-                  </label>
-                  <Select
-                    options={options}
-                    onChange={handleSelectChange}
-                    value={options.find(
-                      (option) => option.value === formData.container_id
+      <div className="content-wrapper overflow-hidden">
+        {container.length === 0 ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <section className="content-header">
+              <div className="container-fluid">
+                <div className="row mb-2">
+                  <div className="col">
+                    <h2 className={`${styles.h2_map}`}>コンテナのステータス</h2>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section className="content">
+              <form onSubmit={handleSubmit}>
+                <div className={styles.card_primary}>
+                  <div className={styles.card_header}>
+                    <h3 className={styles.card_title}>入力フォーム</h3>
+                  </div>
+                  <div className="card-body">
+                    <div className="form-group m-3">
+                      <label>
+                        借用者情報<span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="Borrower_Information"
+                        className="form-control"
+                        value={formData.Borrower_Information}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group p-3">
+                      <label>
+                        コンテナQRコード<span className="text-danger">*</span>
+                      </label>
+                      <Select
+                        menuPlacement="auto"
+                        maxMenuHeight={200}
+                        options={options}
+                        onChange={handleSelectChange}
+                        value={options.find(
+                          (option) => option.value === formData.container_id
+                        )}
+                        menuPosition="fixed"
+                        isSearchable
+                        placeholder="検索..."
+                        instanceId="code-select"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group p-3">
+                      <label>
+                        コンテナのステータス
+                        <span className="text-danger">*</span>
+                      </label>
+                      <select
+                        name="container_status"
+                        className="form-control"
+                        value={formData.container_status}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="" disabled>
+                          選択してくださ
+                        </option>
+                        <option value="利用可能">利用可能</option>
+                        <option value="返却済み">返却済み</option>
+                        <option value="貸出中">貸出中</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    {successMessage && (
+                      <div
+                        className="alert alert-success alert-dismissible fade show"
+                        role="alert"
+                      >
+                        {successMessage}
+                        <button
+                          type="button"
+                          className="btn-close"
+                          onClick={() => setSuccessMessage(null)}
+                          aria-label="Close"
+                        ></button>
+                      </div>
                     )}
-                    isSearchable
-                    placeholder="検索..."
-                    instanceId="code-select"
-                    required
-                  />
-                </div>
-
-                <div className="form-group p-3">
-                  <label>
-                    コンテナのステータス<span className="text-danger">*</span>
-                  </label>
-                  <select
-                    name="container_status"
-                    className="form-control"
-                    value={formData.container_status}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="" disabled>
-                      選択してくださ
-                    </option>
-                    <option value="利用可能">利用可能</option>
-                    <option value="返却済み">返却済み</option>
-                    <option value="貸出中">貸出中</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                {successMessage && (
-                  <div
-                    className="alert alert-success alert-dismissible fade show"
-                    role="alert"
-                  >
-                    {successMessage}
+                    {error && (
+                      <div
+                        className="alert alert-danger alert-dismissible fade show"
+                        role="alert"
+                      >
+                        {error}
+                        <button
+                          type="button"
+                          className="btn-close"
+                          onClick={() => setError(null)}
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                    )}
                     <button
-                      type="button"
-                      className="btn-close"
-                      onClick={() => setSuccessMessage(null)}
-                      aria-label="Close"
-                    ></button>
+                      type="submit"
+                      className="btn btn-primary float-right m-3"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                          <span className="sr-only">処理中...</span>
+                        </>
+                      ) : (
+                        "提出"
+                      )}
+                    </button>
                   </div>
-                )}
-                {error && (
-                  <div
-                    className="alert alert-danger alert-dismissible fade show"
-                    role="alert"
-                  >
-                    {error}
-                    <button
-                      type="button"
-                      className="btn-close"
-                      onClick={() => setError(null)}
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                )}
-                <button
-                  type="submit"
-                  className="btn btn-primary float-right m-3"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <span
-                        className="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                      <span className="sr-only">処理中...</span>
-                    </>
-                  ) : (
-                    "提出"
-                  )}
-                </button>
-              </div>
-            </div>
-          </form>
-        </section>
+                </div>
+              </form>
+            </section>
+          </>
+        )}
       </div>
     </>
   );

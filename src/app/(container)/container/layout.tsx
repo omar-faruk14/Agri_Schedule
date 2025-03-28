@@ -4,7 +4,7 @@ import "./global.css";
 import { SidebarProvider } from "./component/SidebarContext";
 
 export const metadata: Metadata = {
-  title: "container",
+  title: "在庫管理",
 };
 
 export default function RootLayout({
@@ -23,8 +23,6 @@ export default function RootLayout({
 
       <body className="hold-transition sidebar-mini layout-fixed">
         <SidebarProvider>
-          {" "}
-          {/* Wrap everything inside SidebarProvider */}
           <div className="wrapper">{children}</div>
         </SidebarProvider>
    

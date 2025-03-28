@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const kintoneUrl: string = "https://emi-lab-osaka.cybozu.com/k/v1";
 const apiToken: string = "J8L0bzkzlNqflDQhhhpvR5LuryHyoZunzpQX5c7M";
 const appId: number = 103;
-const limit: number = 100; // Kintone API limit per request
+const limit: number = 100; 
 
 interface KintoneApiResponse {
   records: KintoneApiRecord[];

@@ -88,8 +88,8 @@ export default function Sidebar2() {
     >
       <Link href="/container/index" className={styles.brandLink}>
         <div className={styles.brandTextContainer}>
-          <span className={styles.brandTextFujimi}>コン</span>
-          <span className={styles.brandTextMaas}>テナ</span>
+          <span className={styles.brandTextFujimi}>在庫</span>
+          <span className={styles.brandTextMaas}>管理</span>
         </div>
       </Link>
       <div className={styles.sidebarContent}>
