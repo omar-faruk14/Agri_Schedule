@@ -3,6 +3,7 @@
     "key": "container",
     "label": "コンテナ管理",
     "icon": "fas fa-boxes",
+    "href": null,
     "subMenu": [
       {
         "label": "コンテナ登録",
@@ -20,6 +21,7 @@
     "key": "settings",
     "label": "設定",
     "icon": "fas fa-cog",
+    "href": null,
     "subMenu": [
       {
         "label": "アカウント",
@@ -32,5 +34,12 @@
         "icon": "fas fa-bell"
       }
     ]
+  },
+  {
+    "key": "singleItem",
+    "label": "シングルアイテム",
+    "icon": "fas fa-archive",
+    "href": "/container/2",
+    "subMenu": []
   }
 ]
