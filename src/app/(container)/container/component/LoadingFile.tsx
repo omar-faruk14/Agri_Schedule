@@ -1,6 +1,5 @@
-// components/LoadingSpinner.tsx
-// components/LoadingSpinner.tsx
-import styles from './LoadingSpinner.module.css';
+
+import styles from "@Om/app/(container)/container/styles/LoadingSpinner.module.css";
 
 const LoadingSpinner = () => {
   return (

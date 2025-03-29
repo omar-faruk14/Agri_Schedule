@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Header2 from "../component/Header2"; 
 import Sidebar2 from "../component/Sidebar2"; 
-import styles from "./pageh.module.css"
+import styles from "@Om/app/(container)/container/styles/pageh.module.css";
 
 interface FormData {
   container_id: string;

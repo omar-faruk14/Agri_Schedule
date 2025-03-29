@@ -120,6 +120,55 @@
   transition: all 0.3s ease;
 }
 
+/* Submenu Styling */
+.subMenu {
+  list-style: none;
+  padding-left: 20px;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.subMenuItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: #b0bec5;
+  font-size: 0.9rem;
+  text-decoration: none; /* Ensure no underline */
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  border-radius: 4px;
+  position: relative;
+}
+
+.subMenuItem::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: #9b5de5;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.subMenuItem:hover::before {
+  opacity: 1;
+}
+
+.subMenuItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  text-decoration: none; /* Keep it clean */
+}
+
+.subMenuItem i {
+  margin-right: 8px;
+  color: inherit; /* Ensure icon color matches text */
+}
 /* Responsive Design */
 @media (min-width: 992px) {
   .sidebar {

@@ -1,0 +1,36 @@
+[
+  {
+    "key": "container",
+    "label": "コンテナ管理",
+    "icon": "fas fa-boxes",
+    "subMenu": [
+      {
+        "label": "コンテナ登録",
+        "href": "/container/index",
+        "icon": "fas fa-archive"
+      },
+      {
+        "label": "ステータス管理",
+        "href": "/container/status",
+        "icon": "fas fa-clipboard-list"
+      }
+    ]
+  },
+  {
+    "key": "settings",
+    "label": "設定",
+    "icon": "fas fa-cog",
+    "subMenu": [
+      {
+        "label": "アカウント",
+        "href": "/settings/account",
+        "icon": "fas fa-user"
+      },
+      {
+        "label": "通知",
+        "href": "/settings/notifications",
+        "icon": "fas fa-bell"
+      }
+    ]
+  }
+]

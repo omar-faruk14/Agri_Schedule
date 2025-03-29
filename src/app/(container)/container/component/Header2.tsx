@@ -3,7 +3,8 @@
 import { useSidebar } from "./SidebarContext";
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import styles from "./Header2.module.css";
+import * as styles from "@Om/app/(container)/container/styles/Header2.css";
+
 
 export default function Header2() {
   const { toggleSidebar } = useSidebar();

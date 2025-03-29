@@ -4,49 +4,20 @@ import { useSidebar } from "./SidebarContext";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import styles from "./Sidebar2.module.css";
+import styles from "@Om/app/(container)/container/styles/Sidebar2.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import menuItems from "@Om/app/(container)/container/component/menuItems.json"; 
 
 export default function Sidebar2() {
   const pathname = usePathname();
   const { isSidebarVisible, closeSidebar } = useSidebar();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Define all menu items with submenus
-  const menuItems = [
-    {
-      key: "container",
-      label: "コンテナ管理",
-      icon: "fas fa-boxes",
-      subMenu: [
-        {
-          label: "コンテナ登録",
-          href: "/container/index",
-          icon: "fas fa-archive",
-        },
-        {
-          label: "ステータス管理",
-          href: "/container/status",
-          icon: "fas fa-clipboard-list",
-        },
-      ],
-    },
-    {
-      key: "settings",
-      label: "1",
-      icon: "fas fa-cog",
-      subMenu: [
-        { label: "アカウント", href: "/settings/account", icon: "fas fa-user" },
-        { label: "通知", href: "/settings/notifications", icon: "fas fa-bell" },
-      ],
-    },
-  ];
+  
 
-  // State to track which submenus are open
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>(() => {
     const initialOpenState: Record<string, boolean> = {};
     menuItems.forEach((item) => {
-      // Keep open if the current path matches any submenu
       initialOpenState[item.key] = item.subMenu.some(
         (sub) => sub.href === pathname
       );
@@ -71,7 +42,6 @@ export default function Sidebar2() {
     };
   }, [isSidebarVisible, closeSidebar]);
 
-  // Function to toggle submenus
   const toggleMenu = (key: string) => {
     setOpenMenus((prev) => ({
       ...prev,
@@ -97,7 +67,6 @@ export default function Sidebar2() {
           <ul className={styles.navList}>
             {menuItems.map((menu) => (
               <li key={menu.key}>
-                {/* Parent Menu Item */}
                 <div
                   className={`${styles.navItem} ${
                     openMenus[menu.key] ? styles.active : ""
@@ -107,15 +76,13 @@ export default function Sidebar2() {
                   <i className={menu.icon}></i>
                   <span>{menu.label}</span>
                 </div>
-
-                {/* Submenu */}
                 {openMenus[menu.key] && (
-                  <ul className={styles.subNavList}>
+                  <ul className={styles.subMenu}>
                     {menu.subMenu.map((sub) => (
                       <li key={sub.href}>
                         <Link
                           href={sub.href}
-                          className={`${styles.navItem} ${
+                          className={`${styles.subMenuItem} ${
                             pathname === sub.href ? styles.active : ""
                           }`}
                         >
@@ -129,7 +96,6 @@ export default function Sidebar2() {
               </li>
             ))}
 
-            {/* Example of a menu without submenus */}
             <li>
               <Link
                 href="/container/2"

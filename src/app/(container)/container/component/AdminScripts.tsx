@@ -9,18 +9,12 @@ export default function AdminScripts() {
 
   return (
     <>
+   
       <Script
-        src="/assets/plugins/jquery/jquery.min.js"
-        strategy="beforeInteractive"
-      />
-      <Script
-        src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"
+        src="bootstrap/dist/js/bootstrap.bundle.min.js"
         strategy="afterInteractive"
       />
-      <Script
-        src="/assets/dist/js/adminlte.min.js"
-        strategy="afterInteractive"
-      />
+   
     </>
   );
 }
