@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
-const kintoneUrl: string = `https://emi-lab-osaka.cybozu.com/k/v1`;
+const kintoneUrl: string = `${process.env.NEXT_PUBLIC_KINTONE_BASE_URL}/k/v1`;
 const apiToken: string = "xhCmByL6GxBm1SxQ8uYXJzQVTYd2eM5kuGSADFJM";
 const appId: number = 104;
+const limit: number = 100; 
 
 
 interface KintoneApiResponse {
@@ -23,34 +24,50 @@ interface KintoneRecord {
 
 
 export async function GET(): Promise<NextResponse> {
+  let allRecords: KintoneRecord[] = [];
+  let offset: number = 0;
+
   try {
-    
-    const response = await fetch(`${kintoneUrl}/records.json?app=${appId}`, {
-      headers: {
-        "X-Cybozu-API-Token": apiToken,
-      },
-    });
+    while (true) {
+      const response = await fetch(
+        `${kintoneUrl}/records.json?app=${appId}&query=limit ${limit} offset ${offset}`,
+        {
+          headers: {
+            "X-Cybozu-API-Token": apiToken,
+          },
+        }
+      );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch records");
+      if (!response.ok) {
+        throw new Error("Failed to fetch records");
+      }
+
+      const data: KintoneApiResponse = await response.json();
+      const records: KintoneRecord[] = data.records.map(
+        (record: KintoneApiRecord) => ({
+          Record_number: record.Record_number.value,
+          container_id: record.container_id.value,
+          container_status: record.container_status.value,
+        })
+      );
+
+      if (records.length === 0) {
+        break; // Exit loop when no more records are returned
+      }
+
+      allRecords = allRecords.concat(records);
+      offset += limit; // Update offset for next batch
     }
-    const data: KintoneApiResponse = await response.json();
 
-    const records: KintoneRecord[] = data.records.map(
-      (record: KintoneApiRecord) => ({
-        Record_number: record.Record_number.value,
-        container_id: record.container_id.value,
-        container_status: record.container_status.value,
-      })
+    allRecords.sort(
+      (a, b) => parseInt(a.Record_number) - parseInt(b.Record_number)
     );
-
-    return NextResponse.json(records);
+    return NextResponse.json(allRecords);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Error retrieving records" });
   }
 }
-
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {

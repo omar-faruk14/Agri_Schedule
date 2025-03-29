@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const kintoneUrl: string = `https://emi-lab-osaka.cybozu.com/k/v1`;
+const kintoneUrl: string = `${process.env.NEXT_PUBLIC_KINTONE_BASE_URL}/k/v1`;
 const apiToken: string = "7szxwrgC4CdRCoABMCnXoFj7QZ9Sjtmb5QGttuin";
 const appId: number = 96;
 
