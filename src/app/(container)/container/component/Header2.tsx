@@ -22,7 +22,7 @@ export default function Header2() {
   return (
     <nav className={`main-header navbar navbar-expand ${styles.navbar}`}>
       <ul className="navbar-nav">
-        <li className="nav-item d-block d-md-none">
+        <li className="nav-item d-block d-lg-none">
           <button
             className={`nav-link ${styles.menuButton}`}
             onClick={toggleSidebar}
