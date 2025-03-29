@@ -1,4 +1,4 @@
-/* Sidebar2.module.css */
+
 
 /* Sidebar container */
 .sidebar {
@@ -7,8 +7,7 @@
   left: 0;
   width: 250px;
   height: 100vh;
-  background-color: #1b1f3b; /* Deep navy background */
-  color: #ffffff;
+  background-color: #1b1f3b; 
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease-in-out;
@@ -112,7 +111,7 @@
 /* Active Link */
 .active {
   background: linear-gradient(90deg, rgba(27, 31, 59, 0.9) 0%, rgba(18, 21, 48, 0.9) 100%);
-  border-left: 4px solid #00f5d4;
+  border-left: 2px solid #00f5d4;
   margin: 4px 0;
   border-radius: 0 4px 4px 0;
   color: #ffffff !important;
@@ -135,7 +134,7 @@
   padding: 10px 20px;
   color: #b0bec5;
   font-size: 0.9rem;
-  text-decoration: none; /* Ensure no underline */
+  text-decoration: none; 
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
   border-radius: 4px;
   position: relative;
@@ -162,12 +161,12 @@
 .subMenuItem:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  text-decoration: none; /* Keep it clean */
+  text-decoration: none; 
 }
 
 .subMenuItem i {
   margin-right: 8px;
-  color: inherit; /* Ensure icon color matches text */
+  color: inherit; 
 }
 /* Responsive Design */
 @media (min-width: 992px) {

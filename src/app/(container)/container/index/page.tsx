@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Header2 from "../component/Header2"; 
 import Sidebar2 from "../component/Sidebar2"; 
-import styles from "@Om/app/(container)/container/styles/pageh.module.css";
+import * as styles from "@Om/app/(container)/container/styles/pageh.css";
 
 interface FormData {
   container_id: string;
@@ -58,7 +58,7 @@ export default function ContainerRecord() {
     <>
       <Header2 />
       <Sidebar2 />
-      <div className="content-wrapper">
+      <div className="content-wrapper overflow-x-hidden overflow-y-auto">
         <section className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">

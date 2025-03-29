@@ -7,20 +7,19 @@ import { useState, useEffect, useRef } from "react";
 import styles from "@Om/app/(container)/container/styles/Sidebar2.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import menuItemsData from "@Om/app/(container)/container/component/menuItems.json"; 
-// Define the interface for sub-menu items
 interface SubMenuItem {
   label: string;
   href: string;
   icon: string;
 }
 
-// Define the interface for menu items (including main and sub menus)
+
 interface MenuItem {
   key: string;
   label: string;
   icon: string;
-  href: string | null; // null means this item is a parent with subMenu
-  subMenu: SubMenuItem[]; // Array of sub-menu items
+  href: string | null; 
+  subMenu: SubMenuItem[]; 
 }
 
 export default function Sidebar2() {
@@ -28,7 +27,7 @@ export default function Sidebar2() {
   const { isSidebarVisible, closeSidebar } = useSidebar();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Explicitly type the menuItems as an array of MenuItem
+  
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>(() => {
     const initialOpenState: Record<string, boolean> = {};
     menuItemsData.forEach((item: MenuItem) => {

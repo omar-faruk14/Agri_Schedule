@@ -5,8 +5,8 @@ import Select, { SingleValue } from "react-select";
 
 import Header2 from "@Om/app/(container)/container/component/Header2"; 
 import Sidebar2 from "@Om/app/(container)/container/component/Sidebar2"; 
-import styles from "@Om/app/(container)/container/styles/pageh.module.css";
 import LoadingSpinner from "@Om/app/(container)/container/component/LoadingFile";
+import * as styles from "@Om/app/(container)/container/styles/pageh.css";
 
 
 interface FormData {
@@ -104,7 +104,7 @@ export default function ContainerRecord() {
       <Header2 />
       <Sidebar2 />
 
-      <div className="content-wrapper overflow-hidden">
+      <div className="content-wrapper overflow-x-hidden overflow-y-auto">
         {container.length === 0 ? (
           <LoadingSpinner />
         ) : (
