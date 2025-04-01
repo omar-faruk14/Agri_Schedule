@@ -24,10 +24,24 @@ interface KintoneRecord {
 }
 
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(request: Request): Promise<NextResponse> {
   try {
     
-    const response = await fetch(`${kintoneUrl}/records.json?app=${appId}`, {
+    const { searchParams } = new URL(request.url);
+        const container_id = searchParams.get("container_id");
+    
+        if (!container_id) {
+          return NextResponse.json(
+            { error: "Missing container_id parameter" },
+            { status: 400 }
+          );
+        }
+    
+        const query = `(container_id = "${container_id}")`;
+        const response = await fetch(
+          `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+            query
+          )}`,{
       headers: {
         "X-Cybozu-API-Token": apiToken,
       },

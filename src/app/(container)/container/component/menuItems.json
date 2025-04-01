@@ -18,28 +18,10 @@
     ]
   },
   {
-    "key": "settings",
-    "label": "1",
-    "icon": "fas fa-cog",
-    "href": null,
-    "subMenu": [
-      {
-        "label": "アカウント",
-        "href": "/settings/account",
-        "icon": "fas fa-user"
-      },
-      {
-        "label": "通知",
-        "href": "/container/qrdisplay",
-        "icon": "fas fa-bell"
-      }
-    ]
-  },
-  {
     "key": "singleItem",
-    "label": "2",
+    "label": "情報一覧",
     "icon": "fas fa-archive",
-    "href": "/container/2",
+    "href": "/container/qrdisplay/allData",
     "subMenu": []
   }
 ]
