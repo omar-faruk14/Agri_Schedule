@@ -129,13 +129,13 @@ export default function ContainerRecord() {
                       <label>
                         借用者情報<span className="text-danger">*</span>
                       </label>
-                      <input
-                        type="text"
+                      <textarea
                         name="Borrower_Information"
                         className="form-control"
                         value={formData.Borrower_Information}
                         onChange={handleChange}
                         required
+                        rows={4} 
                       />
                     </div>
 

@@ -12,10 +12,20 @@ type ContainerData = {
   Borrower_Information: string;
 };
 
-// Helper function for badge class
+// Helper function for badge class based on status
 const getStatusBadgeClass = (status: string): string => {
-  return status === "返却済み" ? styles.badgeSuccess : styles.badgeDanger;
+  switch (status) {
+    case "返却済み":
+      return styles.badgeSuccess; // When the container is returned
+    case "貸出中":
+      return styles.badgeWarning; // When the container is borrowed
+    case "利用可能":
+      return styles.badgeAvailable; // When the container is available
+    default:
+      return styles.badgeDefault; // Default class in case no match
+  }
 };
+
 
 export default function Page({
   params,
@@ -55,7 +65,7 @@ export default function Page({
     <>
       <Header2 />
       <Sidebar2 />
-      <div className="content-wrapper overflow-x-hidden overflow-y-auto p-1">
+      <div className="content-wrapper overflow-x-hidden overflow-y-auto py-5">
         {loading ? (
           <LoadingSpinner />
         ) : (
@@ -69,10 +79,23 @@ export default function Page({
                 <div className={styles.card}>
                   <div className="card-body">
                     <p className={styles.text}>
-                      <strong>コンテナ ID:</strong> {data.container_id}
+                      <strong>コンテナ ID:</strong>{" "}
+                      <span className={styles.qrcodestyle}>
+                        {data.container_id}
+                      </span>
                     </p>
+
                     <p className={styles.text}>
-                      <strong>借用者情報:</strong> {data.Borrower_Information}
+                      <strong>借用者情報:</strong>{" "}
+                      {(data.Borrower_Information?.split("\n") ?? []).map(
+                        (line, index) => (
+                          <React.Fragment key={index}>
+                            {line}
+                            <br />
+                          </React.Fragment>
+                        )
+                      )}
+                      {!data.Borrower_Information && "N/A"}
                     </p>
                     <span
                       className={getStatusBadgeClass(data.container_status)}
@@ -80,10 +103,15 @@ export default function Page({
                       <i
                         className={`${
                           data.container_status === "返却済み"
-                            ? "fas fa-check-circle"
-                            : "fas fa-times-circle"
+                            ? "fas fa-check-circle" // Returned
+                            : data.container_status === "貸出中"
+                            ? "fas fa-clock" // Borrowed (in use)
+                            : data.container_status === "利用可能"
+                            ? "fas fa-check-circle" // Available
+                            : "fas fa-question-circle" // Default case (unknown)
                         } ${styles.icon}`}
                       />
+
                       {data.container_status}
                     </span>
                   </div>

@@ -21,7 +21,7 @@
     "key": "singleItem",
     "label": "情報一覧",
     "icon": "fas fa-archive",
-    "href": "/container/qrdisplay/allData",
+    "href": "/container/qrdisplay/allDat",
     "subMenu": []
   }
 ]

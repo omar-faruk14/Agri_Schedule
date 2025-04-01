@@ -62,8 +62,9 @@ globalStyle(`@media (max-width: 768px)`, {
   },
 });
 
+// Success (返却済み)
 export const badgeSuccess = style({
-  backgroundColor: colors.success,
+  backgroundColor: colors.success,  // Green from success
   color: "#fff",
   padding: "8px 16px",
   borderRadius: "25px",
@@ -74,13 +75,14 @@ export const badgeSuccess = style({
   gap: "8px",
   transition: "background 0.3s ease, transform 0.2s ease",
   ":hover": {
-    backgroundColor: "#218838",
+    backgroundColor: "#218838",  // Darker green on hover
     transform: "scale(1.05)",
   },
 });
 
-export const badgeDanger = style({
-  backgroundColor: colors.danger,
+// Warning (貸出中)
+export const badgeWarning = style({
+  backgroundColor: colors.accent,  // Yellow from accent
   color: "#fff",
   padding: "8px 16px",
   borderRadius: "25px",
@@ -91,11 +93,54 @@ export const badgeDanger = style({
   gap: "8px",
   transition: "background 0.3s ease, transform 0.2s ease",
   ":hover": {
-    backgroundColor: "#c82333",
+    backgroundColor: "#e0a800",  // Darker yellow on hover
     transform: "scale(1.05)",
   },
 });
 
+// Available (利用可能)
+export const badgeAvailable = style({
+  backgroundColor: colors.primary,  // Blue from primary
+  color: "#fff",
+  padding: "8px 16px",
+  borderRadius: "25px",
+  fontSize: "14px",
+  fontWeight: "600",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "8px",
+  transition: "background 0.3s ease, transform 0.2s ease",
+  ":hover": {
+    backgroundColor: "#004085",  // Darker blue on hover
+    transform: "scale(1.05)",
+  },
+});
+
+// Default fallback (for unknown status)
+export const badgeDefault = style({
+  backgroundColor: colors.border,  // Light gray from border
+  color: "#fff",
+  padding: "8px 16px",
+  borderRadius: "25px",
+  fontSize: "14px",
+  fontWeight: "600",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "8px",
+  transition: "background 0.3s ease, transform 0.2s ease",
+  ":hover": {
+    backgroundColor: "#d6d8db",  // Slightly darker gray on hover
+    transform: "scale(1.05)",
+  },
+});
+
+
+export const qrcodestyle = style({
+  backgroundColor: "#e0f7fa", // Light blue highlight color
+  padding: "4px 8px",
+  borderRadius: "4px",
+  fontWeight: "bold",
+});
 
 export const icon = style({
   fontSize: "18px",
