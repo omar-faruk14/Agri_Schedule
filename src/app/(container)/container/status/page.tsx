@@ -18,7 +18,6 @@ interface FormData {
 interface ContainerData {
   Record_number: string;
   container_id: string;
-  container_status: string;
 }
 
 interface SelectOption {
@@ -135,7 +134,7 @@ export default function ContainerRecord() {
                         value={formData.Borrower_Information}
                         onChange={handleChange}
                         required
-                        rows={4} 
+                        rows={4}
                       />
                     </div>
 
@@ -226,7 +225,7 @@ export default function ContainerRecord() {
                           <span className="sr-only">処理中...</span>
                         </>
                       ) : (
-                        "提出"
+                        "送信"
                       )}
                     </button>
                   </div>

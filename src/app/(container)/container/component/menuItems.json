@@ -14,12 +14,17 @@
         "label": "ステータス管理",
         "href": "/container/status",
         "icon": "fas fa-clipboard-list"
+      },
+      {
+        "label": "情報一覧",
+        "href": "/container/list",
+        "icon": "fas fa-list"
       }
     ]
   },
   {
     "key": "singleItem",
-    "label": "情報一覧",
+    "label": "1",
     "icon": "fas fa-archive",
     "href": "/container/qrdisplay/allDat",
     "subMenu": []

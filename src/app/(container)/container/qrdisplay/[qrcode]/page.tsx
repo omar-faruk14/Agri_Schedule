@@ -16,13 +16,17 @@ type ContainerData = {
 const getStatusBadgeClass = (status: string): string => {
   switch (status) {
     case "返却済み":
-      return styles.badgeSuccess; // When the container is returned
+      return styles.badgeSuccess;
     case "貸出中":
-      return styles.badgeWarning; // When the container is borrowed
-    case "利用可能":
-      return styles.badgeAvailable; // When the container is available
+      return styles.badgeWarning;
+    case "利用可能（洗浄済み）":
+      return styles.badgeAvailable;
+    case "利用不可（未洗浄）":
+      return styles.badgeDanger;
+    case "使用不可":
+      return styles.badgeDanger;
     default:
-      return styles.badgeDefault; // Default class in case no match
+      return styles.badgeDefault;
   }
 };
 

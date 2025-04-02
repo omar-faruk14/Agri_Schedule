@@ -63,9 +63,7 @@ export default function ContainerRecord() {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col">
-                <h2 className={`${styles.h2_map}`}>
-                  コンテナを登録する
-                </h2>
+                <h2 className={`${styles.h2_map}`}>コンテナを登録する</h2>
               </div>
             </div>
           </div>
@@ -89,25 +87,6 @@ export default function ContainerRecord() {
                     onChange={handleChange}
                     required
                   />
-                </div>
-                <div className="form-group p-3">
-                  <label>
-                    コンテナのステータス<span className="text-danger">*</span>
-                  </label>
-                  <select
-                    name="container_status"
-                    className="form-control"
-                    value={formData.container_status}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="" disabled>
-                      選択してくださ
-                    </option>
-                    <option value="利用可能">利用可能</option>
-                    <option value="返却済み">返却済み</option>
-                    <option value="貸出中">貸出中</option>
-                  </select>
                 </div>
               </div>
             </div>
@@ -156,7 +135,7 @@ export default function ContainerRecord() {
                       <span className="sr-only">処理中...</span>
                     </>
                   ) : (
-                    "提出"
+                    "送信"
                   )}
                 </button>
               </div>

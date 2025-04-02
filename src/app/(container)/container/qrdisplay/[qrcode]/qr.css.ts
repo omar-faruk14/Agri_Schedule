@@ -134,6 +134,23 @@ export const badgeDefault = style({
   },
 });
 
+export const badgeDanger = style({
+  backgroundColor: colors.border, // Light gray from border
+  color: "#ff0000",
+  padding: "8px 16px",
+  borderRadius: "25px",
+  fontSize: "14px",
+  fontWeight: "600",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "8px",
+  transition: "background 0.3s ease, transform 0.2s ease",
+  ":hover": {
+    backgroundColor: "#d6d8db", // Slightly darker gray on hover
+    transform: "scale(1.05)",
+  },
+});
+
 
 export const qrcodestyle = style({
   backgroundColor: "#e0f7fa", // Light blue highlight color

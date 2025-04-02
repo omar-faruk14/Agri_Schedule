@@ -13,13 +13,11 @@ interface KintoneApiResponse {
 interface KintoneApiRecord {
   Record_number: { value: string };
   container_id: { value: string };
-  container_status: { value: string };
 }
 
 interface KintoneRecord {
   Record_number: string;
   container_id: string;
-  container_status: string;
 }
 
 
@@ -47,7 +45,6 @@ export async function GET(): Promise<NextResponse> {
         (record: KintoneApiRecord) => ({
           Record_number: record.Record_number.value,
           container_id: record.container_id.value,
-          container_status: record.container_status.value,
         })
       );
 
@@ -76,7 +73,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Validate required fields
     const requiredFields: (keyof KintoneRecord)[] = [
       "container_id",
-      "container_status",
     ];
 
     for (const field of requiredFields) {
@@ -92,7 +88,6 @@ export async function POST(request: Request): Promise<NextResponse> {
       app: appId,
       record: {
         container_id: { value: body.container_id },
-        container_status: { value: body.container_status },
       },
     };
 
