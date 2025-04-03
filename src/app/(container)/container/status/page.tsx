@@ -112,7 +112,7 @@ export default function ContainerRecord() {
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col">
-                    <h2 className={`${styles.h2_map}`}>コンテナのステータス</h2>
+                    <h2 className={`${styles.h2_map}`}>樽のステータス</h2>
                   </div>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function ContainerRecord() {
 
                     <div className="form-group p-3">
                       <label>
-                        コンテナQRコード<span className="text-danger">*</span>
+                        樽QRコード<span className="text-danger">*</span>
                       </label>
                       <Select
                         menuPlacement="auto"
@@ -160,7 +160,7 @@ export default function ContainerRecord() {
 
                     <div className="form-group p-3">
                       <label>
-                        コンテナのステータス
+                        樽のステータス
                         <span className="text-danger">*</span>
                       </label>
                       <select
@@ -173,9 +173,15 @@ export default function ContainerRecord() {
                         <option value="" disabled>
                           選択してくださ
                         </option>
-                        <option value="利用可能">利用可能</option>
                         <option value="返却済み">返却済み</option>
                         <option value="貸出中">貸出中</option>
+                        <option value="利用可能（洗浄済み）">
+                          利用可能（洗浄済み）
+                        </option>
+                        <option value="利用不可（未洗浄）">
+                          利用不可（未洗浄）
+                        </option>
+                        <option value="使用不可">使用不可</option>
                       </select>
                     </div>
                   </div>

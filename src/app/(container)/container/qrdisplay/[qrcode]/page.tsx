@@ -20,9 +20,9 @@ const getStatusBadgeClass = (status: string): string => {
     case "貸出中":
       return styles.badgeWarning;
     case "利用可能（洗浄済み）":
-      return styles.badgeAvailable;
+      return styles.badgeSuccess;
     case "利用不可（未洗浄）":
-      return styles.badgeDanger;
+      return styles.badgeAvailable;
     case "使用不可":
       return styles.badgeDanger;
     default:
@@ -76,14 +76,14 @@ export default function Page({
           data && (
             <>
               <section className={styles.cardHeader}>
-                <h1 className={styles.header}>コンテナ情報</h1>
+                <h1 className={styles.header}>樽情報</h1>
               </section>
 
               <section className="content">
                 <div className={styles.card}>
                   <div className="card-body">
                     <p className={styles.text}>
-                      <strong>コンテナ ID:</strong>{" "}
+                      <strong>樽QRコード:</strong>{" "}
                       <span className={styles.qrcodestyle}>
                         {data.container_id}
                       </span>
@@ -110,8 +110,12 @@ export default function Page({
                             ? "fas fa-check-circle" // Returned
                             : data.container_status === "貸出中"
                             ? "fas fa-clock" // Borrowed (in use)
-                            : data.container_status === "利用可能"
-                            ? "fas fa-check-circle" // Available
+                            : data.container_status === "利用可能（洗浄済み）"
+                            ? "fas fa-check-circle" // Available (Cleaned)
+                            : data.container_status === "利用不可（未洗浄）"
+                            ? "fas fa-exclamation-triangle" // Not Available (Uncleaned)
+                            : data.container_status === "使用不可"
+                            ? "fas fa-times-circle" // Unusable
                             : "fas fa-question-circle" // Default case (unknown)
                         } ${styles.icon}`}
                       />

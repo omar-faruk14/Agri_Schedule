@@ -63,7 +63,7 @@ export default function ContainerRecord() {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col">
-                <h2 className={`${styles.h2_map}`}>コンテナを登録する</h2>
+                <h2 className={`${styles.h2_map}`}>樽を登録する</h2>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function ContainerRecord() {
               <div className="card-body">
                 <div className="form-group m-3">
                   <label>
-                    コンテナ QRコード<span className="text-danger">*</span>
+                    樽 QRコード<span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"

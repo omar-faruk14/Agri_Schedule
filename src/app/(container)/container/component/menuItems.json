@@ -1,25 +1,31 @@
 [
   {
     "key": "container",
-    "label": "コンテナ管理",
+    "label": "樽管理",
     "icon": "fas fa-boxes",
     "href": null,
     "subMenu": [
       {
-        "label": "コンテナ登録",
+        "label": "樽登録",
         "href": "/container/index",
         "icon": "fas fa-archive"
       },
       {
-        "label": "ステータス管理",
+        "label": "樽管理",
         "href": "/container/status",
         "icon": "fas fa-clipboard-list"
       },
       {
         "label": "情報一覧",
-        "href": "/container/list",
+        "href": "/container/allData",
         "icon": "fas fa-list"
+      },
+      {
+        "label": "QRコード作成",
+        "href": "/container/QrCreate",
+        "icon": "fas fa-qrcode"
       }
+
     ]
   },
   {
