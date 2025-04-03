@@ -34,7 +34,11 @@ const TableComponent = () => {
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.container_id}</td>
+                    <td>
+                      <a href={`/container/qrdisplay/${item.container_id}`}>
+                        {item.container_id}
+                      </a>
+                    </td>
                     <td>{item.container_status}</td>
                   </tr>
                 ))}

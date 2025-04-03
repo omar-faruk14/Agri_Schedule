@@ -102,7 +102,6 @@ export default function ContainerRecord() {
     <>
       <Header2 />
       <Sidebar2 />
-
       <div className="content-wrapper overflow-x-hidden overflow-y-auto">
         {container.length === 0 ? (
           <LoadingSpinner />
