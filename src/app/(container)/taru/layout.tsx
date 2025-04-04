@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./global.css";
-
 import { SidebarProvider } from "./component/SidebarContext";
-
 export const metadata: Metadata = {
   title: "在庫管理",
 };

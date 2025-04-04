@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header2 from "@Om/app/(container)/container/component/Header2";
-import Sidebar2 from "@Om/app/(container)/container/component/Sidebar2";
-import LoadingSpinner from "@Om/app/(container)/container/component/LoadingFile";
+import Header2 from "@Om/app/(container)/taru/component/Header2";
+import Sidebar2 from "@Om/app/(container)/taru/component/Sidebar2";
+import LoadingSpinner from "@Om/app/(container)/taru/component/LoadingFile";
 import { use } from "react";
-import * as styles from "./qr.css";
+import * as styles from "@Om/app/(container)/taru/qrdisplay/[qrcode]/qr.css";
+
 
 type ContainerData = {
   container_id: string;
@@ -29,7 +30,6 @@ const getStatusBadgeClass = (status: string): string => {
       return styles.badgeDefault;
   }
 };
-
 
 export default function Page({
   params,
@@ -122,6 +122,33 @@ export default function Page({
 
                       {data.container_status}
                     </span>
+
+                    {/* === Edit & Delete Buttons Below === */}
+                    <div
+                      style={{
+                        marginTop: "20px",
+                        display: "flex",
+                        gap: "10px",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button
+                        className={styles.buttonEdit}
+                        onClick={() => alert("編集機能は未実装です")}
+                      >
+                        ✏️ 編集
+                      </button>
+                      <button
+                        className={styles.buttonDelete}
+                        onClick={() => alert("削除機能は未実装です")}
+                      >
+                        <i
+                          className="fas fa-trash-alt"
+                          style={{ marginRight: "8px", color: "white" }}
+                        ></i>
+                        削除
+                      </button>
+                    </div>
                   </div>
                 </div>
               </section>

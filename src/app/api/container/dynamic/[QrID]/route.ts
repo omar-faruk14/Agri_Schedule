@@ -13,7 +13,7 @@ export async function GET(
     }
 
     const baseUrl =
-      "https://main.d2hc7hdf8ja5ek.amplifyapp.com/container/qrdisplay";
+      "https://main.d2hc7hdf8ja5ek.amplifyapp.com/taru/qrdisplay";
     const url = `${baseUrl}/${encodeURIComponent(QrID)}`;
 
     const qrOptions = {

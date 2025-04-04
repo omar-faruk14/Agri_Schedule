@@ -187,3 +187,36 @@ export const text = style({
   textTransform: "uppercase",
   letterSpacing: "1.5px",
 });
+
+
+export const buttonEdit = style({
+  backgroundColor: "#007bff", // Blue color
+  color: "#fff",
+  padding: "8px 16px",
+  borderRadius: "8px",
+  fontSize: "14px",
+  fontWeight: "600",
+  border: "none",
+  cursor: "pointer",
+  transition: "background 0.3s ease, transform 0.2s ease",
+  ":hover": {
+    backgroundColor: "#0056b3", // Darker blue
+    transform: "scale(1.05)",
+  },
+});
+
+export const buttonDelete = style({
+  backgroundColor: "#dc3545", // Red color
+  color: "#fff",
+  padding: "8px 16px",
+  borderRadius: "8px",
+  fontSize: "14px",
+  fontWeight: "600",
+  border: "none",
+  cursor: "pointer",
+  transition: "background 0.3s ease, transform 0.2s ease",
+  ":hover": {
+    backgroundColor: "#c82333", // Darker red
+    transform: "scale(1.05)",
+  },
+});

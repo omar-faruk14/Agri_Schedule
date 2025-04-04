@@ -21,7 +21,7 @@
         "icon": "fas fa-list"
       },
       {
-        "label": "QRコード作成",
+        "label": "1",
         "href": "/container/QrCreate",
         "icon": "fas fa-qrcode"
       }
