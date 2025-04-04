@@ -7,22 +7,22 @@
     "subMenu": [
       {
         "label": "樽登録",
-        "href": "/container/index",
+        "href": "/taru/index",
         "icon": "fas fa-archive"
       },
       {
         "label": "樽管理",
-        "href": "/container/status",
+        "href": "/taru/status",
         "icon": "fas fa-clipboard-list"
       },
       {
         "label": "情報一覧",
-        "href": "/container/allData",
+        "href": "/taru/allData",
         "icon": "fas fa-list"
       },
       {
-        "label": "1",
-        "href": "/container/QrCreate",
+        "label": "QRコード作成",
+        "href": "/taru/QrCreate",
         "icon": "fas fa-qrcode"
       }
 

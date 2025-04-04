@@ -27,7 +27,7 @@ const TableComponent = () => {
       setError(null);
       try {
         const response = await fetch(
-          `/api/container/status/staticValue?page=${page}&limit=${limit}`
+          `/api/taru/status/staticValue?page=${page}&limit=${limit}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -76,7 +76,7 @@ const TableComponent = () => {
                     <tr key={item.Record_number}>
                       <td>
                         <a
-                          href={`/container/qrDisplayKanri/${item.container_id}`}
+                          href={`/taru/qrDisplayKanri/${item.container_id}`}
                         >
                           {item.container_id}
                         </a>

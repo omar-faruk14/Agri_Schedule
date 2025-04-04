@@ -41,7 +41,7 @@ export default function ContainerRecord() {
   useEffect(() => {
     const fetchContainer = async () => {
       try {
-        const response = await fetch("/api/container/register");
+        const response = await fetch("/api/taru/register");
         const data: ContainerData[] = await response.json(); 
         setContainer(data);
       } catch (error) {
@@ -66,7 +66,7 @@ export default function ContainerRecord() {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/container/status", {
+    const response = await fetch("/api/taru/status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -32,7 +32,7 @@ export default function ContainerRecord() {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/container/register", {
+    const response = await fetch("/api/taru/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

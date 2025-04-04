@@ -47,7 +47,7 @@ export default function Page({
       setLoading(true);
       try {
         const response = await fetch(
-          `/api/container/status?container_id=${qrcode}`
+          `/api/taru/status?container_id=${qrcode}`
         );
         const result = await response.json();
         if (result && result.length > 0) {

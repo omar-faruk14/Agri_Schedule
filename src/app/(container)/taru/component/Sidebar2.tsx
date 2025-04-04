@@ -4,9 +4,9 @@ import { useSidebar } from "./SidebarContext";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import styles from "@Om/app/(container)/container/styles/Sidebar2.module.css";
+import styles from "@Om/app/(container)/taru/styles/Sidebar2.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import menuItemsData from "@Om/app/(container)/container/component/menuItems.json"; 
+import menuItemsData from "@Om/app/(container)/taru/component/menuItems.json"; 
 interface SubMenuItem {
   label: string;
   href: string;
