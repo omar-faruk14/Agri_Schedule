@@ -1,0 +1,65 @@
+[
+  {
+    "key": "taru",
+    "label": "樽管理",
+    "icon": "fas fa-boxes",
+    "href": null,
+    "subMenu": [
+      {
+        "label": "樽登録",
+        "href": "/taru/index",
+        "icon": "fas fa-archive"
+      },
+      {
+        "label": "樽管理",
+        "href": "/taru/status",
+        "icon": "fas fa-clipboard-list"
+      },
+      {
+        "label": "情報一覧",
+        "href": "/taru/allData",
+        "icon": "fas fa-list"
+      },
+      {
+        "label": "QRコード作成",
+        "href": "/taru/QrCreate",
+        "icon": "fas fa-qrcode"
+      }
+    ]
+  },
+  {
+    "key": "container",
+    "label": "コンテナ管理",
+    "icon": "fas fa-boxes",
+    "href": null,
+    "subMenu": [
+      {
+        "label": "コンテナ登録",
+        "href": "/container/index",
+        "icon": "fas fa-archive"
+      },
+      {
+        "label": "コンテナ管理",
+        "href": "/container/status",
+        "icon": "fas fa-clipboard-list"
+      },
+      {
+        "label": "コンテナ情報一覧",
+        "href": "/container/allData",
+        "icon": "fas fa-list"
+      },
+      {
+        "label": "QRコード作成",
+        "href": "/container/QrCreate",
+        "icon": "fas fa-qrcode"
+      }
+    ]
+  },
+  {
+    "key": "singleItem",
+    "label": "1",
+    "icon": "fas fa-archive",
+    "href": "/container/qrdisplay/allDat",
+    "subMenu": []
+  }
+]

@@ -1,8 +1,8 @@
 "use client";
-import Header2 from "@Om/app/(container)/clist/component/Header2";
-import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
+// import Header2 from "@Om/app/(container)/clist/component/Header2";
+// import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
-import Footer from "@Om/app/(container)/clist/component/Footer";
+// import Footer from "@Om/app/(container)/clist/component/Footer";
 
 import { useState } from "react";
 const QRCodePage = () => {
@@ -15,7 +15,8 @@ const QRCodePage = () => {
 
   const handleGenerateQRCode = async () => {
     if (!value) return;
-    const response = await fetch(`/api/taru/dynamic/${value}`);
+
+    const response = await fetch(`/api/social/${encodeURIComponent(value)}`);
     const data = await response.json();
 
     if (data.qrCode) {
@@ -24,6 +25,7 @@ const QRCodePage = () => {
       alert("Failed to generate QR Code");
     }
   };
+
 
   const handleDownloadQRCode = () => {
     if (!qrCodeDataUrl) return;
@@ -35,8 +37,7 @@ const QRCodePage = () => {
 
   return (
     <>
-      <Header2 />
-      <Sidebar2 />
+   
 
       <div className="content-wrapper overflow-x-hidden overflow-y-auto">
         <section className="content-header text-center">
@@ -85,7 +86,7 @@ const QRCodePage = () => {
           </div>
         </section>
       </div>
-      <Footer />
+      
     </>
   );
 };

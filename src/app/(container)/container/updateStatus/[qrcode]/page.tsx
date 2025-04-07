@@ -33,7 +33,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
     container_id: "",
     container_status: "",
     Borrower_Information: "",
-    typeCode: "taru",
+    typeCode: "container",
   };
   const { qrcode } = use(params);
   const [formData, setFormData] = useState<FormData>(initialFormState);
@@ -60,7 +60,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
             container_id: existingData.container_id,
             container_status: existingData.container_status,
             Borrower_Information: existingData.Borrower_Information,
-            typeCode: "taru",
+            typeCode: "container",
           });
 
         } else {

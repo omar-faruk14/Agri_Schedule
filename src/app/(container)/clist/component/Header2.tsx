@@ -3,7 +3,7 @@
 import { useSidebar } from "./SidebarContext";
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import * as styles from "@Om/app/(container)/taru/styles/Header2.css";
+import * as styles from "@Om/app/(container)/clist/styles/Header2.css";
 
 
 export default function Header2() {

@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react";
 import Select, { SingleValue } from "react-select";
 
-import Header2 from "@Om/app/(container)/clist/component/Header2";
-import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
+import Header2 from "@Om/app/(container)/clist/component/Header2"; 
+import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2"; 
 import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
-import { use } from "react";
-import { useRouter } from "next/navigation";
+
+
 interface FormData {
-  Record_number: string;
   container_id: string;
   container_status: string;
   Borrower_Information: string;
@@ -27,61 +26,25 @@ interface SelectOption {
   label: string;
 }
 
-export default function ContainerRecord({ params }: { params: Promise<{ qrcode: string }> }) {
+export default function ContainerRecord() {
   const initialFormState = {
-    Record_number: "",
     container_id: "",
     container_status: "",
     Borrower_Information: "",
-    typeCode: "taru",
+    typeCode: "container",
   };
-  const { qrcode } = use(params);
+
   const [formData, setFormData] = useState<FormData>(initialFormState);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [container, setContainer] = useState<ContainerData[]>([]);
-  const router = useRouter();
-
-
-  useEffect(() => {
-    if (!qrcode) return;
-
-    async function fetchSchedule() {
-      setLoading(true);
-      try {
-        const response = await fetch(`/api/taru/status?container_id=${qrcode}`);
-        const result = await response.json();
-        if (result && result.length > 0) {
-          const existingData = result[0];
-          // Update formData with the existing data from the API
-          setFormData({
-            Record_number: existingData.Record_number, // Add this line
-            container_id: existingData.container_id,
-            container_status: existingData.container_status,
-            Borrower_Information: existingData.Borrower_Information,
-            typeCode: "taru",
-          });
-
-        } else {
-          console.error("No data found");
-        }
-      } catch (error) {
-        console.error("データの取得に失敗しました", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchSchedule();
-  }, [qrcode]);
-
 
   useEffect(() => {
     const fetchContainer = async () => {
       try {
         const response = await fetch("/api/taru/register");
-        const data: ContainerData[] = await response.json();
+        const data: ContainerData[] = await response.json(); 
         setContainer(data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
@@ -92,23 +55,21 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSelectChange = (selectedOption: SingleValue<SelectOption>) => {
-    setFormData({ ...formData, container_id: selectedOption?.value || "" });
-  };
+   const handleSelectChange = (selectedOption: SingleValue<SelectOption>) => {
+     setFormData({ ...formData, container_id: selectedOption?.value || "" });
+   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     const response = await fetch("/api/taru/status", {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -119,24 +80,25 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
     setLoading(false);
 
     if (response.ok) {
-      setSuccessMessage("レコードが正常に更新されました");
+      setSuccessMessage("レコードが正常に作成されました");
       setError(null);
       setFormData(initialFormState);
-      router.push(`/taru/qrDisplayKanri/${formData.container_id}`);
     } else {
       setError(result.error || "エラーが発生しました");
       setSuccessMessage(null);
     }
   };
 
+
   const options = container
-    .sort((a, b) =>
-      a.container_id.localeCompare(b.container_id, undefined, { numeric: true })
-    )
+    .sort((a, b) => a.container_id.localeCompare(b.container_id, undefined, { numeric: true }))
     .map((container) => ({
       value: container.container_id,
       label: `${container.container_id}`,
     }));
+
+   
+
 
   return (
     <>

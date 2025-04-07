@@ -136,8 +136,8 @@
   font-size: 0.9rem;
   text-decoration: none; 
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-  border-radius: 4px;
   position: relative;
+  border-radius: 9999px;
 }
 
 .subMenuItem::before {

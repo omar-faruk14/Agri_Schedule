@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import Select, { SingleValue } from "react-select";
 
-import Header2 from "@Om/app/(container)/taru/component/Header2"; 
-import Sidebar2 from "@Om/app/(container)/taru/component/Sidebar2"; 
-import LoadingSpinner from "@Om/app/(container)/taru/component/LoadingFile";
-import * as styles from "@Om/app/(container)/taru/styles/pageh.css";
+import Header2 from "@Om/app/(container)/clist/component/Header2"; 
+import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2"; 
+import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
+import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
 
 
 interface FormData {

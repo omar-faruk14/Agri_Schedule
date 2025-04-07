@@ -1,5 +1,5 @@
 
-import * as styles from "@Om/app/(container)/taru/styles/LoadingSpinner.css";
+import * as styles from "@Om/app/(container)/clist/styles/LoadingSpinner.css";
 
 const LoadingSpinner = () => {
   return (
