@@ -13,6 +13,7 @@ interface FormData {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  typeCode: string;
 }
 
 interface ContainerData {
@@ -30,6 +31,7 @@ export default function ContainerRecord() {
     container_id: "",
     container_status: "",
     Borrower_Information: "",
+    typeCode: "taru",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormState);

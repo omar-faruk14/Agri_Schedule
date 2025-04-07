@@ -5,6 +5,7 @@ import Sidebar2 from "@Om/app/(container)/taru/component/Sidebar2";
 import LoadingSpinner from "@Om/app/(container)/taru/component/LoadingFile";
 import { use } from "react";
 import * as styles from "@Om/app/(container)/taru/qrdisplay/[qrcode]/qr.css";
+import { useRouter } from "next/navigation";
 
 
 type ContainerData = {
@@ -39,6 +40,7 @@ export default function Page({
   const { qrcode } = use(params);
   const [data, setData] = useState<ContainerData | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!qrcode) return;
@@ -124,17 +126,18 @@ export default function Page({
                     </span>
 
                     {/* === Edit & Delete Buttons Below === */}
-                    <div
+                    <div className="d-flex justify-content-end"
                       style={{
                         marginTop: "20px",
                         display: "flex",
                         gap: "10px",
-                        justifyContent: "center",
                       }}
                     >
                       <button
                         className={styles.buttonEdit}
-                        onClick={() => alert("編集機能は未実装です")}
+                        onClick={() =>
+                          router.push(`/taru/updateStatus/${qrcode}`)
+                        }
                       >
                         ✏️ 編集
                       </button>

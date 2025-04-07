@@ -21,7 +21,7 @@
         "icon": "fas fa-list"
       },
       {
-        "label": "QRコード作成",
+        "label": "１",
         "href": "/taru/QrCreate",
         "icon": "fas fa-qrcode"
       }
@@ -30,7 +30,7 @@
   },
   {
     "key": "singleItem",
-    "label": "1",
+    "label": "QRコード作成",
     "icon": "fas fa-archive",
     "href": "/container/qrdisplay/allDat",
     "subMenu": []
