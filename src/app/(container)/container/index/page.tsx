@@ -7,14 +7,12 @@ import Sidebar2 from "../../clist/component/Sidebar2";
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
 
 interface FormData {
-  container_id: string;
-  container_status: string;
+  new_container_id: string;
 }
 
 export default function ContainerRecord() {
   const initialFormState = {
-    container_id: "",
-    container_status: "",
+    new_container_id: "",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormState);
@@ -32,7 +30,7 @@ export default function ContainerRecord() {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/taru/register", {
+    const response = await fetch("/api/container/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +61,7 @@ export default function ContainerRecord() {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col">
-                <h2 className={`${styles.h2_map}`}>樽を登録する</h2>
+                <h2 className={`${styles.h2_map}`}>コンテナを登録する</h2>
               </div>
             </div>
           </div>
@@ -77,13 +75,13 @@ export default function ContainerRecord() {
               <div className="card-body">
                 <div className="form-group m-3">
                   <label>
-                    樽 QRコード<span className="text-danger">*</span>
+                    コンテナ QRコード<span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    name="container_id"
+                    name="new_container_id"
                     className="form-control"
-                    value={formData.container_id}
+                    value={formData.new_container_id}
                     onChange={handleChange}
                     required
                   />

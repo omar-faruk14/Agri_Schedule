@@ -9,6 +9,7 @@ interface KintoneApiRecord {
   container_id: { value: string };
   container_status: { value: string };
   Borrower_Information: { value: string };
+  typeCode: { value: string };
 }
 
 interface KintoneApiResponse {
@@ -21,6 +22,7 @@ interface KintoneRecord {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  typeCode: string;
 }
 
 export async function GET(request: Request): Promise<NextResponse> {
@@ -30,7 +32,19 @@ export async function GET(request: Request): Promise<NextResponse> {
     const limit: number = parseInt(url.searchParams.get("limit") || "2", 10);
     const offset: number = (page - 1) * limit;
 
-    const query: string = `order by Record_number desc limit ${limit} offset ${offset}`;
+
+    const { searchParams } = new URL(request.url);
+    const typeCode = searchParams.get("typeCode");
+
+    if (!typeCode) {
+      return NextResponse.json(
+        { error: "Missing typeCode parameter" },
+        { status: 400 }
+      );
+    }
+
+    const query: string = `(typeCode = "${typeCode}") order by Record_number desc limit ${limit} offset ${offset}`;
+
 
     // Fetch records with pagination
     const recordsResponse = await fetch(
@@ -55,6 +69,7 @@ export async function GET(request: Request): Promise<NextResponse> {
       container_id: record.container_id.value,
       container_status: record.container_status.value,
       Borrower_Information: record.Borrower_Information.value,
+      typeCode: record.typeCode.value,
     }));
 
     let totalPages: number | null = null;

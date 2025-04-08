@@ -11,6 +11,7 @@ type ContainerData = {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  typeCode: string;
 };
 
 const TableComponent = () => {
@@ -18,7 +19,7 @@ const TableComponent = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
-  const limit: number = 3; // Matches backend limit
+  const limit: number = 3; 
   const [totalPages, setTotalPages] = useState<number | null>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const TableComponent = () => {
       setError(null);
       try {
         const response = await fetch(
-          `/api/taru/status/staticValue?page=${page}&limit=${limit}`
+          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=container`,
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -57,7 +58,7 @@ const TableComponent = () => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col">
-                  <h2 className={`${styles.h2_map}`}>樽一覧</h2>
+                  <h2 className={`${styles.h2_map}`}>コンテナ一覧</h2>
                 </div>
               </div>
             </div>
@@ -76,7 +77,7 @@ const TableComponent = () => {
                     <tr key={item.Record_number}>
                       <td>
                         <a
-                          href={`/taru/qrDisplayKanri/${item.container_id}`}
+                          href={`/container/qrDisplayKanri/${item.container_id}`}
                         >
                           {item.container_id}
                         </a>

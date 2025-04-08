@@ -8,12 +8,12 @@
       {
         "label": "樽登録",
         "href": "/taru/index",
-        "icon": "fas fa-archive"
+        "icon": "fas fas fa-plus-circle"
       },
       {
         "label": "樽管理",
         "href": "/taru/status",
-        "icon": "fas fa-clipboard-list"
+        "icon": "fas fa-tasks"
       },
       {
         "label": "情報一覧",
@@ -30,13 +30,13 @@
   {
     "key": "container",
     "label": "コンテナ管理",
-    "icon": "fas fa-boxes",
+    "icon": "fas fa-cube",
     "href": null,
     "subMenu": [
       {
         "label": "コンテナ登録",
         "href": "/container/index",
-        "icon": "fas fa-archive"
+        "icon": "fas fas fa-plus-square"
       },
       {
         "label": "コンテナ管理",

@@ -76,14 +76,14 @@ export default function Page({
           data && (
             <>
               <section className={styles.cardHeader}>
-                <h1 className={styles.header}>樽情報</h1>
+                <h1 className={styles.header}>コンテナ情報</h1>
               </section>
 
               <section className="content">
                 <div className={styles.card}>
                   <div className="card-body">
                     <p className={styles.text}>
-                      <strong>樽QRコード:</strong>{" "}
+                      <strong>コンテナQRコード:</strong>{" "}
                       <span className={styles.qrcodestyle}>
                         {data.container_id}
                       </span>

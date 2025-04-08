@@ -18,7 +18,7 @@ interface FormData {
 
 interface ContainerData {
   Record_number: string;
-  container_id: string;
+  new_container_id: string;
 }
 
 interface SelectOption {
@@ -43,7 +43,7 @@ export default function ContainerRecord() {
   useEffect(() => {
     const fetchContainer = async () => {
       try {
-        const response = await fetch("/api/taru/register");
+        const response = await fetch("/api/container/register");
         const data: ContainerData[] = await response.json(); 
         setContainer(data);
       } catch (error) {
@@ -91,10 +91,14 @@ export default function ContainerRecord() {
 
 
   const options = container
-    .sort((a, b) => a.container_id.localeCompare(b.container_id, undefined, { numeric: true }))
+    .sort((a, b) =>
+      a.new_container_id.localeCompare(b.new_container_id, undefined, {
+        numeric: true,
+      })
+    )
     .map((container) => ({
-      value: container.container_id,
-      label: `${container.container_id}`,
+      value: container.new_container_id,
+      label: `${container.new_container_id}`,
     }));
 
    
@@ -113,7 +117,7 @@ export default function ContainerRecord() {
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col">
-                    <h2 className={`${styles.h2_map}`}>樽のステータス</h2>
+                    <h2 className={`${styles.h2_map}`}>コンテナのステータス</h2>
                   </div>
                 </div>
               </div>
@@ -141,7 +145,7 @@ export default function ContainerRecord() {
 
                     <div className="form-group p-3">
                       <label>
-                        樽QRコード<span className="text-danger">*</span>
+                        コンテナQRコード<span className="text-danger">*</span>
                       </label>
                       <Select
                         menuPlacement="auto"
@@ -161,7 +165,7 @@ export default function ContainerRecord() {
 
                     <div className="form-group p-3">
                       <label>
-                        樽のステータス
+                        コンテナのステータス
                         <span className="text-danger">*</span>
                       </label>
                       <select

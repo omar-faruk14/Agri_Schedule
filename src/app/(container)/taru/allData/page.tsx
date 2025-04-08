@@ -11,6 +11,7 @@ type ContainerData = {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  typeCode: string;
 };
 
 const TableComponent = () => {
@@ -27,7 +28,7 @@ const TableComponent = () => {
       setError(null);
       try {
         const response = await fetch(
-          `/api/taru/status/staticValue?page=${page}&limit=${limit}`
+          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=taru`,
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -67,17 +68,15 @@ const TableComponent = () => {
               <table className="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>コンテナ QRコード</th>
-                    <th>コンテナのステータス</th>
+                    <th>樽 QRコード</th>
+                    <th>樽のステータス</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.map((item) => (
                     <tr key={item.Record_number}>
                       <td>
-                        <a
-                          href={`/taru/qrDisplayKanri/${item.container_id}`}
-                        >
+                        <a href={`/taru/qrDisplayKanri/${item.container_id}`}>
                           {item.container_id}
                         </a>
                       </td>
