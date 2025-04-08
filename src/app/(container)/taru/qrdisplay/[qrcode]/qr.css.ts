@@ -220,3 +220,12 @@ export const buttonDelete = style({
     transform: "scale(1.05)",
   },
 });
+
+
+export const qrImage = style({
+  maxWidth: "200px",
+  border: "2px solid #dee2e6",
+  padding: "10px",
+  borderRadius: "5px",
+});
+

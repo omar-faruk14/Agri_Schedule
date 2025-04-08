@@ -160,7 +160,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
               <form onSubmit={handleSubmit}>
                 <div className={styles.card_primary}>
                   <div className={styles.card_header}>
-                    <h3 className={styles.card_title}>入力フォーム</h3>
+                    <h3 className={styles.card_title}>更新フォーム</h3>
                   </div>
                   <div className="card-body">
                     <div className="form-group m-3">

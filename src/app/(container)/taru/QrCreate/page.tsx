@@ -65,23 +65,31 @@ const QRCodePage = () => {
               </button>
             </div>
 
-            {qrCodeDataUrl && (
-              <div className="text-center mt-4">
-                <img
-                  src={qrCodeDataUrl}
-                  alt="生成されたQRコード"
-                  className="border p-2 rounded"
-                />
-                <div className="mt-3">
-                  <button
-                    onClick={handleDownloadQRCode}
-                    className="btn btn-success"
-                  >
-                    ダウンロード
-                  </button>
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-auto">
+                  {qrCodeDataUrl && (
+                    <div className="text-center mt-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={qrCodeDataUrl}
+                        alt="生成されたQRコード"
+                        className="img-thumbnail mb-3"
+                        style={{ maxWidth: "250px" }}
+                      />
+                      <div>
+                        <button
+                          onClick={handleDownloadQRCode}
+                          className="btn btn-success"
+                        >
+                          ダウンロード
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </section>
       </div>
