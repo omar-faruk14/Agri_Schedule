@@ -100,7 +100,7 @@ export default function Page({
                           </React.Fragment>
                         )
                       )}
-                      {!data.Borrower_Information && "N/A"}
+                      {!data.Borrower_Information && "該当なし"}
                     </p>
                     <p className={styles.text}>
                       <strong>中身の種類:</strong>{" "}
@@ -112,7 +112,7 @@ export default function Page({
                           </React.Fragment>
                         )
                       )}
-                      {!data.content_type_information && "N/A"}
+                      {!data.content_type_information && "該当なし"}
                     </p>
                     <span
                       className={getStatusBadgeClass(data.container_status)}
