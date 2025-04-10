@@ -38,14 +38,18 @@ export default function Page({
   const { qrcode } = use(params);
   const [data, setData] = useState<ContainerData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [qrLoading, setQrLoading] = useState<boolean>(false);
   const router = useRouter();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
 
-  const handleGenerateQRCode = async () => {
+  const handleGenerateQRCode = async (): Promise<void> => {
     if (!data?.container_id) return;
+    setQrLoading(true); // Start QR generation loading
+
     try {
-      const response = await fetch(`/api/taru/dynamic/${data.container_id}`);
+      const response = await fetch(`/api/container/dynamic/${data.container_id}`);
       const result = await response.json();
+
       if (result.qrCode) {
         setQrCodeDataUrl(result.qrCode);
       } else {
@@ -53,8 +57,12 @@ export default function Page({
       }
     } catch (error) {
       console.error("QRコードの生成エラー:", error);
+      alert("QRコードの生成中にエラーが発生しました");
+    } finally {
+      setQrLoading(false); // End QR generation loading
     }
   };
+
 
   useEffect(() => {
     if (!qrcode) return;
@@ -160,15 +168,29 @@ export default function Page({
                 <div className="card-body d-flex flex-column gap-2">
                   <button
                     className="btn btn-warning mb-2"
-                    onClick={() => router.push(`/container/updateStatus/${qrcode}`)}
+                    onClick={() =>
+                      router.push(`/container/updateStatus/${qrcode}`)
+                    }
                   >
                     ✏️ ステータスを編集
                   </button>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     onClick={handleGenerateQRCode}
+                    disabled={qrLoading}
                   >
-                    📷 QRコードを生成
+                    {qrLoading ? (
+                      <>
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        <span>生成中...</span>
+                      </>
+                    ) : (
+                      "📷 QRコードを生成"
+                    )}
                   </button>
                 </div>
               </div>

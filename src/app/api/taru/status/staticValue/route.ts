@@ -32,7 +32,6 @@ export async function GET(request: Request): Promise<NextResponse> {
     const limit: number = parseInt(url.searchParams.get("limit") || "2", 10);
     const offset: number = (page - 1) * limit;
 
-
     const { searchParams } = new URL(request.url);
     const typeCode = searchParams.get("typeCode");
 
@@ -44,7 +43,6 @@ export async function GET(request: Request): Promise<NextResponse> {
     }
 
     const query: string = `(typeCode = "${typeCode}") order by Record_number desc limit ${limit} offset ${offset}`;
-
 
     // Fetch records with pagination
     const recordsResponse = await fetch(
@@ -75,10 +73,26 @@ export async function GET(request: Request): Promise<NextResponse> {
     let totalPages: number | null = null;
 
     // Fetch total count only on the first page request
+    // if (page === 1) {
+    //   const countResponse = await fetch(
+    //     `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+    //       ""
+    //     )}&totalCount=true`,
+    //     {
+    //       headers: {
+    //         "X-Cybozu-API-Token": apiToken,
+    //       },
+    //     }
+    //   );
+
+    //   if (!countResponse.ok) {
+    //     throw new Error("Failed to fetch total count");
+    //   }
+    // Fetch total count for the filtered records (same filter as query)
     if (page === 1) {
       const countResponse = await fetch(
         `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
-          ""
+          `(typeCode = "${typeCode}")`
         )}&totalCount=true`,
         {
           headers: {
