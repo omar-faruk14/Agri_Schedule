@@ -15,7 +15,7 @@ const QRCodePage = () => {
 
   const handleGenerateQRCode = async () => {
     if (!value) return;
-    const response = await fetch(`/api/taru/dynamic/${value}`);
+    const response = await fetch(`/api/container/dynamic/${value}`);
     const data = await response.json();
 
     if (data.qrCode) {

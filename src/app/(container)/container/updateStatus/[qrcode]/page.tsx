@@ -15,6 +15,7 @@ interface FormData {
   container_status: string;
   Borrower_Information: string;
   typeCode: string;
+  content_type_information?: string;
 }
 
 interface ContainerData {
@@ -61,6 +62,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
             container_status: existingData.container_status,
             Borrower_Information: existingData.Borrower_Information,
             typeCode: "container",
+            content_type_information: existingData.content_type_information,
           });
 
         } else {
@@ -224,6 +226,16 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                         </option>
                         <option value="使用不可">使用不可</option>
                       </select>
+                    </div>
+                    <div className="form-group m-3">
+                      <label>中身の種類 (任意)</label>
+                      <textarea
+                        name="content_type_information"
+                        className="form-control"
+                        value={formData.content_type_information}
+                        onChange={handleChange}
+                        rows={4}
+                      />
                     </div>
                   </div>
                 </div>
