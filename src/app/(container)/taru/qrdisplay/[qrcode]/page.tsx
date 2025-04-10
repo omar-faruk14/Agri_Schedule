@@ -10,6 +10,7 @@ type ContainerData = {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  content_type_information: string;
 };
 
 // Helper function for badge class based on status
@@ -100,6 +101,18 @@ export default function Page({
                         )
                       )}
                       {!data.Borrower_Information && "N/A"}
+                    </p>
+                    <p className={styles.text}>
+                      <strong>中身の種類:</strong>{" "}
+                      {(data.content_type_information?.split("\n") ?? []).map(
+                        (line, index) => (
+                          <React.Fragment key={index}>
+                            {line}
+                            <br />
+                          </React.Fragment>
+                        )
+                      )}
+                      {!data.content_type_information && "N/A"}
                     </p>
                     <span
                       className={getStatusBadgeClass(data.container_status)}

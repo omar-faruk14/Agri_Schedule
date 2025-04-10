@@ -226,15 +226,12 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                       </select>
                     </div>
                     <div className="form-group m-3">
-                      <label>
-                        中身の種類<span className="text-danger">*</span>
-                      </label>
+                      <label>中身の種類 (任意)</label>
                       <textarea
                         name="content_type_information"
                         className="form-control"
                         value={formData.content_type_information}
                         onChange={handleChange}
-                        required
                         rows={4}
                       />
                     </div>

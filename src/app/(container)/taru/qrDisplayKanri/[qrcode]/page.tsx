@@ -11,6 +11,7 @@ type ContainerData = {
   container_id: string;
   container_status: string;
   Borrower_Information: string;
+  content_type_information: string;
 };
 
 const getStatusBadgeClass = (status: string): string => {
@@ -110,6 +111,26 @@ export default function Page({
                 </div>
               </div>
             </div>
+
+            {data.content_type_information && (
+              <div className="col-md-12">
+                <div className="card card-outline card-warning shadow-sm">
+                  <div className="card-header">
+                    <h3 className="card-title">中身の種類</h3>
+                  </div>
+                  <div className="card-body">
+                    {(data.content_type_information?.split("\n") ?? []).map(
+                      (line, index) => (
+                        <p key={index} className="mb-1">
+                          {line}
+                        </p>
+                      )
+                    )}
+                    {!data.content_type_information && <p>N/A</p>}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Borrower Info */}
             <div className="col-md-6">

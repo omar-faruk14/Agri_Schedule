@@ -15,6 +15,7 @@ interface KintoneApiRecord {
   container_status: { value: string };
   Borrower_Information: { value: string };
   typeCode: { value: string };
+  content_type_information: { value: string };
 }
 
 interface KintoneRecord {
@@ -23,6 +24,7 @@ interface KintoneRecord {
   container_status: string;
   Borrower_Information: string;
   typeCode: string;
+  content_type_information?: string;
 }
 
 
@@ -61,6 +63,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         container_status: record.container_status.value,
         Borrower_Information: record.Borrower_Information.value,
         typeCode: record.typeCode.value,
+        content_type_information: record.content_type_information.value,
       })
     );
 
@@ -100,6 +103,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         container_status: { value: body.container_status },
         Borrower_Information: { value: body.Borrower_Information },
         typeCode: { value: body.typeCode },
+        content_type_information: {
+          value: body.content_type_information || null,
+        },
       },
     };
 
@@ -162,6 +168,12 @@ export async function PUT(request: Request): Promise<NextResponse> {
     if (body.typeCode) {
       updateFields.typeCode = { value: body.typeCode };
     }
+    if (body.content_type_information !== undefined) {
+      updateFields.content_type_information = {
+        value: body.content_type_information || null, // Assign null if the value is an empty string
+      };
+    }
+
 
     if (Object.keys(updateFields).length === 0) {
       return NextResponse.json(

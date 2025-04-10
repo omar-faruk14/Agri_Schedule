@@ -70,6 +70,9 @@ export default function ContainerRecord() {
     e.preventDefault();
     setLoading(true);
 
+
+    console.log(JSON.stringify(formData, null, 2)); // Debugging line
+
     const response = await fetch("/api/taru/status", {
       method: "POST",
       headers: {
@@ -190,14 +193,13 @@ export default function ContainerRecord() {
 
                     <div className="form-group m-3">
                       <label>
-                        中身の種類<span className="text-danger">*</span>
+                        中身の種類 (任意)
                       </label>
                       <textarea
                         name="content_type_information"
                         className="form-control"
                         value={formData.content_type_information}
                         onChange={handleChange}
-                        required
                         rows={4}
                       />
                     </div>
