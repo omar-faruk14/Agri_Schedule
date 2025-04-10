@@ -14,6 +14,7 @@ interface FormData {
   container_status: string;
   Borrower_Information: string;
   typeCode: string;
+  content_type_information?: string;
 }
 
 interface ContainerData {
@@ -32,6 +33,7 @@ export default function ContainerRecord() {
     container_status: "",
     Borrower_Information: "",
     typeCode: "taru",
+    content_type_information: "",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormState);
@@ -184,6 +186,20 @@ export default function ContainerRecord() {
                         </option>
                         <option value="使用不可">使用不可</option>
                       </select>
+                    </div>
+
+                    <div className="form-group m-3">
+                      <label>
+                        中身の種類<span className="text-danger">*</span>
+                      </label>
+                      <textarea
+                        name="content_type_information"
+                        className="form-control"
+                        value={formData.content_type_information}
+                        onChange={handleChange}
+                        required
+                        rows={4}
+                      />
                     </div>
                   </div>
                 </div>

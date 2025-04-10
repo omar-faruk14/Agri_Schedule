@@ -98,7 +98,7 @@ export default function Page({
                   <i className="fas fa-barcode"></i>
                 </span>
                 <div className="info-box-content">
-                  <span className="info-box-text">識別番号</span>
+                  <span className="info-box-text">QR識別番号</span>
                   <span className="info-box-number">{data.container_id}</span>
                   <span className="float-right mt-2">
                     <span
@@ -186,7 +186,7 @@ export default function Page({
             )}
           </div>
         ) : (
-          <LoadingSpinner/>
+          <LoadingSpinner />
         )}
       </div>
     </>
