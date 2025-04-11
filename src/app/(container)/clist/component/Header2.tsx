@@ -33,7 +33,7 @@ export default function Header2() {
         </li>
 
         <li className="nav-item d-none d-sm-inline-block">
-          <a href="/" className={`nav-link ${styles.navLink}`}>
+          <a href="#" className={`nav-link ${styles.navLink}`}>
             ホーム
           </a>
         </li>

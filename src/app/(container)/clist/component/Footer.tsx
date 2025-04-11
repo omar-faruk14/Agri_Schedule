@@ -5,8 +5,8 @@ export default function Footer2() {
   return (
     <div>
       <footer className="main-footer">
-        <div className="float-right d-none d-sm-inline">ふじみMaaS</div>
-        <strong>Copyright © 2024</strong> All rights reserved.
+        <div className="float-right d-none d-sm-inline">株式会社ラポーザ</div>
+        <strong>Copyright © 2025</strong> All rights reserved.
       </footer>
     </div>
   );

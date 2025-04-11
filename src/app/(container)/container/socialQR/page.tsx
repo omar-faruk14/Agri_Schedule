@@ -16,7 +16,14 @@ const QRCodePage = () => {
   const handleGenerateQRCode = async () => {
     if (!value) return;
 
-    const response = await fetch(`/api/social/${encodeURIComponent(value)}`);
+    // Build the Google Maps URL
+    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(
+      value
+    )}`;
+
+    const response = await fetch(
+      `/api/social/${encodeURIComponent(googleMapsUrl)}`
+    );
     const data = await response.json();
 
     if (data.qrCode) {
@@ -26,19 +33,16 @@ const QRCodePage = () => {
     }
   };
 
-
   const handleDownloadQRCode = () => {
     if (!qrCodeDataUrl) return;
     const link = document.createElement("a");
     link.href = qrCodeDataUrl;
-    link.download = `${value}.png`; 
+    link.download = `${value}.png`;
     link.click();
   };
 
   return (
     <>
-   
-
       <div className="content-wrapper overflow-x-hidden overflow-y-auto">
         <section className="content-header text-center">
           <div style={{ padding: "20px" }}>
@@ -86,7 +90,6 @@ const QRCodePage = () => {
           </div>
         </section>
       </div>
-      
     </>
   );
 };

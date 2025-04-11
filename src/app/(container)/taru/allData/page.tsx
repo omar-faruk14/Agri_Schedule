@@ -6,6 +6,7 @@ import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
 import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
 
+
 type ContainerData = {
   Record_number: string;
   container_id: string;
@@ -19,8 +20,18 @@ const TableComponent = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
-  const limit: number = 3; // Matches backend limit
+  const limit: number = 10; // Matches backend limit
   const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500); // 500ms delay for debounce
+
+    return () => clearTimeout(timer); // Cleanup on each search change
+  }, [search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +39,9 @@ const TableComponent = () => {
       setError(null);
       try {
         const response = await fetch(
-          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=taru`,
+          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=taru&search=${encodeURIComponent(
+            debouncedSearch
+          )}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -46,8 +59,7 @@ const TableComponent = () => {
     };
 
     fetchData();
-  }, [page]);
-
+  }, [page, debouncedSearch]); 
   return (
     <>
       <Header2 />
@@ -62,6 +74,17 @@ const TableComponent = () => {
                 </div>
               </div>
             </div>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="樽 QRコードで検索..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value); // Immediately update search
+                setPage(1); // Reset to page 1 when search changes
+              }}
+            />
+
             {loading && <LoadingSpinner />}
             {error && <p className="text-danger">Error: {error}</p>}
             {!loading && !error && (

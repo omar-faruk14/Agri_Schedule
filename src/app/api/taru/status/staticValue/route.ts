@@ -42,8 +42,15 @@ export async function GET(request: Request): Promise<NextResponse> {
       );
     }
 
-    const query: string = `(typeCode = "${typeCode}") order by Record_number desc limit ${limit} offset ${offset}`;
+    let query = `(typeCode = "${typeCode}")`;
+    const search = searchParams.get("search");
 
+    if (search) {
+      // Supports partial match by container_id
+      query += ` and (container_id like "${search}")`;
+    }
+
+    query += ` order by Record_number desc limit ${limit} offset ${offset}`;
     // Fetch records with pagination
     const recordsResponse = await fetch(
       `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
@@ -90,9 +97,14 @@ export async function GET(request: Request): Promise<NextResponse> {
     //   }
     // Fetch total count for the filtered records (same filter as query)
     if (page === 1) {
+      let countQuery = `(typeCode = "${typeCode}")`;
+      if (search) {
+        countQuery += ` and (container_id like "${search}")`;
+      }
+
       const countResponse = await fetch(
         `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
-          `(typeCode = "${typeCode}")`
+          countQuery
         )}&totalCount=true`,
         {
           headers: {

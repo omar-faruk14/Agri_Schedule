@@ -19,8 +19,18 @@ const TableComponent = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
-  const limit: number = 3; 
+  const limit: number = 10; // Matches backend limit
   const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500); // 500ms delay for debounce
+
+    return () => clearTimeout(timer); // Cleanup on each search change
+  }, [search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +38,9 @@ const TableComponent = () => {
       setError(null);
       try {
         const response = await fetch(
-          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=container`,
+          `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=container&search=${encodeURIComponent(
+            debouncedSearch
+          )}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -46,8 +58,7 @@ const TableComponent = () => {
     };
 
     fetchData();
-  }, [page]);
-
+  }, [page, debouncedSearch]);
   return (
     <>
       <Header2 />
@@ -62,6 +73,17 @@ const TableComponent = () => {
                 </div>
               </div>
             </div>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="コンテナ QRコードで検索..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+            />
+
             {loading && <LoadingSpinner />}
             {error && <p className="text-danger">Error: {error}</p>}
             {!loading && !error && (
@@ -76,9 +98,7 @@ const TableComponent = () => {
                   {data.map((item) => (
                     <tr key={item.Record_number}>
                       <td>
-                        <a
-                          href={`/container/qrDisplayKanri/${item.container_id}`}
-                        >
+                        <a href={`/taru/qrDisplayKanri/${item.container_id}`}>
                           {item.container_id}
                         </a>
                       </td>
@@ -120,4 +140,3 @@ const TableComponent = () => {
 };
 
 export default TableComponent;
-
