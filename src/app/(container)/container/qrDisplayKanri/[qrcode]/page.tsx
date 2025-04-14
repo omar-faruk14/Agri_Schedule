@@ -93,7 +93,7 @@ export default function Page({
       <Sidebar2 />
       <div className="content-wrapper p-4">
         <section className="content-header">
-          <h1 className="mb-4">📦 樽詳細情報</h1>
+          <h1 className="mb-4">🛒 コンテナ詳細情報</h1>
         </section>
 
         {loading ? (

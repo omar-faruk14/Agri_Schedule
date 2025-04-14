@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
                 <div className="small-box bg-warning">
                   <div className="inner">
                     <h4>情報一覧</h4>
-                    <p>すべての樽情報を確認</p>
+                    <p>すべての樽情報の確認・編集・QRコード生成が可能</p>
                   </div>
                   <div className="icon">
                     <i className="fas fa-list" />
@@ -122,7 +122,8 @@ const Dashboard: React.FC = () => {
                 <div className="small-box bg-warning">
                   <div className="inner">
                     <h4>情報一覧</h4>
-                    <p>すべてのコンテナ情報を確認</p>
+                    <p>すべてのコンテナ情報の確認・編集・QRコード生成が可能</p>
+
                   </div>
                   <div className="icon">
                     <i className="fas fa-list" />

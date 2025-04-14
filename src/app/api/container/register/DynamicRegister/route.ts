@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
 
 const kintoneUrl: string = `${process.env.NEXT_PUBLIC_KINTONE_BASE_URL}/k/v1`;
-const apiToken: string = "jrmkjLUA6BqzvglXZXfHAvHGJje6bySwRv3Z4rPG";
-const appId: number = 105;
+const apiToken: string = "kIbAeZvM4Xl4PHBFWopaypU8HmZ5mBfaPFtg6hIx";
+const appId: number = 106;
 
 interface KintoneApiRecord {
   Record_number: { value: string };
-  container_id: { value: string };
-  container_status: { value: string };
-  Borrower_Information: { value: string };
-  typeCode: { value: string };
+  new_container_id: { value: string };
 }
 
 interface KintoneApiResponse {
@@ -19,10 +16,7 @@ interface KintoneApiResponse {
 
 interface KintoneRecord {
   Record_number: string;
-  container_id: string;
-  container_status: string;
-  Borrower_Information: string;
-  typeCode: string;
+  new_container_id: string;
 }
 export const dynamic = "force-dynamic";
 export async function GET(request: Request): Promise<NextResponse> {
@@ -33,21 +27,12 @@ export async function GET(request: Request): Promise<NextResponse> {
     const offset: number = (page - 1) * limit;
 
     const { searchParams } = new URL(request.url);
-    const typeCode = searchParams.get("typeCode");
-
-    if (!typeCode) {
-      return NextResponse.json(
-        { error: "Missing typeCode parameter" },
-        { status: 400 }
-      );
-    }
-
-    let query = `(typeCode = "${typeCode}")`;
+    let query = ``;
     const search = searchParams.get("search");
 
     if (search) {
-      // Supports partial match by container_id
-      query += ` and (container_id like "${search}")`;
+      // Supports partial match by new_container_id
+      query += ` and (new_container_id like "${search}")`;
     }
 
     query += ` order by Record_number desc limit ${limit} offset ${offset}`;
@@ -71,10 +56,7 @@ export async function GET(request: Request): Promise<NextResponse> {
 
     const records: KintoneRecord[] = recordsData.records.map((record) => ({
       Record_number: record.Record_number.value,
-      container_id: record.container_id.value,
-      container_status: record.container_status.value,
-      Borrower_Information: record.Borrower_Information.value,
-      typeCode: record.typeCode.value,
+      new_container_id: record.new_container_id.value,
     }));
 
     let totalPages: number | null = null;
@@ -97,7 +79,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     //   }
     // Fetch total count for the filtered records (same filter as query)
     if (page === 1) {
-      let countQuery = `(typeCode = "${typeCode}")`;
+      let countQuery = ``;
       if (search) {
         countQuery += ` and (container_id like "${search}")`;
       }
@@ -127,6 +109,62 @@ export async function GET(request: Request): Promise<NextResponse> {
     console.error("Error retrieving records:", error);
     return NextResponse.json(
       { error: "Error retrieving records" },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(request: Request): Promise<NextResponse> {
+  try {
+    const url = new URL(request.url);
+    const recordId = url.searchParams.get("Record_number");
+
+    if (!recordId) {
+      console.error("Record_number パラメータが見つかりません。");
+      return NextResponse.json(
+        { error: "Record_number パラメータが必要です。" },
+        { status: 400 }
+      );
+    }
+
+    console.log("削除対象のレコードID:", recordId);
+
+    const res = await fetch(`${kintoneUrl}/records.json`, {
+      method: "DELETE",
+      headers: {
+        "X-Cybozu-API-Token": apiToken,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        app: appId,
+        ids: [recordId],
+      }),
+    });
+
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("レコード削除エラー:", errorData);
+      return NextResponse.json(
+        { error: "レコード削除中にエラーが発生しました。" },
+        { status: res.status }
+      );
+    }
+
+    const data = await res.json();
+
+    console.log("レコードの削除に成功しました。");
+
+    return NextResponse.json({
+      message: "削除に成功しました。",
+      response: data,
+    });
+  } catch (error) {
+    console.error("レコード削除中に予期しないエラーが発生しました:", error);
+    return NextResponse.json(
+      { error: "レコード削除中に予期しないエラーが発生しました。" },
       { status: 500 }
     );
   }

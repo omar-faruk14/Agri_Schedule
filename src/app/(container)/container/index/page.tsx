@@ -5,6 +5,7 @@ import { useState } from "react";
 import Header2 from "../../clist/component/Header2"; 
 import Sidebar2 from "../../clist/component/Sidebar2"; 
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
+import Link from "next/link";
 
 interface FormData {
   new_container_id: string;
@@ -139,6 +140,18 @@ export default function ContainerRecord() {
               </div>
             </div>
           </form>
+        </section>
+        <section className="content mt-4 text-center">
+          <Link href="/container/index/RegisterTable">
+            <button
+              className="btn btn-primary rounded-pill px-5 py-3" // AdminLTE primary button, rounded and styled
+              style={{
+                minWidth: "200px", // Ensure button has a decent size
+              }}
+            >
+              コンテナ登録一覧に移動
+            </button>
+          </Link>
         </section>
       </div>
     </>
