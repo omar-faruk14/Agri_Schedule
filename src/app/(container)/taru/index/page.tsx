@@ -146,7 +146,7 @@ export default function ContainerRecord() {
         <section className="content mt-4 text-center">
           <Link href="/taru/index/RegisterTable">
             <button
-              className="btn btn-primary rounded-pill px-5 py-3" // AdminLTE primary button, rounded and styled
+              className="btn btn-info rounded-pill px-5 py-3" // AdminLTE primary button, rounded and styled
               style={{
                 minWidth: "200px", // Ensure button has a decent size
               }}

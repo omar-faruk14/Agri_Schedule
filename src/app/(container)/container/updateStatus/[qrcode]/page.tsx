@@ -124,7 +124,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
       setSuccessMessage("レコードが正常に更新されました");
       setError(null);
       setFormData(initialFormState);
-      router.push(`/taru/qrDisplayKanri/${formData.container_id}`);
+      router.push(`/container/qrDisplayKanri/${formData.container_id}`);
     } else {
       setError(result.error || "エラーが発生しました");
       setSuccessMessage(null);

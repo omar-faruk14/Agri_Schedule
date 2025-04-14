@@ -74,7 +74,7 @@ const ContainerRegisterTable = () => {
     if (result.isConfirmed) {
       try {
         const res = await fetch(
-          `/api/container/register/DynamicRegister?Record_number=${recordId}`,
+          `/api/taru/register/DynamicRegister?Record_number=${recordId}`,
           {
             method: "DELETE",
           }
