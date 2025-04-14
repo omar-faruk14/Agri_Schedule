@@ -70,18 +70,38 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body: KintoneRecord = await request.json();
 
-    // Validate required fields
-    const requiredFields: (keyof KintoneRecord)[] = [
-      "container_id",
-    ];
-
+    const requiredFields: (keyof KintoneRecord)[] = ["container_id"];
     for (const field of requiredFields) {
       if (!body[field]) {
         return NextResponse.json(
-          { error: `Missing field: ${field}` },
+          { error: `必須項目が不足しています: ${field}` },
           { status: 400 }
         );
       }
+    }
+
+    const duplicateCheckResponse = await fetch(
+      `${kintoneUrl}/records.json?app=${appId}&query=container_id="${body.container_id}"`,
+      {
+        headers: {
+          "X-Cybozu-API-Token": apiToken,
+        },
+      }
+    );
+
+    if (!duplicateCheckResponse.ok) {
+      console.error("重複チェック中にエラーが発生しました");
+      throw new Error("重複チェックに失敗しました");
+    }
+
+    const duplicateData: KintoneApiResponse =
+      await duplicateCheckResponse.json();
+    if (duplicateData.records.length > 0) {
+      console.warn(`既に登録されている container_id: ${body.container_id}`);
+      return NextResponse.json(
+        { error: "同じQRコードの樽がすでに登録されています。" },
+        { status: 409 } 
+      );
     }
 
     const recordData = {
@@ -101,18 +121,20 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create record");
+      console.error("レコード作成に失敗しました");
+      throw new Error("レコードの作成に失敗しました");
     }
 
-    const data: KintoneApiResponse = await response.json();
+    const data = await response.json();
+    console.log("レコードが正常に作成されました");
     return NextResponse.json({
-      message: "Record created successfully",
+      message: "レコードが正常に作成されました",
       record: data,
     });
   } catch (error) {
-    console.error(error);
+    console.error("レコード登録中にエラーが発生しました:", error);
     return NextResponse.json(
-      { error: "Error creating record" },
+      { error: "レコードの登録中にエラーが発生しました。" },
       { status: 500 }
     );
   }

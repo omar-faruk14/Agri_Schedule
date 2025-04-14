@@ -198,6 +198,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                         placeholder="検索..."
                         instanceId="code-select"
                         required
+                        isDisabled
                       />
                     </div>
 

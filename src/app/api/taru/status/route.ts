@@ -83,8 +83,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     const requiredFields: (keyof KintoneRecord)[] = [
       "container_id",
       "container_status",
-       "Borrower_Information",
-       "typeCode",
+      "Borrower_Information",
+      "typeCode",
     ];
 
     for (const field of requiredFields) {
@@ -94,6 +94,33 @@ export async function POST(request: Request): Promise<NextResponse> {
           { status: 400 }
         );
       }
+    }
+
+    // Check if a record with the same container_id exists
+    const checkQuery = `(container_id = "${body.container_id}")`;
+
+    const checkResponse = await fetch(
+      `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+        checkQuery
+      )}`,
+      {
+        headers: {
+          "X-Cybozu-API-Token": apiToken,
+        },
+      }
+    );
+
+    if (!checkResponse.ok) {
+      throw new Error("Failed to check for existing container_id");
+    }
+
+    const checkData: KintoneApiResponse = await checkResponse.json();
+
+    if (checkData.records.length > 0) {
+      return NextResponse.json(
+        { error: "この QRコード は既に存在します。" },
+        { status: 400 }
+      );
     }
 
     const recordData = {
