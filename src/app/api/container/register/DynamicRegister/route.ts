@@ -31,8 +31,8 @@ export async function GET(request: Request): Promise<NextResponse> {
     const search = searchParams.get("search");
 
     if (search) {
-      // Supports partial match by new_container_id
-      query += ` and (new_container_id like "${search}")`;
+      // Supports partial match by container_id
+      query += `(new_container_id like "${search}")`; // Wrap the condition in parentheses
     }
 
     query += ` order by Record_number desc limit ${limit} offset ${offset}`;
@@ -79,11 +79,10 @@ export async function GET(request: Request): Promise<NextResponse> {
     //   }
     // Fetch total count for the filtered records (same filter as query)
     if (page === 1) {
-      let countQuery = ``;
-      if (search) {
-        countQuery += ` and (container_id like "${search}")`;
-      }
-
+       let countQuery = ``;
+       if (search) {
+         countQuery += `(new_container_id like "${search}")`;
+       }
       const countResponse = await fetch(
         `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
           countQuery
