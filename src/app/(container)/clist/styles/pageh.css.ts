@@ -32,3 +32,13 @@ export const h2_map = style({
   padding: "10px",
   borderRadius: "8px",
 });
+
+
+export const customBg = style({
+  backgroundImage: `url('/img/bg.jpg')`,
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
+  minHeight: "100vh",
+  padding: "1rem",
+});

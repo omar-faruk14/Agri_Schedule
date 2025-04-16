@@ -9,6 +9,12 @@ interface KintoneApiResponse {
   records: KintoneApiRecord[];
 }
 
+// interface for records get api
+interface KintoneApiResponse2 {
+  records: KintoneApiRecord[];
+  totalCount?: string;
+}
+
 interface KintoneApiRecord {
   Record_number: { value: string };
   bottle_QR_code: { value: string };
@@ -32,49 +38,102 @@ interface RequiredKintoneRecord {
   bottle_status: string;
 }
 
-
 export async function GET(request: Request): Promise<NextResponse> {
   try {
-    
+    const url = new URL(request.url);
+    const page: number = parseInt(url.searchParams.get("page") || "1", 10);
+    const limit: number = parseInt(url.searchParams.get("limit") || "2", 10);
+    const offset: number = (page - 1) * limit;
+
     const { searchParams } = new URL(request.url);
-        const container_id = searchParams.get("container_id");
     
-        if (!container_id) {
-          return NextResponse.json(
-            { error: "Missing container_id parameter" },
-            { status: 400 }
-          );
-        }
-    
-        const query = `(container_id = "${container_id}")`;
-        const response = await fetch(
-          `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
-            query
-          )}`,{
-      headers: {
-        "X-Cybozu-API-Token": apiToken,
-      },
-    });
+    let query = ``;
+    const search = searchParams.get("search");
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch records");
+    if (search) {
+      // Supports partial match by container_id
+      query += `(bottle_QR_code like "${search}")`; // Wrap the condition in parentheses
     }
-    const data: KintoneApiResponse = await response.json();
 
-    const records: KintoneRecord[] = data.records.map(
-      (record: KintoneApiRecord) => ({
-        Record_number: record.Record_number.value,
-        bottle_QR_code: record.bottle_QR_code.value,
-        barrel_used: record.barrel_used.value,
-        bottle_status: record.bottle_status.value,
-        bottle_type_information: record.bottle_type_information.value,
-      })
+    query += ` order by Record_number desc limit ${limit} offset ${offset}`;
+    // Fetch records with pagination
+    const recordsResponse = await fetch(
+      `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+        query
+      )}`,
+      {
+        headers: {
+          "X-Cybozu-API-Token": apiToken,
+        },
+      }
     );
 
-    return NextResponse.json(records);
+    if (!recordsResponse.ok) {
+      throw new Error("Failed to fetch records");
+    }
+
+    const recordsData: KintoneApiResponse = await recordsResponse.json();
+
+    const records: KintoneRecord[] = recordsData.records.map((record) => ({
+      Record_number: record.Record_number.value,
+      bottle_QR_code: record.bottle_QR_code.value,
+      barrel_used: record.barrel_used.value,
+      bottle_status: record.bottle_status.value,
+      bottle_type_information: record.bottle_type_information.value,
+    }));
+
+    let totalPages: number | null = null;
+
+    // Fetch total count only on the first page request
+    // if (page === 1) {
+    //   const countResponse = await fetch(
+    //     `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+    //       ""
+    //     )}&totalCount=true`,
+    //     {
+    //       headers: {
+    //         "X-Cybozu-API-Token": apiToken,
+    //       },
+    //     }
+    //   );
+
+    //   if (!countResponse.ok) {
+    //     throw new Error("Failed to fetch total count");
+    //   }
+    // Fetch total count for the filtered records (same filter as query)
+    if (page === 1) {
+      let countQuery = ``;
+      if (search) {
+        countQuery += `(bottle_QR_code like "${search}")`;
+      }
+
+      const countResponse = await fetch(
+        `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
+          countQuery
+        )}&totalCount=true`,
+        {
+          headers: {
+            "X-Cybozu-API-Token": apiToken,
+          },
+        }
+      );
+
+      if (!countResponse.ok) {
+        throw new Error("Failed to fetch total count");
+      }
+
+      const countData: KintoneApiResponse2 = await countResponse.json();
+      const totalRecords: number = parseInt(countData.totalCount || "0", 10);
+      totalPages = Math.ceil(totalRecords / limit);
+    }
+
+    return NextResponse.json({ records, totalPages });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Error retrieving records" });
+    console.error("Error retrieving records:", error);
+    return NextResponse.json(
+      { error: "Error retrieving records" },
+      { status: 500 }
+    );
   }
 }
 
