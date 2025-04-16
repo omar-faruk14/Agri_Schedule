@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "@Om/app/(container)/clist/styles/Sidebar2.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import menuItemsData from "@Om/app/(container)/clist/component/menuItems.json"; // Adjust the path as necessary
+import Image from "next/image";
 interface SubMenuItem {
   label: string;
   href: string;
@@ -69,10 +70,17 @@ export default function Sidebar2() {
         isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
       }`}
     >
-      <Link href="/container/index" className={styles.brandLink}>
-        <div className={styles.brandTextContainer}>
-          <span className={styles.brandTextFujimi}>在庫</span>
-          <span className={styles.brandTextMaas}>管理</span>
+       
+      <Link href="/dashboard" className={styles.brandLink}>
+        <div className={styles.logoContainer}>
+          <Image
+            src="/img/logo.png" 
+            alt="在庫管理ロゴ"
+            width={160} 
+            height={40}
+            className={styles.logoImage}
+            priority // Makes it load faster
+          />
         </div>
       </Link>
       <div className={styles.sidebarContent}>

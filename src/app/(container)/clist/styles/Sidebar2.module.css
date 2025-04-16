@@ -174,3 +174,18 @@
     transform: translateX(0);
   }
 }
+
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logoImage {
+  width: 100%;
+  height: auto;
+  max-width: 160px;
+}
+

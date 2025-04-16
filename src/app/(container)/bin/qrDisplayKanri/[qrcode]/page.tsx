@@ -97,7 +97,7 @@ export default function Page({
       <Sidebar2 />
       <div className="content-wrapper p-4">
         <section className="content-header">
-          <h1 className="mb-4">🛒 コンテナ詳細情報</h1>
+          <h1 className="mb-4">🍺 瓶詳細情報</h1>
         </section>
 
         {loading ? (
@@ -114,9 +114,7 @@ export default function Page({
                   <span className="info-box-text">QR識別番号</span>
                   <span className="info-box-number">{data.bottle_QR_code}</span>
                   <span className="float-right mt-2">
-                    <span
-                      className={getStatusBadgeClass(data.bottle_status)}
-                    >
+                    <span className={getStatusBadgeClass(data.bottle_status)}>
                       {data.bottle_status}
                     </span>
                   </span>
@@ -150,13 +148,11 @@ export default function Page({
                   <h3 className="card-title">借用者情報</h3>
                 </div>
                 <div className="card-body">
-                  {(data.barrel_used?.split("\n") ?? []).map(
-                    (line, index) => (
-                      <p key={index} className="mb-1">
-                        {line}
-                      </p>
-                    )
-                  )}
+                  {(data.barrel_used?.split("\n") ?? []).map((line, index) => (
+                    <p key={index} className="mb-1">
+                      {line}
+                    </p>
+                  ))}
                   {!data.barrel_used && <p>N/A</p>}
                 </div>
               </div>
