@@ -123,6 +123,7 @@ export default function Page({
                         {taruData.container_status}
                       </p>
                     )}
+                    {data.bottle_type_information && (
                     <p className={styles.text}>
                       <strong>中身の種類:</strong>{" "}
                       {(data.bottle_type_information?.split("\n") ?? []).map(
@@ -133,8 +134,8 @@ export default function Page({
                           </React.Fragment>
                         )
                       )}
-                      {!data.bottle_type_information && "該当なし"}
-                    </p>
+                      
+                    </p>)}
 
                     <span className={getStatusBadgeClass(data.bottle_status)}>
                       <i

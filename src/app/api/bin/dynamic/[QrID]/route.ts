@@ -12,7 +12,7 @@ export async function GET(
       return NextResponse.json({ error: "Value is required" }, { status: 400 });
     }
 
-    const baseUrl = "https://d241y7hngqg6ti.cloudfront.net/bin/qrdisplay";
+    const baseUrl = "https://kanri.nagano-brewery.com/bin/qrdisplay";
     const url = `${baseUrl}/${encodeURIComponent(QrID)}`;
 
     const qrOptions = {

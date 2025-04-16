@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./global.css";
 import { SidebarProvider } from "@Om/app/(container)/clist/component/SidebarContext";
 export const metadata: Metadata = {
-  title: "在庫管理",
+  title: "NAGANO BREWERY | 在庫管理",
 };
 
 export default function RootLayout({
