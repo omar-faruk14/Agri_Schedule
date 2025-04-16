@@ -7,7 +7,8 @@ import Header2 from "@Om/app/(container)/clist/component/Header2";
 import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
 import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
-
+import { use } from "react";
+import { useRouter } from "next/navigation";
 interface FormData {
   Record_number: string;
   bottle_QR_code: string;
@@ -25,8 +26,7 @@ interface SelectOption {
   value: string;
   label: string;
 }
-
-export default function ContainerRecord() {
+export default function ContainerRecord({ params }: { params: Promise<{ qrcode: string }> }) {
   const initialFormState = {
     Record_number: "",
     bottle_QR_code: "",
@@ -34,12 +34,46 @@ export default function ContainerRecord() {
     bottle_status: "",
     bottle_type_information: "",
   };
-
+  const { qrcode } = use(params);
   const [formData, setFormData] = useState<FormData>(initialFormState);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [container, setContainer] = useState<ContainerData[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!qrcode) return;
+
+    async function fetchSchedule() {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `/api/bin/status/onevalue?bottle_QR_code=${qrcode}`
+        );
+        const result = await response.json();
+        if (result && result.length > 0) {
+          const existingData = result[0];
+          // Update formData with the existing data from the API
+          setFormData({
+            Record_number: existingData.Record_number, // Add this line
+            bottle_QR_code: existingData.bottle_QR_code,
+            barrel_used: existingData.barrel_used,
+            bottle_status: existingData.bottle_status,
+            bottle_type_information: existingData.bottle_type_information,
+          });
+        } else {
+          console.error("No data found");
+        }
+      } catch (error) {
+        console.error("データの取得に失敗しました", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSchedule();
+  }, [qrcode]);
 
   useEffect(() => {
     const fetchContainer = async () => {
@@ -71,8 +105,8 @@ export default function ContainerRecord() {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/bin/status", {
-      method: "POST",
+    const response = await fetch("/api/taru/status", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -83,9 +117,10 @@ export default function ContainerRecord() {
     setLoading(false);
 
     if (response.ok) {
-      setSuccessMessage("レコードが正常に作成されました");
+      setSuccessMessage("レコードが正常に更新されました");
       setError(null);
       setFormData(initialFormState);
+      router.push(`/bin/qrDisplayKanri/${formData.barrel_used}`);
     } else {
       setError(result.error || "エラーが発生しました");
       setSuccessMessage(null);
@@ -123,7 +158,7 @@ export default function ContainerRecord() {
               <form onSubmit={handleSubmit}>
                 <div className="card card-outline card-info shadow-sm">
                   <div className="card-header bg-primary">
-                    <h3 className="card-title">入力フォーム</h3>
+                    <h3 className="card-title">更新フォーム</h3>
                   </div>
                   <div className="card-body">
                     <div className="form-group m-3">
@@ -163,8 +198,6 @@ export default function ContainerRecord() {
                           />
                         </div>
                       </div>
-
-
 
                       <div className="col-12 col-sm-6">
                         <div className="form-group p-3">

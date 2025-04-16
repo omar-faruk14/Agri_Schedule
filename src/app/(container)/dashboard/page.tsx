@@ -10,6 +10,7 @@ const Dashboard: React.FC = () => {
       <Header2 />
       <Sidebar2 />
       <div className="content-wrapper">
+      {/* <div className={`content-wrapper ${styles.customBg}`}> */}
         <div className="content-header">
           <div className="container-fluid">
             <div className="container-fluid">

@@ -145,7 +145,7 @@ export default function Page({
             <div className="col-md-6">
               <div className="card card-outline card-info shadow-sm">
                 <div className="card-header">
-                  <h3 className="card-title">借用者情報</h3>
+                  <h3 className="card-title">使用した樽</h3>
                 </div>
                 <div className="card-body">
                   {(data.barrel_used?.split("\n") ?? []).map((line, index) => (
