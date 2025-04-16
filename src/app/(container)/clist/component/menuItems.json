@@ -1,5 +1,4 @@
 [
-
   {
     "key": "singleItem",
     "label": "ダッシュボード",
@@ -50,6 +49,21 @@
         "label": "コンテナ情報一覧",
         "href": "/container/allData",
         "icon": "fas fa-list"
+      }
+    ]
+  },
+
+  {
+    "key": "bin",
+    "label": "瓶管理",
+    "icon": "fas fa-wine-bottle",
+    "href": null,
+    "subMenu": [
+     
+      {
+        "label": "コンテナのステータス管理",
+        "href": "/bin/status",
+        "icon": "fas fa-clipboard-list"
       }
     ]
   }
