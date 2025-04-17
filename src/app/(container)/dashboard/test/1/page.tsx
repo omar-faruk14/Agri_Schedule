@@ -2,7 +2,7 @@ import React from "react";
 import Header2 from "@Om/app/(container)/clist/component/Header2";
 import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
 import Footer2 from "@Om/app/(container)/clist/component/Footer";
-import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
+import * as styles from "./dashboard.css";
 
 const Dashboard: React.FC = () => {
   return (
@@ -10,26 +10,10 @@ const Dashboard: React.FC = () => {
       <Header2 />
       <Sidebar2 />
 
-      {/* <div className={`content-wrapper ${styles.customBg}`}> */}
-        <div className="content-wrapper">
+      <div className={`content-wrapper ${styles.customBg}`}>
         {/* Hero Section */}
 
-        {/* Hero Section */}
-        <section className={styles.heroSection}>
-          <h1 className={styles.heroTitle}>NAGANO BREWERY</h1>
-        </section>
-
-        <div className="content-header">
-          <div className="container-fluid">
-            <div className="container-fluid">
-              <div className="row mb-2">
-                <div className="col">
-                  <h2 className={`${styles.h2_map}`}>ダッシュボード</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
 
         <div className="content">
           <div className="container-fluid">
@@ -43,7 +27,7 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-danger">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>樽の登録</h4>
                     <p>新しい樽を登録</p>
@@ -58,7 +42,7 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-success">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>ステータス管理</h4>
                     <p>登録された樽の状況を確認</p>
@@ -73,10 +57,10 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-warning">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>情報一覧</h4>
-                    <p>すべての樽情報の確認・編集・QRコード生成が可能</p>
+                    <p>情報の確認・編集・QRコード生成が可能</p>
                   </div>
                   <div className="icon">
                     <i className="fas fa-list" />
@@ -98,7 +82,7 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-primary">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>コンテナの登録</h4>
                     <p>新しいコンテナを登録</p>
@@ -113,7 +97,7 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-success">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>ステータス管理</h4>
                     <p>登録されたコンテナの状況を確認</p>
@@ -128,10 +112,10 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="col-md-4">
-                <div className="small-box bg-warning">
+                <div className={`small-box ${styles.glassBox}`}>
                   <div className="inner">
                     <h4>情報一覧</h4>
-                    <p>すべてのコンテナ情報の確認・編集・QRコード生成が可能</p>
+                    <p>情報の確認・編集・QRコード生成が可能</p>
                   </div>
                   <div className="icon">
                     <i className="fas fa-list" />
