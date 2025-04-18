@@ -141,3 +141,77 @@ export const iconBox = style({
 
 
 
+
+export const searchWrapper = style({
+  display: "flex",
+  justifyContent: "center",
+  padding: "1.5rem 1rem",
+  backgroundColor: "#f5f7fa",
+});
+
+export const searchBox = style({
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  maxWidth: "500px",
+  backgroundColor: "#fff",
+  borderRadius: "9999px",
+  border: "1px solid #e0e0e0",
+  padding: "0.5rem 0.75rem",
+  boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
+});
+
+export const searchIcon = style({
+  fontSize: "1.2rem",
+  marginRight: "0.5rem",
+  color: "#888",
+});
+
+export const searchInput = style({
+  flex: 1,
+  border: "none",
+  fontSize: "1rem",
+  padding: "0.5rem",
+  outline: "none",
+  backgroundColor: "transparent",
+  selectors: {
+    "&::placeholder": {
+      color: "#aaa",
+    },
+  },
+});
+
+export const searchButton = style({
+  backgroundColor: "#007bff",
+  color: "#fff",
+  border: "none",
+  borderRadius: "9999px",
+  padding: "0.4rem 1rem",
+  fontSize: "0.95rem",
+  cursor: "pointer",
+  transition: "background-color 0.2s ease",
+  marginLeft: "0.5rem",
+  selectors: {
+    "&:hover": {
+      backgroundColor: "#0056b3",
+    },
+    "&:disabled": {
+      backgroundColor: "#c0c0c0",
+      cursor: "not-allowed",
+    },
+  },
+});
+
+export const clearButton = style({
+  background: "transparent",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "1rem",
+  color: "#888",
+  marginLeft: "-28px",
+  marginRight: "8px",
+  transition: "color 0.2s ease",
+  ":hover": {
+    color: "#333",
+  },
+});

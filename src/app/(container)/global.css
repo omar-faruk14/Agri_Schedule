@@ -1,5 +1,78 @@
 @import url("bootstrap/dist/css/bootstrap.min.css");
 @import url("/assets/dist/css/adminlte.min.css");
 
+/* .wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+} */
 
 
+
+/* Content Wrapper */
+/* .content-wrapper {
+  flex: 1;
+  margin-left: 250px; 
+  padding: 20px;
+  background-color: #f4f6f9;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease-in-out;
+} */
+
+
+/* .header-fixed {
+  position: fixed;
+  top: 0;
+  left: 250px; 
+  right: 0;
+  height: 60px;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+} */
+
+/* 
+.content-wrapper {
+  padding-top: 80px; 
+} */
+
+
+
+/* .main-header {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  z-index: 1040;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: left 0.3s ease-in-out;
+} */
+/* Responsive for mobile */
+/* @media (max-width: 991px) {
+  .content-wrapper {
+    margin-left: 0;
+    padding-top: 100px;
+  }
+  .header-fixed {
+    left: 0;
+  }
+  
+  .main-header {
+    left: 0;
+  }
+
+
+  .main-header .navbar-nav .nav-item.d-block.d-lg-none {
+    display: block;
+  }
+
+  .main-header .navbar-nav .nav-item.d-none.d-sm-inline-block {
+    display: none;
+  }
+} */
