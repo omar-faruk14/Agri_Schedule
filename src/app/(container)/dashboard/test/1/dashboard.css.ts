@@ -150,7 +150,7 @@ export const customBg = style({
   backgroundImage: `linear-gradient(
     rgba(255, 255, 255, 0.7), 
     rgba(255, 255, 255, 0.7)
-  ), url('/img/bg.jpg')`,
+  ), url('/img/bg.webp')`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",

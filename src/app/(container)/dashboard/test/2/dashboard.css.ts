@@ -11,7 +11,7 @@ export const customBg = style({
   backgroundImage: `linear-gradient(
     rgba(20, 20, 20, 0.45), 
     rgba(20, 20, 20, 0.45)
-  ), url('/img/bg.jpg')`,
+  ), url('/img/bg.webp')`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
@@ -106,10 +106,3 @@ export const plainSection = style({
   color: "#333",
 });
 
-// --- Optional Grid Layout ---
-export const cardGrid = style({
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-  gap: "1.5rem",
-  marginTop: "1.5rem",
-});

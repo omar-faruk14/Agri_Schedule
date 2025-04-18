@@ -38,7 +38,7 @@ export const h2_map = style({
 
 // Hero section with background
 export const heroSection = style({
-  backgroundImage: `url('/img/bg.jpg')`,
+  backgroundImage: `url('/img/bg.webp')`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
@@ -74,7 +74,7 @@ export const heroSection = style({
 
 
 export const customBg = style({
-  backgroundImage: `url('/img/bg.jpg')`,
+  backgroundImage: `url('/img/bg.webp')`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center center",

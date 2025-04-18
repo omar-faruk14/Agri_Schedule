@@ -70,13 +70,12 @@ export default function Sidebar2() {
         isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
       }`}
     >
-       
       <Link href="/dashboard" className={styles.brandLink}>
         <div className={styles.logoContainer}>
           <Image
-            src="/img/logo.png" 
+            src="/img/logo.webp"
             alt="在庫管理ロゴ"
-            width={160} 
+            width={160}
             height={40}
             className={styles.logoImage}
             priority // Makes it load faster
