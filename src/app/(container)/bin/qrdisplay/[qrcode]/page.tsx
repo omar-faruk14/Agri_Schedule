@@ -101,7 +101,7 @@ export default function Page({
           data && (
             <>
               <section className={styles.cardHeader}>
-                <h1 className={styles.header}>瓶QR 表示</h1>
+                <h1>瓶QR 表示</h1>
               </section>
 
               <section className="content">

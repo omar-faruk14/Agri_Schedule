@@ -47,7 +47,7 @@ export const cardHeader = style({
   fontWeight: "700",
   color: "#fff",
   padding: "20px",
-  background: "linear-gradient(135deg, #0056b3, #003366)",
+  background: "linear-gradient(135deg, #0056b3, #4f7afc)",
   borderRadius: "12px 12px 0 0",
   textTransform: "uppercase",
   letterSpacing: "1.2px",
@@ -59,6 +59,28 @@ globalStyle(`@media (max-width: 768px)`, {
   [`.${cardHeader}`]: {
     width: "95%",
     padding: "15px",
+  },
+});
+
+
+export const gradientTitle = style({
+  fontSize: "1.5rem",
+  fontWeight: "bold",
+  color: "#ffffff",
+  textAlign: "center",
+  padding: "12px 20px",
+  borderRadius: "8px",
+  background: "linear-gradient(90deg, #0880e8, #8f6cc0, #4f7afc)",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  fontFamily: `'Arial', sans-serif`,
+  marginBottom: "20px",
+  letterSpacing: "0.5px",
+  transition: "background 0.3s ease",
+
+  selectors: {
+    "&:hover": {
+      background: "linear-gradient(90deg, #4f7afc, #8f6cc0, #0880e8)",
+    },
   },
 });
 
@@ -170,23 +192,14 @@ export const icon = style({
 
 
 export const text = style({
-  fontSize: "16px",
+  fontSize: "14px",
   color: colors.text,
-  lineHeight: "1.7",
-  padding: "10px 0",
+  lineHeight: "1.0",
+  padding: "6px 0",
 });
 
 
 
- export const header = style({
-  fontSize: "30px",
-  fontWeight: "800",
-  color: "#ffffff", 
-  marginBottom: "20px",
-  textAlign: "center",
-  textTransform: "uppercase",
-  letterSpacing: "1.5px",
-});
 
 
 export const buttonEdit = style({

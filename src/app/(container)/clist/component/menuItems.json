@@ -59,11 +59,15 @@
     "icon": "fas fa-wine-bottle",
     "href": null,
     "subMenu": [
-     
       {
-        "label": "コンテナのステータス管理",
+        "label": "瓶のステータス管理",
         "href": "/bin/status",
         "icon": "fas fa-clipboard-list"
+      },
+      {
+        "label": "瓶情報一覧",
+        "href": "/bin/AllData",
+        "icon": "fas fa-list"
       }
     ]
   }

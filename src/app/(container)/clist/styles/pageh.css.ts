@@ -86,7 +86,7 @@ export const customBg = style({
 const typing = keyframes({
   from: {
     width: "0",
-    opacity: 0,
+    opacity: 50,
   },
   to: {
     width: "100%",
@@ -97,13 +97,47 @@ const typing = keyframes({
 // Hero title with a professional typewriter effect (no cursor)
 export const heroTitle = style({
   display: "inline-block",
-  overflow: "hidden", // Ensures that text appears as it is typed
+  overflow: "hidden", 
   whiteSpace: "nowrap",
-  width: "0", // Start with width 0
-  opacity: 0, // Start with invisible text
-  animation: `${typing} 5s steps(30) 1s forwards`, // Typing animation without cursor
-  fontSize: "3rem", // Adjust font size as needed
+  width: "0", 
+  opacity: 0, 
+  animation: `${typing} 5s steps(30) 1s forwards`, 
+  fontSize: "3rem", 
   fontWeight: "bold",
-  color: "#fff", // Text color
-  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)", // Professional text shadow
+  color: "#fff", 
+  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)", 
 });
+
+
+
+// 🧊 Elegant dark-glass style box
+export const glassBox = style({
+  background: "rgba(30, 30, 30, 0.6)", 
+  backdropFilter: "blur(10px)",       
+  borderRadius: "16px",
+  padding: "24px",
+  boxShadow: "0 8px 30px rgba(0, 0, 0, 0.3)", 
+  border: "1px solid rgba(255, 255, 255, 0.1)", 
+  transition: "transform 0.2s ease, box-shadow 0.2s ease",
+  selectors: {
+    "&:hover": {
+      transform: "translateY(-6px)",
+      boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)", 
+    },
+  },
+  color: "#ffffff", 
+});
+
+
+
+
+
+// 🎨 Icon box inside small-box
+export const iconBox = style({
+  fontSize: "2rem",
+  color: "#007bff", // Bootstrap blue
+  marginTop: "12px",
+});
+
+
+
