@@ -159,6 +159,7 @@ export const searchBox = style({
   border: "1px solid #e0e0e0",
   padding: "0.5rem 0.75rem",
   boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
+  flexWrap: "wrap",
 });
 
 export const searchIcon = style({
@@ -200,6 +201,7 @@ export const searchButton = style({
       cursor: "not-allowed",
     },
   },
+  minWidth: "100px",
 });
 
 export const clearButton = style({
@@ -214,4 +216,5 @@ export const clearButton = style({
   ":hover": {
     color: "#333",
   },
+  minWidth: "40px",
 });
