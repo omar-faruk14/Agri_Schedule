@@ -49,7 +49,7 @@ export default function Page({
 
     try {
       const response = await fetch(
-        `/api/container/dynamic/${data.bottle_QR_code}`
+        `/api/bin/dynamic/${data.bottle_QR_code}`
       );
       const result = await response.json();
 
@@ -168,7 +168,7 @@ export default function Page({
                   <button
                     className="btn btn-warning mb-2"
                     onClick={() =>
-                      router.push(`/container/updateStatus/${qrcode}`)
+                      router.push(`/bin/updateStatus/${qrcode}`)
                     }
                   >
                     ✏️ ステータスを編集

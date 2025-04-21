@@ -19,18 +19,12 @@ const TableComponent = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
-  const limit: number = 10; 
+  const limit: number = 10;
   const [totalPages, setTotalPages] = useState<number | null>(null);
   const [search, setSearch] = useState<string>("");
-  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(""); // for controlled input
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 500); 
 
-    return () => clearTimeout(timer); 
-  }, [search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +33,7 @@ const TableComponent = () => {
       try {
         const response = await fetch(
           `/api/bin/status?page=${page}&limit=${limit}&search=${encodeURIComponent(
-            debouncedSearch
+            search
           )}`
         );
         if (!response.ok) {
@@ -58,7 +52,7 @@ const TableComponent = () => {
     };
 
     fetchData();
-  }, [page, debouncedSearch]);
+  }, [page, search]);
   return (
     <>
       <Header2 />
@@ -69,20 +63,61 @@ const TableComponent = () => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col">
-                  <h2 className={`${styles.h2_map}`}>コンテナ一覧</h2>
+                  <h2 className={`${styles.h2_map}`}>瓶一覧</h2>
                 </div>
               </div>
             </div>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="コンテナ QRコードで検索..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-            />
+            <div className={styles.searchWrapper}>
+              <div className={styles.searchBox}>
+                <span className={styles.searchIcon}>🔍</span>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="QRコードで検索..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const trimmed = inputValue.trim();
+                      if (trimmed === "") return;
+                      if (trimmed !== search) {
+                        setSearch(trimmed);
+                        setPage(1);
+                      }
+                    }
+                  }}
+                />
+
+                {inputValue && (
+                  <button
+                    className={styles.clearButton}
+                    onClick={() => {
+                      if (search !== "") {
+                        setSearch("");
+                        setPage(1);
+                      }
+                      setInputValue("");
+                    }}
+                    type="button"
+                  >
+                    ✖
+                  </button>
+                )}
+
+                <button
+                  className={styles.searchButton}
+                  onClick={() => {
+                    const trimmed = inputValue.trim();
+                    if (trimmed !== search) {
+                      setSearch(trimmed); // even empty is allowed
+                      setPage(1);
+                    }
+                  }}
+                >
+                  検索
+                </button>
+              </div>
+            </div>
 
             {loading && <LoadingSpinner />}
             {error && <p className="text-danger">Error: {error}</p>}
@@ -90,17 +125,15 @@ const TableComponent = () => {
               <table className="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>コンテナ QRコード</th>
-                    <th>コンテナのステータス</th>
+                    <th>瓶 QRコード</th>
+                    <th>瓶のステータス</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.map((item) => (
                     <tr key={item.Record_number}>
                       <td>
-                        <a
-                          href={`/bin/qrDisplayKanri/${item.bottle_QR_code}`}
-                        >
+                        <a href={`/bin/qrDisplayKanri/${item.bottle_QR_code}`}>
                           {item.bottle_QR_code}
                         </a>
                       </td>

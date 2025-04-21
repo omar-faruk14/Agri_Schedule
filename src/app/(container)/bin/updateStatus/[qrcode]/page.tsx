@@ -105,7 +105,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch("/api/taru/status", {
+    const response = await fetch("/api/bin/status", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +120,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
       setSuccessMessage("レコードが正常に更新されました");
       setError(null);
       setFormData(initialFormState);
-      router.push(`/bin/qrDisplayKanri/${formData.barrel_used}`);
+      router.push(`/bin/qrDisplayKanri/${formData.bottle_QR_code}`);
     } else {
       setError(result.error || "エラーが発生しました");
       setSuccessMessage(null);

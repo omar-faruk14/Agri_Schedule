@@ -22,16 +22,9 @@ const TableComponent = () => {
   const limit: number = 10; // Matches backend limit
   const [totalPages, setTotalPages] = useState<number | null>(null);
   const [search, setSearch] = useState<string>("");
-  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(""); // for controlled input
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 500); // 500ms delay for debounce
-
-    return () => clearTimeout(timer); // Cleanup on each search change
-  }, [search]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -39,7 +32,7 @@ const TableComponent = () => {
       try {
         const response = await fetch(
           `/api/taru/status/staticValue?page=${page}&limit=${limit}&typeCode=container&search=${encodeURIComponent(
-            debouncedSearch
+            search
           )}`
         );
         if (!response.ok) {
@@ -58,7 +51,7 @@ const TableComponent = () => {
     };
 
     fetchData();
-  }, [page, debouncedSearch]);
+  }, [page, search]);
   return (
     <>
       <Header2 />
@@ -73,16 +66,57 @@ const TableComponent = () => {
                 </div>
               </div>
             </div>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="コンテナ QRコードで検索..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-            />
+            <div className={styles.searchWrapper}>
+              <div className={styles.searchBox}>
+                <span className={styles.searchIcon}>🔍</span>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="QRコードで検索..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const trimmed = inputValue.trim();
+                      if (trimmed === "") return;
+                      if (trimmed !== search) {
+                        setSearch(trimmed);
+                        setPage(1);
+                      }
+                    }
+                  }}
+                />
+
+                {inputValue && (
+                  <button
+                    className={styles.clearButton}
+                    onClick={() => {
+                      if (search !== "") {
+                        setSearch("");
+                        setPage(1);
+                      }
+                      setInputValue("");
+                    }}
+                    type="button"
+                  >
+                    ✖
+                  </button>
+                )}
+
+                <button
+                  className={styles.searchButton}
+                  onClick={() => {
+                    const trimmed = inputValue.trim();
+                    if (trimmed !== search) {
+                      setSearch(trimmed); // even empty is allowed
+                      setPage(1);
+                    }
+                  }}
+                >
+                  検索
+                </button>
+              </div>
+            </div>
 
             {loading && <LoadingSpinner />}
             {error && <p className="text-danger">Error: {error}</p>}
@@ -98,7 +132,9 @@ const TableComponent = () => {
                   {data.map((item) => (
                     <tr key={item.Record_number}>
                       <td>
-                        <a href={`/container/qrDisplayKanri/${item.container_id}`}>
+                        <a
+                          href={`/container/qrDisplayKanri/${item.container_id}`}
+                        >
                           {item.container_id}
                         </a>
                       </td>
