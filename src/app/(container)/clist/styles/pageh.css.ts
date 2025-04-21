@@ -82,11 +82,12 @@ export const customBg = style({
   padding: "1rem",
 });
 
-// Keyframes for typing effect using vanilla-extract keyframes
+
+// Keyframes for typing effect
 const typing = keyframes({
   from: {
     width: "0",
-    opacity: 50,
+    opacity: 0.5,
   },
   to: {
     width: "100%",
@@ -94,21 +95,29 @@ const typing = keyframes({
   },
 });
 
-// Hero title with a professional typewriter effect (no cursor)
+// Responsive hero title style
 export const heroTitle = style({
   display: "inline-block",
-  overflow: "hidden", 
+  overflow: "hidden",
   whiteSpace: "nowrap",
-  width: "0", 
-  opacity: 0, 
-  animation: `${typing} 5s steps(30) 1s forwards`, 
-  fontSize: "3rem", 
+  width: "0",
+  opacity: 0,
+  animation: `${typing} 5s steps(30) 1s forwards`,
   fontWeight: "bold",
-  color: "#fff", 
-  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)", 
+  color: "#fff",
+  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
+
+  fontSize: "3rem",
+
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "2rem", // Adjust for tablets and smaller
+    },
+    "(max-width: 480px)": {
+      fontSize: "1.5rem", // Adjust for mobile phones
+    },
+  },
 });
-
-
 
 // 🧊 Elegant dark-glass style box
 export const glassBox = style({
