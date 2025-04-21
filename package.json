@@ -15,6 +15,7 @@
     "@vanilla-extract/next-plugin": "^2.4.10",
     "@vanilla-extract/recipes": "^0.5.5",
     "bootstrap": "^5.3.3",
+    "canvas": "^3.1.0",
     "leaflet": "^1.9.4",
     "next": "15.2.0",
     "qrcode": "^1.5.4",

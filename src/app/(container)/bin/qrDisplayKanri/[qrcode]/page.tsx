@@ -48,13 +48,12 @@ export default function Page({
     setQrLoading(true); // Start QR generation loading
 
     try {
-      const response = await fetch(
-        `/api/bin/dynamic/${data.bottle_QR_code}`
-      );
-      const result = await response.json();
+      const response = await fetch(`/api/bin/dynamic/${data.bottle_QR_code}`);
 
-      if (result.qrCode) {
-        setQrCodeDataUrl(result.qrCode);
+      if (response.ok) {
+        const imageBlob = await response.blob();
+        const imageUrl = URL.createObjectURL(imageBlob); // Create URL for the image
+        setQrCodeDataUrl(imageUrl); // Set the image URL to display
       } else {
         alert("QRコードの生成に失敗しました");
       }
@@ -65,6 +64,7 @@ export default function Page({
       setQrLoading(false); // End QR generation loading
     }
   };
+
 
   useEffect(() => {
     if (!qrcode) return;
@@ -167,9 +167,7 @@ export default function Page({
                 <div className="card-body d-flex flex-column gap-2">
                   <button
                     className="btn btn-warning mb-2"
-                    onClick={() =>
-                      router.push(`/bin/updateStatus/${qrcode}`)
-                    }
+                    onClick={() => router.push(`/bin/updateStatus/${qrcode}`)}
                   >
                     ✏️ ステータスを編集
                   </button>

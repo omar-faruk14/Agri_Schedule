@@ -48,10 +48,11 @@ export default function Page({
 
     try {
       const response = await fetch(`/api/container/dynamic/${data.container_id}`);
-      const result = await response.json();
 
-      if (result.qrCode) {
-        setQrCodeDataUrl(result.qrCode);
+      if (response.ok) {
+        const imageBlob = await response.blob();
+        const imageUrl = URL.createObjectURL(imageBlob); // Create URL for the image
+        setQrCodeDataUrl(imageUrl); // Set the image URL to display
       } else {
         alert("QRコードの生成に失敗しました");
       }
