@@ -108,13 +108,11 @@ const TableComponent = () => {
                   className={styles.searchButton}
                   onClick={() => {
                     const trimmed = inputValue.trim();
-                    if (trimmed === "") return; // ✅ extra safety
-                    if (trimmed !== search) {
-                      setSearch(trimmed);
-                      setPage(1);
-                    }
+                   if (trimmed !== search) {
+                     setSearch(trimmed); // even empty is allowed
+                     setPage(1);
+                   }
                   }}
-                  disabled={inputValue.trim() === ""}
                 >
                   検索
                 </button>

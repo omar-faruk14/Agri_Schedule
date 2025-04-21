@@ -149,9 +149,18 @@ export const searchWrapper = style({
   backgroundColor: "#f5f7fa",
 });
 
+
+
+export const searchIcon = style({
+  fontSize: "1.2rem",
+  marginRight: "0.5rem",
+  color: "#888",
+});
+
 export const searchBox = style({
   display: "flex",
   alignItems: "center",
+  flexWrap: "wrap", // allow wrapping on small screens
   width: "100%",
   maxWidth: "500px",
   backgroundColor: "#fff",
@@ -159,13 +168,15 @@ export const searchBox = style({
   border: "1px solid #e0e0e0",
   padding: "0.5rem 0.75rem",
   boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
-  flexWrap: "wrap",
-});
 
-export const searchIcon = style({
-  fontSize: "1.2rem",
-  marginRight: "0.5rem",
-  color: "#888",
+  "@media": {
+    "screen and (max-width: 500px)": {
+      flexDirection: "column",
+      alignItems: "stretch",
+      borderRadius: "12px", // use boxy layout on mobile
+      padding: "0.75rem",
+    },
+  },
 });
 
 export const searchInput = style({
@@ -175,9 +186,18 @@ export const searchInput = style({
   padding: "0.5rem",
   outline: "none",
   backgroundColor: "transparent",
+  minWidth: "0", // prevent overflow
+
   selectors: {
     "&::placeholder": {
       color: "#aaa",
+    },
+  },
+
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "100%",
+      marginBottom: "0.5rem",
     },
   },
 });
@@ -192,6 +212,7 @@ export const searchButton = style({
   cursor: "pointer",
   transition: "background-color 0.2s ease",
   marginLeft: "0.5rem",
+
   selectors: {
     "&:hover": {
       backgroundColor: "#0056b3",
@@ -201,7 +222,13 @@ export const searchButton = style({
       cursor: "not-allowed",
     },
   },
-  minWidth: "100px",
+
+  "@media": {
+    "screen and (max-width: 500px)": {
+      width: "100%",
+      marginLeft: "0",
+    },
+  },
 });
 
 export const clearButton = style({
@@ -213,8 +240,16 @@ export const clearButton = style({
   marginLeft: "-28px",
   marginRight: "8px",
   transition: "color 0.2s ease",
+
   ":hover": {
     color: "#333",
   },
-  minWidth: "40px",
+
+  "@media": {
+    "screen and (max-width: 500px)": {
+      alignSelf: "flex-end",
+      marginLeft: "0",
+      marginBottom: "0.5rem",
+    },
+  },
 });
