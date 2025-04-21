@@ -145,36 +145,28 @@ export const iconBox = style({
 export const searchWrapper = style({
   display: "flex",
   justifyContent: "center",
-  padding: "1.5rem 1rem",
+  padding: "1rem 0.5rem",
   backgroundColor: "#f5f7fa",
 });
 
 
 
-export const searchIcon = style({
-  fontSize: "1.2rem",
-  marginRight: "0.5rem",
-  color: "#888",
-});
-
 export const searchBox = style({
   display: "flex",
   alignItems: "center",
-  flexWrap: "wrap", // allow wrapping on small screens
+  flexWrap: "nowrap", // stay in one row
   width: "100%",
   maxWidth: "500px",
   backgroundColor: "#fff",
   borderRadius: "9999px",
   border: "1px solid #e0e0e0",
-  padding: "0.5rem 0.75rem",
+  padding: "0.25rem 0.5rem",
   boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
 
   "@media": {
     "screen and (max-width: 500px)": {
-      flexDirection: "column",
-      alignItems: "stretch",
-      borderRadius: "12px", // use boxy layout on mobile
-      padding: "0.75rem",
+      maxWidth: "100%", // use full width
+      padding: "0.25rem 0.5rem",
     },
   },
 });
@@ -182,24 +174,24 @@ export const searchBox = style({
 export const searchInput = style({
   flex: 1,
   border: "none",
-  fontSize: "1rem",
-  padding: "0.5rem",
+  fontSize: "0.95rem",
+  padding: "0.4rem",
   outline: "none",
   backgroundColor: "transparent",
-  minWidth: "0", // prevent overflow
+  minWidth: "0",
 
   selectors: {
     "&::placeholder": {
       color: "#aaa",
     },
   },
+});
 
-  "@media": {
-    "screen and (max-width: 500px)": {
-      width: "100%",
-      marginBottom: "0.5rem",
-    },
-  },
+export const searchIcon = style({
+  fontSize: "1.1rem",
+  color: "#888",
+  marginRight: "0.5rem",
+  flexShrink: 0,
 });
 
 export const searchButton = style({
@@ -207,11 +199,12 @@ export const searchButton = style({
   color: "#fff",
   border: "none",
   borderRadius: "9999px",
-  padding: "0.4rem 1rem",
-  fontSize: "0.95rem",
+  padding: "0.35rem 0.75rem",
+  fontSize: "0.85rem",
   cursor: "pointer",
   transition: "background-color 0.2s ease",
   marginLeft: "0.5rem",
+  flexShrink: 0,
 
   selectors: {
     "&:hover": {
@@ -222,13 +215,6 @@ export const searchButton = style({
       cursor: "not-allowed",
     },
   },
-
-  "@media": {
-    "screen and (max-width: 500px)": {
-      width: "100%",
-      marginLeft: "0",
-    },
-  },
 });
 
 export const clearButton = style({
@@ -237,19 +223,11 @@ export const clearButton = style({
   cursor: "pointer",
   fontSize: "1rem",
   color: "#888",
-  marginLeft: "-28px",
-  marginRight: "8px",
-  transition: "color 0.2s ease",
+  marginLeft: "0.25rem",
+  marginRight: "0.25rem",
+  flexShrink: 0,
 
   ":hover": {
     color: "#333",
-  },
-
-  "@media": {
-    "screen and (max-width: 500px)": {
-      alignSelf: "flex-end",
-      marginLeft: "0",
-      marginBottom: "0.5rem",
-    },
   },
 });
