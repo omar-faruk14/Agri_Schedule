@@ -102,18 +102,19 @@ export default function Page({
                       )}
                       {!data.Borrower_Information && "該当なし"}
                     </p>
-                    <p className={styles.text}>
-                      <strong>中身の種類:</strong>{" "}
-                      {(data.content_type_information?.split("\n") ?? []).map(
-                        (line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            <br />
-                          </React.Fragment>
-                        )
-                      )}
-                      {!data.content_type_information && "該当なし"}
-                    </p>
+                    {data.content_type_information && (
+                      <p className={styles.text}>
+                        <strong>中身の種類:</strong>{" "}
+                        {(data.content_type_information?.split("\n") ?? []).map(
+                          (line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          )
+                        )}
+                      </p>
+                    )}
                     <span
                       className={getStatusBadgeClass(data.container_status)}
                     >
