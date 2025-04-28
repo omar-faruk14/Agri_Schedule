@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 import Header2 from "@Om/app/(container)/clist/component/Header2";
 import Sidebar2 from "@Om/app/(container)/clist/component/Sidebar2";
-import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
+
 import * as styles from "@Om/app/(container)/clist/styles/pageh.css";
 
 interface FormData {
@@ -36,23 +36,10 @@ export default function ContainerRecord() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [zairiyo, setZairiyo] = useState<FormData[]>([]);
 
  
 
-  useEffect(() => {
-    const fetchZairiyo = async () => {
-      try {
-        const response = await fetch("/api/taru/register");
-        const data: FormData[] = await response.json();
-        setZairiyo(data);
-      } catch (error) {
-        console.error("データの取得に失敗しました", error);
-      }
-    };
 
-    fetchZairiyo();
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -96,10 +83,7 @@ export default function ContainerRecord() {
       <Header2 />
       <Sidebar2 />
       <div className="content-wrapper overflow-x-hidden overflow-y-auto">
-        {zairiyo.length === 0 ? (
-          <LoadingSpinner />
-        ) : (
-          <>
+       
             <section className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
@@ -264,8 +248,7 @@ export default function ContainerRecord() {
                 </div>
               </form>
             </section>
-          </>
-        )}
+         
       </div>
     </>
   );

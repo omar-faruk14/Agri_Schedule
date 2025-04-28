@@ -7,28 +7,17 @@ import { use } from "react";
 import { useRouter } from "next/navigation";
 import * as styles from "@Om/app/(container)/taru/qrdisplay/[qrcode]/qr.css";
 
-type ContainerData = {
-  container_id: string;
-  container_status: string;
-  Borrower_Information: string;
-  content_type_information: string;
+type ZairyoData = {
+  Record_number: string;
+  ingredients_name: string;
+  ingredients_qrCode: string;
+  ingredients_Categories: string;
+  ingredients_unit: string;
+  ingredients_Registered_Date: string;
+  ingredients_inside_information: string;
 };
 
-const getStatusBadgeClass = (status: string): string => {
-  switch (status) {
-    case "返却済み":
-    case "利用可能（洗浄済み）":
-      return "badge badge-success";
-    case "貸出中":
-      return "badge badge-warning";
-    case "利用不可（未洗浄）":
-      return "badge badge-info";
-    case "使用不可":
-      return "badge badge-danger";
-    default:
-      return "badge badge-secondary";
-  }
-};
+
 
 export default function Page({
   params,
@@ -36,18 +25,18 @@ export default function Page({
   params: Promise<{ qrcode: string }>;
 }) {
   const { qrcode } = use(params);
-  const [data, setData] = useState<ContainerData | null>(null);
+  const [data, setData] = useState<ZairyoData | null>(null);
   const [loading, setLoading] = useState(false);
   const [qrLoading, setQrLoading] = useState<boolean>(false);
   const router = useRouter();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
 
   const handleGenerateQRCode = async (): Promise<void> => {
-    if (!data?.container_id) return;
+    if (!data?.ingredients_qrCode) return;
     setQrLoading(true); // Start QR generation loading
 
     try {
-      const response = await fetch(`/api/taru/dynamic/${data.container_id}`);
+      const response = await fetch(`/api/zairiyo/dynamic/${data.ingredients_qrCode}`);
       const result = await response.json();
 
       if (result.qrCode) {
@@ -68,7 +57,9 @@ export default function Page({
     async function fetchSchedule() {
       setLoading(true);
       try {
-        const response = await fetch(`/api/taru/status?container_id=${qrcode}`);
+        const response = await fetch(
+          `/api/zairiyo/status/onevalue?ingredients_qrCode=${qrcode}`
+        );
         const result = await response.json();
         if (result && result.length > 0) {
           setData(result[0]);
@@ -91,7 +82,10 @@ export default function Page({
       <Sidebar2 />
       <div className="content-wrapper p-4">
         <section className="content-header">
-          <h1 className="mb-4">📦 樽詳細情報</h1>
+          <h1 className="mb-4">
+            <i className="fas fa-seedling" style={{ color: "#28a745" }}></i>{" "}
+            材料管理
+          </h1>
         </section>
 
         {loading ? (
@@ -106,33 +100,30 @@ export default function Page({
                 </span>
                 <div className="info-box-content">
                   <span className="info-box-text">QR識別番号</span>
-                  <span className="info-box-number">{data.container_id}</span>
+                  <span className="info-box-number">
+                    {data.ingredients_qrCode}
+                  </span>
                   <span className="float-right mt-2">
-                    <span
-                      className={getStatusBadgeClass(data.container_status)}
-                    >
-                      {data.container_status}
-                    </span>
+                    <span>{data.ingredients_name}</span>
                   </span>
                 </div>
               </div>
             </div>
 
-            {data.content_type_information && (
+            {data.ingredients_inside_information && (
               <div className="col-md-12">
                 <div className="card card-outline card-warning shadow-sm">
                   <div className="card-header">
-                    <h3 className="card-title">中身の種類</h3>
+                    <h3 className="card-title">中身の状況</h3>
                   </div>
                   <div className="card-body">
-                    {(data.content_type_information?.split("\n") ?? []).map(
-                      (line, index) => (
-                        <p key={index} className="mb-1">
-                          {line}
-                        </p>
-                      )
-                    )}
-                    {!data.content_type_information && <p>N/A</p>}
+                    {(
+                      data.ingredients_inside_information?.split("\n") ?? []
+                    ).map((line, index) => (
+                      <p key={index} className="mb-1">
+                        {line}
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -142,17 +133,25 @@ export default function Page({
             <div className="col-md-6">
               <div className="card card-outline card-info shadow-sm">
                 <div className="card-header">
-                  <h3 className="card-title">借用者情報</h3>
+                  <h3 className="card-title">情報</h3>
                 </div>
                 <div className="card-body">
-                  {(data.Borrower_Information?.split("\n") ?? []).map(
-                    (line, index) => (
-                      <p key={index} className="mb-1">
-                        {line}
-                      </p>
-                    )
-                  )}
-                  {!data.Borrower_Information && <p>N/A</p>}
+                  <div className="mb-2">
+                    <strong>登録日:</strong>{" "}
+                    {new Date(
+                      data.ingredients_Registered_Date
+                    ).toLocaleDateString("ja-JP", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                  </div>
+                  <div className="mb-2">
+                    <strong>カテゴリ:</strong> {data.ingredients_Categories}
+                  </div>
+                  <div className="mb-2">
+                    <strong>単位:</strong> {data.ingredients_unit}
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,7 +165,9 @@ export default function Page({
                 <div className="card-body d-flex flex-column gap-2">
                   <button
                     className="btn btn-warning mb-2"
-                    onClick={() => router.push(`/taru/updateStatus/${qrcode}`)}
+                    onClick={() =>
+                      router.push(`/zairiyo/updateStatus/${qrcode}`)
+                    }
                   >
                     ✏️ ステータスを編集
                   </button>
@@ -212,7 +213,7 @@ export default function Page({
                         onClick={() => {
                           const link = document.createElement("a");
                           link.href = qrCodeDataUrl;
-                          link.download = `${data.container_id}.png`;
+                          link.download = `${data.ingredients_qrCode}.png`;
                           link.click();
                         }}
                       >

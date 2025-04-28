@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 const kintoneUrl: string = `${process.env.NEXT_PUBLIC_KINTONE_BASE_URL}/k/v1`;
-const apiToken: string = "DvX30PeTEegE0z6rsseSivDDnUPijzuuXPQVeYPz";
-const appId: number = 108;
+const apiToken: string = "waotN4cAsMn5e6nWTm2KR1UkoPfduqfeJmlKPcTu";
+const appId: number = 111;
 
 
 interface KintoneApiResponse {
@@ -11,18 +11,22 @@ interface KintoneApiResponse {
 
 interface KintoneApiRecord {
   Record_number: { value: string };
-  bottle_QR_code: { value: string };
-  barrel_used: { value: string };
-  bottle_status: { value: string };
-  bottle_type_information: { value: string };
+  ingredients_name: { value: string };
+  ingredients_qrCode: { value: string };
+  ingredients_Categories: { value: string };
+  ingredients_unit: { value: string };
+  ingredients_Registered_Date: { value: string };
+  ingredients_inside_information: { value: string };
 }
 
 interface KintoneRecord {
     Record_number: string;
-    bottle_QR_code: string;
-    barrel_used: string;
-    bottle_status: string;
-    bottle_type_information: string;
+    ingredients_name: string;
+    ingredients_qrCode: string;
+    ingredients_Categories: string;
+    ingredients_unit: string;
+    ingredients_Registered_Date: string;
+    ingredients_inside_information: string;
 
 }
 
@@ -31,16 +35,16 @@ export async function GET(request: Request): Promise<NextResponse> {
   try {
     
     const { searchParams } = new URL(request.url);
-        const bottle_QR_code = searchParams.get("bottle_QR_code");
+        const ingredients_qrCode = searchParams.get("ingredients_qrCode");
     
-        if (!bottle_QR_code) {
+        if (!ingredients_qrCode) {
           return NextResponse.json(
             { error: "Missing bottle_QR_code parameter" },
             { status: 400 }
           );
         }
     
-        const query = `(bottle_QR_code = "${bottle_QR_code}")`;
+        const query = `(ingredients_qrCode = "${ingredients_qrCode}")`;
         const response = await fetch(
           `${kintoneUrl}/records.json?app=${appId}&query=${encodeURIComponent(
             query
@@ -58,10 +62,12 @@ export async function GET(request: Request): Promise<NextResponse> {
     const records: KintoneRecord[] = data.records.map(
       (record: KintoneApiRecord) => ({
         Record_number: record.Record_number.value,
-        bottle_QR_code: record.bottle_QR_code.value,
-        barrel_used: record.barrel_used.value,
-        bottle_status: record.bottle_status.value,
-        bottle_type_information: record.bottle_type_information.value,
+        ingredients_name: record.ingredients_name.value,
+        ingredients_qrCode: record.ingredients_qrCode.value,
+        ingredients_Categories: record.ingredients_Categories.value,
+        ingredients_unit: record.ingredients_unit.value,
+        ingredients_Registered_Date: record.ingredients_Registered_Date.value,
+        ingredients_inside_information: record.ingredients_inside_information.value,
       })
     );
 

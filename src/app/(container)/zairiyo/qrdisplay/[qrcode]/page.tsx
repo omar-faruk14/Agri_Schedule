@@ -6,30 +6,16 @@ import LoadingSpinner from "@Om/app/(container)/clist/component/LoadingFile";
 import { use } from "react";
 import * as styles from "./qr.css";
 
-type ContainerData = {
-  container_id: string;
-  container_status: string;
-  Borrower_Information: string;
-  content_type_information: string;
+type ZairyoData = {
+  Record_number: string;
+  ingredients_name: string;
+  ingredients_qrCode: string;
+  ingredients_Categories: string;
+  ingredients_unit: string;
+  ingredients_Registered_Date: string;
+  ingredients_inside_information: string;
 };
 
-// Helper function for badge class based on status
-const getStatusBadgeClass = (status: string): string => {
-  switch (status) {
-    case "返却済み":
-      return styles.badgeSuccess;
-    case "貸出中":
-      return styles.badgeWarning;
-    case "利用可能（洗浄済み）":
-      return styles.badgeSuccess;
-    case "利用不可（未洗浄）":
-      return styles.badgeAvailable;
-    case "使用不可":
-      return styles.badgeDanger;
-    default:
-      return styles.badgeDefault;
-  }
-};
 
 
 export default function Page({
@@ -38,7 +24,7 @@ export default function Page({
   params: Promise<{ qrcode: string }>;
 }) {
   const { qrcode } = use(params);
-  const [data, setData] = useState<ContainerData | null>(null);
+  const [data, setData] = useState<ZairyoData | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -48,7 +34,7 @@ export default function Page({
       setLoading(true);
       try {
         const response = await fetch(
-          `/api/taru/status?container_id=${qrcode}`
+          `/api/zairiyo/status/onevalue?ingredients_qrCode=${qrcode}`
         );
         const result = await response.json();
         if (result && result.length > 0) {
@@ -77,7 +63,7 @@ export default function Page({
           data && (
             <>
               <section className={styles.cardHeader}>
-                <h1 className={styles.header}>樽情報</h1>
+                <h1 className={styles.header}>基本情報(QR)</h1>
               </section>
 
               <section className="content">
@@ -86,56 +72,36 @@ export default function Page({
                     <p className={styles.text}>
                       <strong>樽QRコード:</strong>{" "}
                       <span className={styles.qrcodestyle}>
-                        {data.container_id}
+                        {data.ingredients_qrCode}
                       </span>
                     </p>
 
                     <p className={styles.text}>
-                      <strong>借用者情報:</strong>{" "}
-                      {(data.Borrower_Information?.split("\n") ?? []).map(
-                        (line, index) => (
+                      <strong>材料名:</strong> {data.ingredients_name}
+                    </p>
+                    {data.ingredients_Categories && (
+                      <p className={styles.text}>
+                        <strong>カテゴリ:</strong> {data.ingredients_Categories}
+                      </p>
+                    )}
+                    {data.ingredients_unit && (
+                      <p className={styles.text}>
+                        <strong>単位:</strong> {data.ingredients_unit}
+                      </p>
+                    )}
+                    {data.ingredients_inside_information && (
+                      <p className={styles.text}>
+                        <strong>中身の状況:</strong>{" "}
+                        {(
+                          data.ingredients_inside_information?.split("\n") ?? []
+                        ).map((line, index) => (
                           <React.Fragment key={index}>
                             {line}
                             <br />
                           </React.Fragment>
-                        )
-                      )}
-                      {!data.Borrower_Information && "該当なし"}
-                    </p>
-                    {data.content_type_information && (
-                      <p className={styles.text}>
-                        <strong>中身の種類:</strong>{" "}
-                        {(data.content_type_information?.split("\n") ?? []).map(
-                          (line, index) => (
-                            <React.Fragment key={index}>
-                              {line}
-                              <br />
-                            </React.Fragment>
-                          )
-                        )}
+                        ))}
                       </p>
                     )}
-                    <span
-                      className={getStatusBadgeClass(data.container_status)}
-                    >
-                      <i
-                        className={`${
-                          data.container_status === "返却済み"
-                            ? "fas fa-check-circle" // Returned
-                            : data.container_status === "貸出中"
-                            ? "fas fa-clock" // Borrowed (in use)
-                            : data.container_status === "利用可能（洗浄済み）"
-                            ? "fas fa-check-circle" // Available (Cleaned)
-                            : data.container_status === "利用不可（未洗浄）"
-                            ? "fas fa-exclamation-triangle" // Not Available (Uncleaned)
-                            : data.container_status === "使用不可"
-                            ? "fas fa-times-circle" // Unusable
-                            : "fas fa-question-circle" // Default case (unknown)
-                        } ${styles.icon}`}
-                      />
-
-                      {data.container_status}
-                    </span>
                   </div>
                 </div>
               </section>

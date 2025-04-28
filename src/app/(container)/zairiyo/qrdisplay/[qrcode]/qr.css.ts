@@ -170,10 +170,10 @@ export const icon = style({
 
 
 export const text = style({
-  fontSize: "16px",
+  fontSize: "14px",
   color: colors.text,
-  lineHeight: "1.7",
-  padding: "10px 0",
+  lineHeight: "0.5",
+  padding: "8px 0",
 });
 
 
