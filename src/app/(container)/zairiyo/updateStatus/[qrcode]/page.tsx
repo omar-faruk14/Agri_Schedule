@@ -155,7 +155,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                         className="form-control"
                         value={formData.ingredients_Categories}
                         onChange={handleChange}
-                        required
+                        
                       />
                     </div>
                   </div>
