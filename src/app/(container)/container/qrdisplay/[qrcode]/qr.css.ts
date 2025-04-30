@@ -153,11 +153,15 @@ export const badgeDanger = style({
 
 
 export const qrcodestyle = style({
-  backgroundColor: "#e0f7fa", // Light blue highlight color
-  padding: "4px 8px",
-  borderRadius: "4px",
+  backgroundColor: "#e0f7fa",
+  padding: "0.25rem 0.5rem", // use rem for better scaling
+  borderRadius: "0.25rem",
   fontWeight: "bold",
+  whiteSpace: "pre-wrap", // preserves formatting but allows wrapping
+  overflowWrap: "anywhere", // aggressively breaks long words if needed
+  fontSize: "clamp(0.75rem, 2vw, 1rem)", // responsive font size
 });
+
 
 export const icon = style({
   fontSize: "18px",
