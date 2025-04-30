@@ -163,7 +163,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                   <div className="col-12 col-sm-6">
                     <div className="form-group m-3">
                       <label>
-                        単位 (任意)<span className="text-danger">*</span>
+                        単位 (任意)
                       </label>
                       <input
                         type="text"
@@ -217,7 +217,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                   <textarea
                     name="ingredients_inside_information"
                     className="form-control"
-                    placeholder="中身の状況を入力してください"
+                    placeholder="中身の状況を入力してください (任意)"
                     rows={4}
                     value={formData.ingredients_inside_information}
                     onChange={handleChange}
