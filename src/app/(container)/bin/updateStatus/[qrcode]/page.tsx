@@ -172,6 +172,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                         value={formData.bottle_QR_code}
                         onChange={handleChange}
                         required
+                        disabled
                       />
                     </div>
 
