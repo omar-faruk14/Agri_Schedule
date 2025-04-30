@@ -183,6 +183,7 @@ export const qrcodestyle = style({
   whiteSpace: "pre-wrap",
   overflowWrap: "anywhere",
   fontSize: "clamp(0.75rem, 2vw, 1rem)",
+  lineHeight: "1.4", // ✅ Fix added
 });
 
 export const icon = style({
@@ -198,8 +199,8 @@ export const icon = style({
 export const text = style({
   fontSize: "14px",
   color: colors.text,
-  lineHeight: "1.0",
-  padding: "6px 0",
+  lineHeight: "1.4",
+  padding: "8px 0",
 });
 
 
