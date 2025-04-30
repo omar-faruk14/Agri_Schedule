@@ -125,7 +125,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
           <form onSubmit={handleSubmit}>
             <div className="card card-outline card-info shadow-sm">
               <div className="card-header bg-primary">
-                <h3 className="card-title">材料管理の入力フォーム</h3>
+                <h3 className="card-title">材料管理の更新フォーム</h3>
               </div>
               <div className="card-body">
                 <div className="input-group mb-3">
@@ -147,7 +147,7 @@ export default function ContainerRecord({ params }: { params: Promise<{ qrcode: 
                   <div className="col-12 col-sm-6">
                     <div className="form-group m-3">
                       <label>
-                        カテゴリ<span className="text-danger">*</span>
+                        カテゴリ　(任意)
                       </label>
                       <input
                         type="text"

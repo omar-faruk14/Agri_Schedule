@@ -17,10 +17,6 @@ interface FormData {
   ingredients_inside_information?: string;
 }
 
-
-
-
-
 export default function ContainerRecord() {
   const initialFormState = {
     Record_number: "",
@@ -119,7 +115,7 @@ export default function ContainerRecord() {
                       <div className="col-12 col-sm-6">
                         <div className="form-group m-3">
                           <label>
-                            カテゴリ<span className="text-danger">*</span>
+                            カテゴリ (任意)
                           </label>
                           <input
                             type="text"
