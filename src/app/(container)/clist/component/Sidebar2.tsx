@@ -63,6 +63,14 @@ export default function Sidebar2() {
     }));
   };
 
+
+  const handleLinkClick = () => {
+    if (window.innerWidth < 992) {
+      closeSidebar();
+    }
+  };
+  
+
   return (
     <aside
       ref={sidebarRef}
@@ -120,6 +128,7 @@ export default function Sidebar2() {
                               className={`${styles.subMenuItem} ${
                                 pathname === sub.href ? styles.active : ""
                               }`}
+                              onClick={handleLinkClick}
                             >
                               <i className={sub.icon}></i>
                               <span>{sub.label}</span>

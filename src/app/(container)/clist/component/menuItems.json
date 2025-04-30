@@ -70,5 +70,23 @@
         "icon": "fas fa-list"
       }
     ]
+  },
+  {
+    "key": "zairyou",
+    "label": "材料管理",
+    "icon": "fas fa-industry",
+    "href": null,
+    "subMenu": [
+      {
+        "label": "材料のステータス管理",
+        "href": "/zairiyo/status",
+        "icon": "fas fa-clipboard-list"
+      },
+      {
+        "label": "材料情報一覧",
+        "href": "/zairiyo/AllData",
+        "icon": "fas fa-clipboard-check"
+      }
+    ]
   }
 ]
